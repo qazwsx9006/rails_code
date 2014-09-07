@@ -280,6 +280,54 @@
 				</ul>
 			</td>
 		</tr>
+		<tr style="display:none">
+			<td>
+$ rvmsudo gem install passenger
+
+$ rvmsudo passenger-install-nginx-module
+$ sudo apt-get install libcurl4-openssl-dev
+$ rvmsudo passenger-install-nginx-module
+
+
+$ sudo dd if=/dev/zero of=/swap bs=1M count=1024
+$ sudo mkswap /swap
+$ sudo swapon /swap
+
+
+#這樣以後可以用 sudo service nginx [start|stop|restart] 方式來管理伺服器了，變得比較方便一些
+$ cd /etc/init.d
+$ sudo wget https://raw.github.com/chloerei/nginx-init-ubuntu-passenger/master/nginx
+$ sudo update-rc.d nginx defaults
+$ sudo chmod +x nginx
+$ sudo service nginx start
+
+
+#修改 /opt/nginx/conf/nginx.conf 文件設定
+$ sudo vi /opt/nginx/conf/nginx.conf 
+
+[我修改的設定]
+
+    server {
+        listen       80;
+        server_name localhost;
+        #root home/teacher/public/;
+        passenger_enabled on;
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        location / {
+           # root   html;
+            root /home/ubuntu/teacher/public;
+            index  index.html index.htm;
+            passenger_enabled on;
+        }
+    }
+
+#到ＥＣ2的security group 開啓80port
+
+			</td>
+		</tr>
 	</table>
 </body>
 </html>
