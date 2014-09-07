@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		list-style: none;
+	}
+	table{
+		width:800px;
+		margin: 0 auto;
+		border: 1px solid #333;
+		text-align: center;
+	}
+	tr th, tr td{
+		border: 1px solid #000;
+	}
+	td img{
+		width: 100%;
+		transition: .3s;
+	}
+	li{
+		text-align: left;
+	}
+	img:hover{
+		transform:scale(2,2);
+		-webkit-transform:scale(2,2);
+		-o-transform:scale(2,2);
+		-ms-transform:scale(2,2);
+		-moz-transform:scale(2,2);
+	}
+	.tip{font-size: .6em;color: #999;}
+	h1{
+		text-align: center;
+	}
+	</style>
+</head>
+<body>
+	<h1>Tseng MingYu AWS_EC2 with ROR 記錄</h1>
+	<table>
+		<tr>
+			<th width="50">步驟</th>
+			<th width="200">說明</th>
+			<th>圖片</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>點選EC2到EC2畫面。</td>
+			<td><a href="/assets/1.png"><img src="/assets/1.png" alt=""></a></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>點擊中間的藍色按鈕(launch Instance)</td>
+			<td><a href="/assets/2.png"><img src="/assets/2.png" alt=""></a></td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>將free tier only勾選，只顯示免費主機</br>這裡使用ubuntu主機</td>
+			<td><a href="/assets/4.png"><img src="/assets/4.png" alt=""></a></td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>確定勾選的是最小規格的(free tier)<br/>可以點選previous繼續其他設定。免費的通常可以直接點擊(Review and Lunch)</td>
+			<td><a href="/assets/5.png"><img src="/assets/5.png" alt=""></a></td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>稍微檢查一下有無設定到需要付費的服務後，點擊Launch。</td>
+			<td><a href="/assets/6.png"><img src="/assets/6.png" alt=""></a></td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td>第一次用請使用create a new key pair</br>輸入自己想要的key的名字，然後點選Download Key Pair</br>這個是連線的鑰匙，很重要。請妥善保存。下載後點擊Launch Instances</td>
+			<td><a href="/assets/7.png"><img src="/assets/7.png" alt=""></a></td>
+		</tr>
+		<tr>
+			<td>7</td>
+			<td>這是Instance Launch成功的畫面。</td>
+			<td><a href="/assets/8.png"><img src="/assets/8.png" alt=""></a></td>
+		</tr>
+		<tr>
+			<td>8</td>
+			<td>可以到控制面板看自己的Instances 狀況（圖為pending 正在啟動中，running則代表啟動了可連線了。）</td>
+			<td><a href="/assets/9.png"><img src="/assets/9.png" alt=""></a></td>
+		</tr>
+		<tr>
+			<td>9</td>
+			<td>點選Connet會跳出此視窗。直接執行ssh -i my.pem ubuntu@my_ec2_public_ip<br/>windows可能需要參考這段 (find out how to connect using PuTTY)</td>
+			<td><a href="/assets/10.png"><img src="/assets/10.png" alt=""></a></td>
+		</tr>
+		<tr>
+			<td>8</td>
+			<td>到終端機執行指令</br>執行後會詢問ＲＳＡ...do you want to continue 選擇yes</td>
+			<td><a href="/assets/11.png"><img src="/assets/11.png" alt=""></a></td>
+		</tr>
+		<tr>
+			<td>8</td>
+			<td>登入成功畫面。</td>
+			<td><a href="/assets/12.png"><img src="/assets/12.png" alt=""></a></td>
+		</tr>
+		<tr>
+			<td>9</td>
+			<td>調整ubuntu環境</td>
+			<td>
+				<ul>
+					<li>$ sudo apt-get update</li>
+					<li>$ sudo apt-get upgrade</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>10</td>
+			<td>調整系統時間</td>
+			<td>
+				<ul>
+					<li>$ sudo dpkg-reconfigure tzdata</li>
+					<li>$ sudo apt-get install ntp</li>
+					<li>$ sudo ntpdate ntp.ubuntu.com</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>11</td>
+			<td>接下來是ＲＯＲ環境設定<br/>安裝RVM（Ruby Version Manager）</td>
+			<td>
+				<ul>
+					<li>$ curl -L https://get.rvm.io | sudo bash -s stable</li>
+					<li>$ source /etc/profile.d/rvm.sh</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>12</td>
+			<td>安裝相關軟體</td>
+			<td>
+				<ul>
+					<li>$ sudo apt-get install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion pkg-config</li>
+				</ul>
+			</td>
+		</tr>	
+		<tr>
+			<td>13</td>
+			<td>預設不要下載 gem 的文件說明檔案（可不執行）</td>
+			<td>
+				<ul>
+					<li>$ echo 'gem: --no-ri --no-rdoc'  >> ~/.gemrc</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>14</td>
+			<td>Ruby 下載(2.0.0版本)</td>
+			<td>
+				<ul>
+					<li>$ rvmsudo rvm install 2.0.0 --default --with-openssl-dir=$HOME/.rvm/usr</li>
+					<li>$ rvm use 2.0.0</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>15</td>
+			<td>安裝Mysql</td>
+			<td>
+				<ul>
+					<li>$ sudo apt-get remove mysql-server-5.1</li>
+					<li>$ sudo apt-get purge mysql-common</li>
+					<li>$ sudo apt-get purge mysql-server-5.1</li>
+					<li>$ sudo apt-get autoremove</li>
+					<li>$ sudo apt-get clean</li>
+					<li>$ sudo apt-get install mysql-common</li>
+					<li>$ sudo apt-get install mysql-server</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>16</td>
+			<td>安裝Rails 4.0.2版本以及其他相關gem（套件）</td>
+			<td>
+				<ul>
+					<li>$ rvmsudo gem install rails --version 4.0.2</li>
+					<li>$ rvmsudo gem install mysql2<br/><span class="tip">#(mysql2這邊如果無法安裝  則先執行  $ sudo apt-get install libmysqlclient-dev)</li></span>
+					<li>$ rvmsudo gem install capistrano</li>
+					<li>$ rvmsudo gem install capistrano-ext</li>
+					<li>$ rvmsudo gem install delayed_job</li>
+					<li>$ rvmsudo gem install hoptoad_notifier</li>
+					<li>$ rvmsudo gem install facebooker2</li>
+					<li>$ rvmsudo gem install factory_girl</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>17</td>
+			<td>測試網頁</td>
+			<td>
+				<ul>
+					<li>1. $ rails new testapp</li>
+					<li>2. $ cd testapp</li>
+					<li>3. 修改Gemfile解開這行註解，然後重新 bundle install：# gem 'therubyracer'<span class="tip">註1</span></li>
+					<li>4. 執行 rails server</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>18</td>
+			<td>EC2 修改Security groups<br/>點選右下角的Security groups:launch-wizard-4(這邊名稱可能不一樣)</td>
+			<td><a href="/assets/13.png"><img src="/assets/13.png" alt=""></a></td>
+		</tr>
+		<tr>
+			<td>19</td>
+			<td>Security groups<br/>點選下方的inbound，然後點選Edit</td>
+			<td><a href="/assets/14.png"><img src="/assets/14.png" alt=""></a></td>
+		</tr>	
+		<tr>
+			<td>20</td>
+			<td>Security groups<br/>新增一個rule，如圖</td>
+			<td><a href="/assets/15.png"><img src="/assets/15.png" alt=""></a></td>
+		</tr>	
+		<tr>
+			<td>21</td>
+			<td>回到EC2 Instances<br/>找到Public ip，複製到網址 並指定port:3000</br>ex: 52.53.54.55:3000 </td>
+			<td><a href="/assets/16.png"><img src="/assets/16.png" alt=""></a></td>
+		</tr>	
+		<tr>
+			<td>22</td>
+			<td>如果rails server 有啟動，且設定都正確，應該會看到預設rails歡迎畫面 </td>
+			<td><a href="/assets/18.png"><img src="/assets/18.png" alt=""></a></td>
+		</tr>
+
+		<tr>
+			<td>23</td>
+			<td>註1 </td>
+			<td>
+				<ul>
+					<li>1.$ vi Gemfile <span class="tip">用終端機當editor開啟Gemfile</span></li>
+					<li>2.按i 進入 insert模式，此時可以當作一般編輯器做修改文件內容</li>
+					<li>3.修改完後按esc 然後依序按  :wq!   終端機左下角應該會出現一樣的符號。點擊enter即完成修改。</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>24</td>
+			<td>MYSQL記錄</td>
+			<td>
+				<ul>
+					<li>$ mysql -u root -p <span class="tip">進入mysql指令</span></li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>25</td>
+			<td>EC2增加user</td>
+			<td>
+				<ul>
+					<li>1.$ ssh -i mykeypair.pem ubuntu@ec2-##########.compute-1.amazonaws.com</li>
+					<li>2.$ sudo adduser NEWUSER <span class="tip">會跳出設定密碼，使用者資訊等指令</span></li>
+					<li>3.$ sudo visudo</li>
+					<li>4.在 root	ALL=(ALL) ALL 下面增加 NEWUSER ALL=(ALL) ALL</li>
+					<li>5.$ sudo vi /etc/ssh/sshd_config</li>
+					<li>6.修改PasswordAuthentication no 為yes<br/> <span class="tip">可使用密碼模式登入</span></li>
+					<li>7.$ sudo service ssh reload   <span class="tip">其他指令(status|start|stop)</span></li>
+					<li>8.$ ssh NEWUSER@ec2-#######-compute.amazonaws.com <br/><span class="tip">新帳號應該就能使用密碼登入了</span></li>
+					<li>9.開啟filezilla 應該就能用此帳號密碼透過sftp登入EC2</li>
+					<li><span class="tip">參考：<a href="http://thekeesh.com/2011/05/setting-up-user-accounts-password-authentication-and-ssh-keys-on-a-new-ec2-instance/">http://thekeesh.com/2011/05/setting-up-user-accounts-password-authentication-and-ssh-keys-on-a-new-ec2-instance/</a></span></li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>25</td>
+			<td>EC2修改上傳權限</td>
+			<td>
+				<ul>
+					<li>1. $ sudo chmod 777 /home/ubuntu/yourapp <br/><span class="tip">會開啟yourapp資料夾所有權限</span></li>
+					<li>2. <span style="color:#f00;">千萬不要執行</span> $ sudo chmod 777 /home/ubuntu <br/><span class="tip">會造成權限過於公開，而被阻擋，無法登入EC2</span></li>
+					<li>3. 若真的需要公開所有ubuntu權限則執行<br/>
+						$ sudo chmod 777 /home/ubuntu<br/>必須執行 
+						$ sudo chmod 600 /home/ubuntu/.ssh<br/>
+						<span class="tip">應該是這樣，測試過可行，但未完整測試，需要在測試。</span>
+					</li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
