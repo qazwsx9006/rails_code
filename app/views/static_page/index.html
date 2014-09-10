@@ -280,52 +280,90 @@
 				</ul>
 			</td>
 		</tr>
-		<tr style="display:none">
+	</table>
+	<h1>Tseng MingYu AWS_EC2 server set（passenger & nginx）</h1>
+	<table>
+		<tr>
+			<th>步驟</th>
+			<th>說明</th>
+			<th>指令</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>安裝passenger</td>
+			<td>$ rvmsudo gem install passenger</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>安裝nginx</td>
+			<td>$ rvmsudo passenger-install-nginx-module
+				<ul>
+					<li>1.途中可能出現安裝失敗，是因為相關軟體尚未安裝，照著提示安裝即可</li>
+					<li>2.以我而言，是執行 $ sudo apt-get install libcurl4-openssl-dev 安裝相關軟體後<br/>
+						再次執行 $ rvmsudo passenger-install-nginx-module
+					</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>安裝nginx</td>
 			<td>
-$ rvmsudo gem install passenger
+				<ul>
+					<li>1.安裝中會詢問軟體語言，照預設值即可。</li>
+					<li>2.安裝中會出現類似記憶體不夠的問題，可能是免費ec2的緣故。(猜測)執行以下指令即可<br/>
+						$ sudo dd if=/dev/zero of=/swap bs=1M count=1024</br>
+						$ sudo mkswap /swap</br>
+						$ sudo swapon /swap</br>
+					</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>修改nginx啟動指令</td>
+			<td>
+				<ul>
+					<li>
+						$ cd /etc/init.d</br>
+						$ sudo wget https://raw.github.com/chloerei/nginx-init-ubuntu-passenger/master/nginx</br>
+						$ sudo update-rc.d nginx defaults</br>
+						$ sudo chmod +x nginx</br>
+						$ sudo service nginx start</br>
+					</li>
+					<li><span class="tip">#這樣以後可以用 sudo service nginx [start|stop|restart] 方式來管理。</span></li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>修改nginx.conf 文件設定</td>
+			<td>
+				<ul>
+					<li>1.$ sudo vi /opt/nginx/conf/nginx.conf</li>
+					<li>2.參考[我修改的設定]
+						<pre>
 
-$ rvmsudo passenger-install-nginx-module
-$ sudo apt-get install libcurl4-openssl-dev
-$ rvmsudo passenger-install-nginx-module
+	server {
+	    listen       80;
+	    server_name localhost;
+	    #root home/teacher/public/;
+	    passenger_enabled on;
+	    #charset koi8-r;
 
+	    #access_log  logs/host.access.log  main;
 
-$ sudo dd if=/dev/zero of=/swap bs=1M count=1024
-$ sudo mkswap /swap
-$ sudo swapon /swap
-
-
-#這樣以後可以用 sudo service nginx [start|stop|restart] 方式來管理伺服器了，變得比較方便一些
-$ cd /etc/init.d
-$ sudo wget https://raw.github.com/chloerei/nginx-init-ubuntu-passenger/master/nginx
-$ sudo update-rc.d nginx defaults
-$ sudo chmod +x nginx
-$ sudo service nginx start
-
-
-#修改 /opt/nginx/conf/nginx.conf 文件設定
-$ sudo vi /opt/nginx/conf/nginx.conf 
-
-[我修改的設定]
-
-    server {
-        listen       80;
-        server_name localhost;
-        #root home/teacher/public/;
-        passenger_enabled on;
-        #charset koi8-r;
-
-        #access_log  logs/host.access.log  main;
-
-        location / {
-           # root   html;
-            root /home/ubuntu/teacher/public;
-            index  index.html index.htm;
-            passenger_enabled on;
-        }
-    }
-
-#到ＥＣ2的security group 開啓80port
-
+	    location / {
+	       # root   html;
+	        root /home/ubuntu/teacher/public;
+	        index  index.html index.htm;
+	        passenger_enabled on;
+	    }
+	}	
+						</pre>
+					</li>
+					<li>3.到ＥＣ2的security group 開啓80port即完成。</li>
+				</ul>
 			</td>
 		</tr>
 	</table>
