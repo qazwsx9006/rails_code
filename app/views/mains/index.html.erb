@@ -1,0 +1,33 @@
+<% provide(:title, "咬我啊") %>
+<% provide(:jsCall, "inputAct();bgSlide();") %>
+
+<!--背景大圖-->
+<ul class="bg">
+	<li><%= image_tag("b1.jpg", alt: " " ,class: "big") %></li>
+	<li><%= image_tag("b2.jpg", alt: " " ) %></li>
+	<li><%= image_tag("b3.jpg", alt: " " ) %></li>
+	<li><%= image_tag("b4.jpg", alt: " " ) %></li>
+	<li><%= image_tag("b5.jpg", alt: " " ) %></li>
+</ul>
+<!--首頁登入-->
+<div class="indexInfo">
+	<h1>Give Me Bite</h1>
+	<h2>THE SLOGAN! OH YA 咬我啊!</h2>
+	<p>網站文案BLOG?作品文章收藏區?!分享?無名?</p>
+	<form action="">
+		<div class="inputBox">
+			<input type="text" id="account" placeholder="Account">
+			<label for="account"  data-tip="Account"></label>
+		</div>
+		<div class="inputBox">
+			<input type="text" id="password" placeholder="Password">
+			<label for="password" data-tip="Password"></label>
+		</div>
+		<br/>
+		<label for="submit" class="submit">登入</label>
+		<input type="submit" id="submit" value="登入">
+		<a class="regist" href="javascript:;">會員註冊</a>
+	</form>
+	<span class="bottomTooth"></span>
+</div>
+<footer></footer>
