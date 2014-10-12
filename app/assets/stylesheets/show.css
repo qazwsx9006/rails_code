@@ -114,11 +114,11 @@ section:after{
 	text-align: center;
 	color: #888;
 }
-.user .btn ul{
+.user .statusbtn ul{
 	height: 100%;
 	text-align: justify;
 }
-.user .btn li{
+.user .statusbtn li{
 	display: inline-block;
 	height: 100%;
 	width: 32%;
@@ -130,16 +130,16 @@ section:after{
 	position: relative;
 	cursor: pointer;
 }
-.user .btn li:nth-child(2){
+.user .statusbtn li:nth-child(2){
 	background: #8cd1ce;
 	color: #0a7969;
 }
-.user .btn li:last-child{
+.user .statusbtn li:last-child{
 	width: 33%;
 	background: #9acaee;
 	color: #3a83b8;
 }
-.user .btn li i:after{
+.user .statusbtn li i:after{
 	content: attr(data-num);
 	font-size: 0.7em;
 	position: absolute;
@@ -510,6 +510,93 @@ section:after{
 .content .favoriteList.detail li .postTime{
 	float: right;
 }
+
+.box{
+	background: #fff;
+	box-shadow: 0 0 8px #ccc;
+	padding: 5px;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+.boxheader{
+	padding: 5px 0 10px 0	;
+	font-size:2em;
+	border-bottom: 1px solid #e5e5e5;
+	margin-bottom: 5px;
+}
+.avatar_group{
+	margin-bottom: 5px;
+}
+.group_label{
+	font-size: 1.5em;
+	padding: 5px 0;
+}
+.choose_avatar{
+	font-size: 1.3em;
+	font-weight: 900;
+	display: block;
+	padding: 5px 0;
+}
+.avatar_submit{
+	margin-top: 10px;
+}
+.btn{
+	padding: 8px 3px;
+	cursor: pointer;
+}
+.btn_blue{
+	background: #428bca;
+	border: 1px solid #357ebd;
+	border-radius: 5px;
+	color:#fff;
+}
+.btn_blue:hover{
+	background: #3071a9;
+}
+.change_pw{
+	margin-bottom: 10px;
+	max-height: 0px;
+	transition: .5s;
+	overflow: hidden;
+}
+.userInfo li{
+	margin-top: 10px;
+}
+.userInfo label{
+	display: inline-block;
+	font-size: 1.4em;
+	width: 100px;
+	text-align: right;
+}
+.userInfo label:after{
+	content: '：';
+}
+.userInfo input{
+	width: 80%;
+}
+#update_pw{
+	display: none;
+}
+.pwBtn{
+	display: block;
+	text-align: center;
+	margin: 10px 0;
+	font-size: 1.5em;
+	cursor: pointer;
+	padding: 10px;
+	color: #090;
+	background: rgba(155,255,155,.2);
+	transition: 1s;
+}
+#update_pw:checked + .pwBtn{
+	color: #009;
+	background: rgba(180,180,255,.2);
+}
+#update_pw:checked ~ .change_pw {
+	max-height: 1000px;
+	transition: 1.5s;
+}
+
 footer{
 	text-align: center;
 	margin-top: 20px;
