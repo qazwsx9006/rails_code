@@ -5,7 +5,7 @@ gem 'rails', '4.0.2'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
-
+gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -33,7 +33,7 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
+ gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
 # gem 'unicorn'
@@ -43,3 +43,11 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+#協助開發的錯誤提示工具
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+  gem 'annotate','2.5.0'
+end

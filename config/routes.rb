@@ -3,9 +3,11 @@ Teacher::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  resources :mains
+  resources :bites
+  resources :users
 
-  root 'mains#index'
+
+  root 'bites#index'
   get '/aws_ec2', to: 'static_page#index'
 
   # Example of regular route:

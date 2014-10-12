@@ -1,0 +1,42 @@
+<% provide(:title, "咬我啊") %>
+<% provide(:jsCall, "inputAct();bgSlide();") %>
+
+<!--背景大圖-->
+<ul class="bg">
+	<li><%= image_tag("b1.jpg", alt: " " ,class: "big") %></li>
+	<li><%= image_tag("b2.jpg", alt: " " ) %></li>
+	<li><%= image_tag("b3.jpg", alt: " " ) %></li>
+	<li><%= image_tag("b4.jpg", alt: " " ) %></li>
+	<li><%= image_tag("b5.jpg", alt: " " ) %></li>
+</ul>
+<!--首頁登入-->
+<div class="indexInfo">
+	<h1>Give Me Bite</h1>
+	<h2>一起來咬美食吧！</h2>
+	<%= form_tag users_path do %>
+		<div class="inputBox">
+			<input type="text" id="nickname" name="user[nickname]" placeholder="Nickname">
+			<label for="nickname"  data-tip="Nickname"></label>
+		</div>
+		<div class="inputBox">
+			<input type="text" id="account" name="user[account]" placeholder="Account">
+			<label for="account"  data-tip="Account"></label>
+		</div>
+		<div class="inputBox">
+			<input type="password" id="password" name="user[password]" placeholder="Password">
+			<label for="password" data-tip="Password"></label>
+		</div>
+		<div class="inputBox">
+			<input type="password" id="password_confirmation" name="user[password_confirmation]" placeholder="Password_confirmation">
+			<label for="password_confirmation" data-tip="Password_confirmation"></label>
+		</div>
+		<br/>
+		<label for="submit" class="submit">會員註冊</label>
+		<input type="submit" id="submit" value="會員註冊">
+		<!--
+		<a class="regist" href="javascript:;">登入</a>
+		-->
+	<% end %>
+	<span class="bottomTooth"></span>
+</div>
+<footer></footer>

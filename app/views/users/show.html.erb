@@ -1,0 +1,73 @@
+<% provide(:title, "咬我啊") %>
+<% provide(:jsCall, "") %>
+
+
+
+<%= render 'shared/sidebar' %>
+
+<div class="content">
+	<div class="box">
+		<div class="boxheader">
+			大頭貼
+		</div>
+		<%= form_for @user, url: "/", html: {id: "new_avatar", multipart: true, onsubmit: "alert(1);return false;"} do |f| %>
+		      <div class="avatar_group">
+		        <div class="group_label">當前頭像</div>
+		        <div>
+		          <img alt="root large avatar" class="" src="">
+		          <img alt="root medium avatar" class="" src="">
+		          <img alt="root small avatar" class="" src="">
+		        </div>
+		      </div>
+		    <div class="avatar_group">
+		      <div class="">
+		        <label class="choose_avatar" for="user_avatar">選擇圖片</label>
+		        <%= f.file_field :avatar , class: "" %>
+		      </div>
+		      <div class="avatar_submit">
+		        <input class="btn btn_blue" name="commit" type="submit" value="上傳新頭像">
+		        <span class="">推薦使用正方形 PNG 圖片以獲得最佳效果。<span style="color:#ccc;font-size: .5rem;">頭像上傳後若未改變，請重新整理頁面即可</span></span>
+		      </div>
+		    </div>
+		<% end %>
+	</div>
+	<div class="box">
+		<div class="boxheader">
+			個人資訊
+		</div>
+		<%= form_for @user, url: "/", html: {id: "new_avatar", multipart: true, onsubmit: "alert(2);return false;"} do |f| %>
+			<ul class="userInfo">
+				<li>
+					<label for="nickname">暱稱</label>
+					<input type="text" id="nickname" name="user[nickname]" value="<%= @user.nickname %>">
+				</li>
+				<li>
+					<label for="mood">心情動態</label>
+					<input type="text" id="mood" name="user[mood]">
+				</li>
+				<li>
+					<label for="about">關於我</label>
+					<input type="text" id="about" name="user[about]">
+				</li>
+			</ul>
+			<input type="checkbox" id="update_pw" name="update_pw" value="1">
+			<label class="pwBtn" for="update_pw">點擊展開修改密碼欄</label>
+			<ul class="userInfo change_pw">
+				<li>
+					<label for="oldpw">舊密碼</label>
+					<input type="text" id="pw" name="user[oldpw]">
+				</li>
+				<li>
+					<label for="pw">新密碼</label>
+					<input type="text" id="pw" name="user[password]">
+				</li>
+				<li>
+					<label for="pw2">新密碼確認</label>
+					<input type="text" id="pw2" name="user[password_confirmation]">
+				</li>
+			</ul>
+			<input class="btn btn_blue" name="commit" type="submit" value="更新資訊">
+		<% end %>
+		
+	</div>
+</div>

@@ -91,7 +91,7 @@ html,body{
 	font-size: 2.5em;
 	font-weight: bold;
 	letter-spacing: -1px;
-	padding: 10px;
+	padding: 5px;
 	margin-top: 10px;
 	text-shadow: 0 2px 6px rgba(0, 0, 0, 0.58);
 }
@@ -125,16 +125,29 @@ html,body{
 	left: 25%;
 }
 .indexInfo form{
-	padding: 20px;
+	padding: 10px 20px;
 }
 .inputBox {
 	display: inline-block;
 	width: 280px;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 }
+
 .indexInfo input[type="text"]{
 	display: block;
-	margin: 10px auto;
+	margin: 5px auto;
+	padding: 0 15px;
+	border-radius: 5px;
+	border: 0;
+	outline: 0;
+	box-shadow: 0 0 3px #666,0 0 0 1px #666;
+	width: 280px;
+	height: 40px;
+	max-width: 250px;
+}
+.indexInfo input[type="password"]{
+	display: block;
+	margin: 5px auto;
 	padding: 0 15px;
 	border-radius: 5px;
 	border: 0;
@@ -149,7 +162,7 @@ html,body{
 	font-size: 1.5em;
 	color: #4682b4;
 	font-weight: bold;
-	text-shadow: 0 2px 6px rgba(255, 255, 255, 0.58);
+	text-shadow: 0 2px 6px rgba(255, 255, 255, 1);
 	opacity: 1;
 }
 .indexInfo label{
@@ -186,7 +199,7 @@ html,body{
 	box-shadow:0 0 0 5px #98CBCA, 0 0 10px #000;
 	border: 2px dashed #666;
 	opacity: .8;
-	margin-left: 70px;
+
 }
 .indexInfo .regist{
 	margin-left: 10px;
