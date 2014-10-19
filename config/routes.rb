@@ -4,11 +4,22 @@ Teacher::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   resources :bites
-  resources :users
+  #resources :users
 
 
   root 'bites#index'
+
+  get '/signup', to: 'users#new'
+  match '/signup', to: 'users#create', via: :post
+  get '/signin', to: 'sessions#new'
+  match '/signin', to: 'sessions#create', via: :post
+  match '/signout', to: 'sessions#destroy', via: :delete
+  get '/settings', to: 'users#settings'
+  match '/settings', to: 'users#update', via: :put
+  match '/settings', to: 'users#update', via: :patch
+
   get '/aws_ec2', to: 'static_page#index'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
