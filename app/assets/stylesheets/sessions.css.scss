@@ -1,0 +1,64 @@
+// Place all the styles related to the sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+	.signin h1,.signin h2{
+		text-align: center;
+		margin-top: 5px;
+		font-size: 2.5em;
+	}
+	.signin h2{
+		font-size: 1.8em;
+		border-bottom: 1px dashed #999;
+		padding-bottom: 10px;
+		margin-top: 10px;
+	}
+	.signin form{
+		padding: 35px 15px;
+	}
+	.signin form{
+		text-align: center;
+	}
+	.signin li{
+		padding: 10px;
+	}
+	.signin li label{
+		display: inline-block;
+		margin-bottom: 10px;
+		font-size: 2em;
+	}
+	.signin input{
+		border: none;
+		padding: 8px 8px 3px;
+		background: #ADD8E6;
+		border-bottom: 3px solid #4682B4;
+		color: #006400;
+		width: 80%;
+		max-width: 300px; 
+	}
+	.signin input[type="submit"]{
+		display: none;
+	}
+	.signin .button{
+		cursor: pointer;
+		display: inline-block;
+		border-radius: 50%;
+		background: #87CEFA;
+		width: 70px;
+		height: 70px;
+		line-height: 70px;
+		box-shadow: 0 0 0 5px rgba(96,178,241,.5);
+		color: #fff;
+		border:  1px dashed #5F9EA0;
+
+	}
+	.signin .signBtn a.button{
+		text-decoration: none;
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+		margin-left: 10px;
+		background:#dfdfdf;
+		color: #777;
+		box-shadow: 0 0 0 3px rgba(126,126,126,.4);
+	}

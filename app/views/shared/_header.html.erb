@@ -1,11 +1,22 @@
 <header>
 	<div>
-		<a class="logo" href="javascript:;">GiveMeBite!</a>
+		<%= link_to "GiveMeBite!", root_path, class: "logo" %>
 		<nav>
 			<ul>
-				<li><a href="javascript:;">首頁</a></li>
-				<li><a href="javascript:;">註冊</a></li>
-				<li><a href="javascript:;">登入</a></li>
+				<% if signed_in? %>				
+					<li><%= link_to current_user.nickname, bite_path(current_user) %> 你好！</li>
+				<% end %>
+
+				<li><%= link_to "首頁", root_path %></li>
+
+				<% if signed_in? %>
+					<li><%= link_to "設定", settings_path %></li>
+					<li><%= link_to "登出", signout_path, method: "delete" %></li>
+				<% else %>
+					<li><%= link_to "登入", signin_path %></li>
+					<li><%= link_to "註冊", signup_path %></li>	
+				<% end %>
+
 			</ul>
 		</nav>
 	</div>

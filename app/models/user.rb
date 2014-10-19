@@ -10,6 +10,8 @@
 #  mimi_t          :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
+#  mood            :string(255)
+#  about           :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -25,4 +27,9 @@ class User < ActiveRecord::Base
 	VALID_PW_REGEX = /\A[a-zA-Z]{1}[a-zA-Z0-9]{5,11}\z/ #密碼需為英數且開頭為英文。6~12碼
 	validates :account, format: { with: VALID_EMAIL_REGEX }
 	validates :password, format: { with: VALID_PW_REGEX }
+
+	before_create do
+		self.mimi_t = SecureRandom.urlsafe_base64() 
+	end
+
 end
