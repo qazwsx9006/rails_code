@@ -220,7 +220,7 @@ section:after{
 	position: relative;
 }
 .think p:after{
-	content:'2014-09-29';
+	content:attr(data-time);
 	font-size: .3em;
 	position: absolute;
 	background: #c85d4f;

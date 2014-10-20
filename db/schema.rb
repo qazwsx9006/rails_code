@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141012074116) do
+ActiveRecord::Schema.define(version: 20141020023836) do
 
   create_table "favorites", force: true do |t|
     t.string   "pic"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 20141012074116) do
     t.datetime "updated_at"
     t.string   "mood"
     t.string   "about"
+    t.string   "info_bg"
+    t.datetime "mood_at"
   end
 
 end
