@@ -12,6 +12,8 @@
 #  updated_at      :datetime
 #  mood            :string(255)
 #  about           :string(255)
+#  info_bg         :string(255)
+#  mood_at         :datetime
 #
 
 class User < ActiveRecord::Base
@@ -30,6 +32,21 @@ class User < ActiveRecord::Base
 
 	before_create do
 		self.mimi_t = SecureRandom.urlsafe_base64() 
+		self.mood_at = Time.now()
+		self.mood = "I loke give_me_bite!"
+	end
+	before_save do
+		if self.mood_changed?
+			self.mood_at = Time.now()
+		end
+	end
+
+	def avatar_url
+		if self.avatar.blank?
+			return "/assets/default_avatar.jpg"
+		else
+			return self.avatar
+		end
 	end
 
 end
