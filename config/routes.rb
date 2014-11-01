@@ -17,6 +17,8 @@ Teacher::Application.routes.draw do
   get '/settings', to: 'users#settings'
   match '/settings', to: 'users#update', via: :put
   match '/settings', to: 'users#update', via: :patch
+  match '/avatar', to: 'users#avatar', via: :patch
+  match '/avatar', to: 'users#avatar', via: :put
 
   get '/aws_ec2', to: 'static_page#index'
 

@@ -3,7 +3,7 @@
 	<div><%= image_tag("bgapple.jpg", alt: " ") %></div>
 	<div>
 		<div class="avatar" data-name="<%= @user.nickname %>" data-talk="<%= @user.about %>">
-			<img src="<%= @user.avatar_url %>" alt="">
+			<img src="<%= @user.avatar_url(:medium) %>" alt="">
 		</div>
 	</div>
 	<div class="statusbtn">

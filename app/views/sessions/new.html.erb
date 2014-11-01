@@ -5,6 +5,9 @@
 	<h1>分享的快樂勝過獨自擁有！</h1>
 	<h2>歡迎回來！</h2>
 	<%= form_tag signin_path do %>
+		<% if @wrong %>
+			<span style="color:red;font-size: 2em;">帳號或密碼錯誤！</span>
+		<% end %>
 		<ul>
 			<li>
 				<label for="account">帳號：</label><br>

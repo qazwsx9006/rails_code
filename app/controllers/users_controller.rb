@@ -45,6 +45,12 @@ class UsersController < ApplicationController
 		end
 		redirect_to settings_path
 	end
+	def avatar
+		current_user.avatar=params[:user][:avatar] 
+		current_user.save(validate: false)
+		
+		redirect_to settings_path
+	end
 
   private
 

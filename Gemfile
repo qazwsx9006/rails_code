@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+
+#上傳圖片用
+gem "paperclip", "~> 4.2"
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
