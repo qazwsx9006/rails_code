@@ -10,13 +10,11 @@
 		<div class="boxheader">
 			大頭貼
 		</div>
-		<%= form_for @user, url: "/", html: {id: "new_avatar", multipart: true, onsubmit: "alert('功能尚未啟動');return false;"} do |f| %>
+		<%= form_for @user, url: avatar_path, html: {id: "new_avatar", multipart: true, onsubmit: "return true;"} do |f| %>
 		      <div class="avatar_group">
 		        <div class="group_label">當前頭像</div>
 		        <div>
-		          <img alt="root large avatar" class="" src="">
-		          <img alt="root medium avatar" class="" src="">
-		          <img alt="root small avatar" class="" src="">
+					<%= image_tag @user.avatar.url(:medium) %>
 		        </div>
 		      </div>
 		    <div class="avatar_group">

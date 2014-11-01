@@ -240,6 +240,7 @@ section:after{
 	border: 8px solid #fff;
 	box-shadow: 0 2px 5px rgba(180,180,180,.5);
 	margin-bottom: 10px;
+	background: url('/assets/loading.gif') no-repeat center;
 }
 .content .mapBox #map-canvas{
 	width: 100%;

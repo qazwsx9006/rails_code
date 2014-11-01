@@ -16,4 +16,9 @@
 /tmp
 
 /public/assets
+/public/avatars
 /test
+
+
+.DS_Store
+*/.DS_Store

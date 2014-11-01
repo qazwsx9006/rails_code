@@ -9,9 +9,11 @@ class SessionsController < ApplicationController
 			sign_in_session(user)
 			redirect_to root_path
 		elsif user
-			render text: "oops:password wrong"
+			@wrong=true
+			render 'new'
 		else
-			render text: "oops:no this account!"
+			@wrong=true
+			render 'new'
 		end
 	end
 	def destroy
