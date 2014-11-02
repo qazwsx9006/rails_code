@@ -9,13 +9,13 @@
 	<div class="favorite">
 		<%= render 'shared/content_subheading' %>
 		<ul class="favoriteList big">
-			<% 10.times do %>
+			<% @favorities.each do |favority| %>
 				<li>
-					<div class="imgShadow"><%= image_tag("sweets1.jpg", alt: " ") %></div>
+					<div class="imgShadow"><%= image_tag favority.pic.url(:original) %></div>
 					<p><i class="bullhorn fa fa-bullhorn"></i>
-						好吃下午茶蛋糕!!大推 :)
+						<%= favority.msg %>
 					</p>
-					<span class="postTime fa fa-comments-o">&nbsp;&nbsp;2014-10-05</span>
+					<span class="postTime fa fa-calendar-o">&nbsp;&nbsp;<%= favority.created_at.strftime("%F") %></span>
 				</li>
 			<% end %>
 		</ul>
