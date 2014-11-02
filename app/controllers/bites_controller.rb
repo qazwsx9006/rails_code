@@ -5,7 +5,7 @@ class BitesController < ApplicationController
 	def create
 		favorities = current_user.favorites.build(favority_params)
 		if favorities.save
-			render text: 'success'
+			redirect_to bite_path(current_user)
 		else
 			render text: favorities.errors.full_messages
 		end
