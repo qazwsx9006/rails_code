@@ -1,5 +1,5 @@
 <div class="sidebar">
 	<%= render 'shared/sidebar_user_info' %>
-	<%= render 'shared/sidebar_post' %>
+	<%= render 'shared/sidebar_post' if signed_in? %>
 	<%= render 'shared/sidebar_think' %>
 </div>
