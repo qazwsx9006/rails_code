@@ -11,13 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141101074530) do
+ActiveRecord::Schema.define(version: 20141102070109) do
 
   create_table "favorites", force: true do |t|
-    t.string   "pic"
     t.string   "msg"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "store_name"
+    t.string   "coodinate_x"
+    t.string   "coodinate_y"
+    t.string   "address"
+    t.string   "pic_file_name"
+    t.string   "pic_content_type"
+    t.integer  "pic_file_size"
+    t.datetime "pic_updated_at"
   end
 
   create_table "foods", force: true do |t|

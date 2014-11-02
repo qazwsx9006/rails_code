@@ -1,15 +1,70 @@
+<style>
+	.post textarea{
+		display: none;
+	}
+	.ipt_hide{
+		display: none;
+	}
+	.post input[type="radio"]:checked + textarea{
+		display: block;
+	}
+	.post label{
+		cursor: pointer;
+	}
+</style>
+<script>
+	function readPic(e){
+		if (e.files && e.files[0]){
+	        var reader = new FileReader();
+	        var type = e.files[0].type;
+	        if(type == 'image/png' || type == 'image/jpeg' || type == 'image/gif'){
+	        }else{
+	          alert('檔案格式不符');
+	          return ;
+	        };
+	        reader.onload = function (element) {
+	        	$('.uploadimg').remove();
+		        var img = element.target.result;
+		        var imgx = document.createElement('img');
+		        var div = document.createElement('div');
+	      		imgx.className = 'pre';
+		        imgx.src = img;
+		        div.className='uploadimg';
+		        $(div).html(imgx);
+		        $('.post').find('.pre_pic').prepend(div);
+	        };
+	        reader.readAsDataURL(e.files[0]);
+		}
+	}
+	function bitesSend(e){
+		var msg=$.trim($(e).find('#msg_form').val());
+		if(msg==''){
+			alert('尚未填寫分享訊息！！');
+			return false;
+		}else{
+			return true;
+		}
+	}
+</script>
 <div class="post">
-	<form action="">
-		<textarea name="" id="" cols="30" rows="5" placeholder="分享些好吃的美食吧!"></textarea>
-		<div>
-			<div class="uploadimg"><%= image_tag("sweets1.jpg", alt: " ") %></div>
+	<%#= form_for @user, url: bites_path, html: {id: "new_post", multipart: true, onsubmit: "return true;"} do |f| %>
+	<%= form_tag bites_path , multipart: true, onsubmit: "return bitesSend(this);" do %>
+		<input type="file" class="ipt_hide" name="favority[pic]" id="pic_form" onchange="readPic(this);">
+		<input type="radio" class="ipt_hide" name="for_txt" id="for_msg" checked>
+		<textarea name="favority[msg]" id="msg_form" cols="30" rows="5" placeholder="分享些好吃的美食吧!"></textarea>
+		<input type="radio" class="ipt_hide" name="for_txt" id="for_add">
+		<textarea name="add" id="address_form" cols="30" rows="5" placeholder="請填寫地址（不填為自動偵測當前位置，需開啟定位功能）"></textarea>
+		<div class="pre_pic">
 			<ul>
-				<li><i class="fa fa-map-marker"></i></li>
-				<li><i class="fa fa-camera-retro" style="padding:0 2px 0 0;"></i></li>
-				<li><i class="fa fa-tags"></i></li>
+				<li><label for="for_msg" class="fa fa-comment"></label></li>
+				<li><label for="for_add" class="fa fa-map-marker"></label></li>
+				<li><label for="pic_form" class="fa fa-camera-retro" style="padding:0 2px 0 0;"></label></li>
+				<!--
+					<li><i class="fa fa-tags"></i></li>
+				-->
 			</ul>
 			<label for="submitBtn" class="fa fa-pencil submitPencil"></label>
 			<input class="submitBtn" id="submitBtn" type="submit" value="分享">
 		</div>
-	</form>
+	<% end %>
 </div>

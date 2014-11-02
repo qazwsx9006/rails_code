@@ -26,11 +26,13 @@ class User < ActiveRecord::Base
 	has_attached_file	:avatar, 
 						#:styles => { :medium => "300x300>", :thumb => "100x100>" }, 
 						:styles => { :medium => "200x200#", :thumb => "50x50#" }, 
-						:default_url => "/images/:style/missing.png",
+						:default_url => "/assets/default_avatar.jpg",
 					    :url => "/avatars/:id/:style/:filename",
 					    :path => ":rails_root/public:url"
 						#:path => ":attachment/:id/:style/sss_:basename.:extension"
 	validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+
+	has_many :favorites , foreign_key: "user_id"
 
 	validates :account, presence: true, uniqueness: { case_sensitive: false }
 	validates :password, presence: true
