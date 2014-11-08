@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+#測試用geocoder
+gem "geocoder"
 
 #上傳圖片用
 gem "paperclip", "~> 4.2"

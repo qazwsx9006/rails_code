@@ -367,6 +367,12 @@ section:after{
 	font-weight: 800;
 	color: #666;
 }
+.content .favoriteList.medium li .address{	
+	display: none;
+	font-weight: 400;
+	color: #bbb;
+	font-size: 10px;
+}
 .content .favoriteList.medium li .postTime{
 	color: #aaa;
 	position: absolute;
@@ -422,6 +428,11 @@ section:after{
 	padding: 0 10px;
 	color: #666;
 }
+.content .favoriteList.big li .address{
+	font-size: .8em;
+	font-weight: 400;
+	color: #bbb;
+}
 .content .favoriteList.big li .postTime{
 	color: #aaa;
 	position: absolute;
@@ -476,6 +487,8 @@ section:after{
 .content .favoriteList.small li p{
 	display: none;
 }
+.content .favoriteList.small li .address{
+}
 .content .favoriteList.small li .postTime{
 	color: #aaa;
 	font-size: 1em;
@@ -506,6 +519,9 @@ section:after{
 }
 .content .favoriteList.detail li p{
 	display: inline-block;
+}
+.content .favoriteList.detail li .address{
+	color: #bbb;
 }
 .content .favoriteList.detail li .postTime{
 	float: right;

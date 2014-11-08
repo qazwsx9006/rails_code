@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102070109) do
+ActiveRecord::Schema.define(version: 20141108092023) do
 
   create_table "favorites", force: true do |t|
     t.string   "msg"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20141102070109) do
     t.string   "pic_content_type"
     t.integer  "pic_file_size"
     t.datetime "pic_updated_at"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   create_table "foods", force: true do |t|

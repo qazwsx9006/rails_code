@@ -104,7 +104,73 @@ function googleMap(){
 		    google.maps.event.addListener(marker, 'mouseout', function() {
 		        infowindow.close(map, this);
 		    });
+
+		    var branches = [];
+		    $.post("/askcoodinate", {}, function(data) {
+		    	//console.log(data);
+	            //有資料才做
+	            if(data!=""){
+	                for (i = 0; i < data.length; i++) {
+
+	                	var store = data[i];
+
+						var siteX=(inilat*2)-store['latitude'];
+						var siteY=(inilnt*2)-store['longitude'];
+	                    
+	                    branches.push({
+	                        address: store['address'],
+	                        msg: store['msg'],
+	                        pic_file_name: store['pic_file_name'],
+	                        latlng: new google.maps.LatLng(
+	                            parseFloat(store['latitude']), parseFloat(store['longitude'])),
+	                        siteLatlng: new google.maps.LatLng(
+	                            parseFloat(siteX), parseFloat(siteY)),
+	                        dist: 0
+	                    });
+	                }
+
+					var infowindow = new google.maps.InfoWindow();
+					var bounds = new google.maps.LatLngBounds();
+					for (i = 0; i < data.length; i++) {
+						var b = branches[i];
+	                    if ( b == undefined ){
+	                    	continue
+	                    }
+	                    console.dir(b.latlng.lat()+"/"+isNaN(b.latlng.lat()));
+	                    if(!isNaN(b.latlng.lat())){
+							bounds.extend(b.latlng);
+							//bounds.extend(b.siteLatlng);
+	                    }
+	                    markers[i] = new google.maps.Marker({
+	                        position: b.latlng,
+	                        title: b.msg,
+	                        //icon: b.icon,
+	                        map: map,
+	                        zIndex: 1
+	                    });
+	                    attachSecretMessage(markers[i],b.address,b.msg,b.pic_file_name,infowindow);
+
+					}
+
+	                map.fitBounds(bounds);
+	            }
+		    });
 	    }
+	}
+	//每一個標記點加入一個視窗資訊的事件處理器
+	function attachSecretMessage(marker, address, msg, pic ,infowindow) {
+	    var cont = "<div id=\"infobox\">"+address+"</div>";
+	    google.maps.event.addListener(marker, 'mouseover', function() {
+	    	infowindow.setContent(cont);
+	        infowindow.open(map, this);
+	       	this.setOptions({zIndex:2});
+	    });
+	    google.maps.event.addListener(marker, 'mouseout', function() {
+	        infowindow.close(map, this);
+	       	this.setOptions({zIndex:1});
+	    });
+	    google.maps.event.addListener(marker, 'click', function() {
+	    });	
 	}
 	google.maps.event.addDomListener(window, 'load', initialize);
 
