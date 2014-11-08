@@ -14,6 +14,7 @@
 					<div class="imgShadow"><%= image_tag favority.pic.url(:original) %></div>
 					<p><i class="bullhorn fa fa-bullhorn"></i>
 						<%= favority.msg %>
+						<span class="address"><%= "- #{favority.address}" unless favority.address.blank? %></span>
 					</p>
 					<span class="postTime fa fa-calendar-o">&nbsp;&nbsp;<%= favority.created_at.strftime("%F") %></span>
 				</li>

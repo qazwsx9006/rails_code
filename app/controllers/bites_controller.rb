@@ -14,10 +14,20 @@ class BitesController < ApplicationController
 		@user=User.find_by_id(params[:id])
 		@favorities=@user.favorites.order(created_at: :desc)
 	end
+	def askcoodinate
+		#if params[:search].present?
+		#	@favorities = Favorite.near(params[:search], 500, :order => :distance)#距離判斷遠近
+		#else
+			@favorities = Favorite.all
+		#end
+
+		render :json => @favorities.to_json
+		
+	end
 
   private
 
   def favority_params
-    params.require(:favority).permit(:pic, :msg)
+    params.require(:favority).permit(:pic, :msg, :address)
   end
 end

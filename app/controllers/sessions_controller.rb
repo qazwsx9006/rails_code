@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 		user = User.find_by_account(params[:user][:account].downcase)
 		if user && user.authenticate(params[:user][:password]) 
 			sign_in_session(user)
-			redirect_to root_path
+			redirect_to bite_path(current_user)
 		elsif user
 			@wrong=true
 			render 'new'
