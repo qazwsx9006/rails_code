@@ -131,6 +131,7 @@ function googleMap(){
 
 					var infowindow = new google.maps.InfoWindow();
 					var bounds = new google.maps.LatLngBounds();
+					bounds.extend(inicenter);
 					for (i = 0; i < data.length; i++) {
 						var b = branches[i];
 	                    if ( b == undefined ){

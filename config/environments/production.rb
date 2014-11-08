@@ -77,4 +77,6 @@ Teacher::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+  Geocoder::Configuration.timeout = 50
+  Geocoder::Configuration.language = 'zh-TW'
 end
