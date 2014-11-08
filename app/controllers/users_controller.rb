@@ -11,9 +11,9 @@ class UsersController < ApplicationController
 	def create
 		@user=User.new(user_params)
 		if @user.save
-			render 'show'
+			redirect_to bite_path(@user)
 		else
-			render text: "oops: #{@user.errors.full_messages}"
+			render text: "oops: 你的帳號密碼格式錯誤喔！！！這頁還沒做。請回上ㄧ頁:))"
 		end
 	end
 
