@@ -65,9 +65,9 @@
 	<%= form_tag bites_path , multipart: true, onsubmit: "return bitesSend(this);" do %>
 		<input type="file" class="ipt_hide" name="favority[pic]" id="pic_form" onchange="readPic(this);">
 		<input type="radio" class="ipt_hide" name="for_txt" id="for_msg" checked>
-		<textarea name="favority[msg]" id="msg_form" cols="30" rows="5" placeholder="分享些好吃的美食吧!"></textarea>
+		<textarea name="favority[msg]" id="msg_form" cols="30" rows="5" maxlength="40" placeholder="分享些好吃的美食吧!"></textarea>
 		<input type="radio" class="ipt_hide" name="for_txt" id="for_add">
-		<textarea name="favority[address]" id="address_form" cols="30" rows="5" placeholder="請填寫地址"></textarea>
+		<textarea name="favority[address]" id="address_form" maxlength="30" cols="30" rows="5" placeholder="請填寫地址"></textarea>
 		<div class="pre_pic">
 			<ul>
 				<li><label for="for_msg" class="fa fa-comment"></label></li>
