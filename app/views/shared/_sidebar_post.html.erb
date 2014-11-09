@@ -39,6 +39,7 @@
 	function bitesSend(e){
 		var msg=$.trim($(e).find('#msg_form').val());
 		var add=$.trim($(e).find('#address_form').val());
+		var $btn=$(e).find('.submitPencil');
 		if(msg==''){
 			alert('尚未填寫分享訊息！！');
 			console.log($('#for_msg').prop( "checked",true ));
@@ -57,6 +58,14 @@
 			});
 			return false;
 		}
+		//送出中取消按鈕功能以免重複送出
+		$btn.css({
+			"background":"#ccc",
+			"border-bottom":"2px solid #999",
+			"cursor":"default"
+		});
+		$btn.attr('for','null');
+
 		return true;
 	}
 </script>

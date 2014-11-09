@@ -31,6 +31,45 @@ header .logo{
 	line-height: 50px;
 	padding: 0 10px;
 	font-size: 2.5em;
+	position: absolute;
+	top: 0;
+}
+
+#findNear{
+	position: relative;
+	width: 100%;
+	top: 0;
+	padding: 15px;
+	display: block;
+	text-align: center;
+}
+#findNear input{
+	height: 20px;
+}
+#findNear #center{
+
+}
+#findNear #distance{
+	width: 70px;
+}
+#findNear label{
+	background: #8cd1ce;
+	color: #0a7969;
+	padding: 4px 5px 4px 5px;
+	font-size: 1.7em;
+	cursor: pointer;
+	border-bottom: 2px solid #0a7969;
+}
+#findNear label:hover{
+	background: #76dfc7;
+}
+#findNear label:active{
+	color: #8cd1ce;
+	background: #0a7969;
+	border-bottom: 2px solid #8cd1ce;
+}
+#findNear input[type="submit"]{
+	display: none;
 }
 header nav{
 	position: absolute;
@@ -100,7 +139,7 @@ section:after{
 	position: absolute;
 	width: 100%;
 	top: 108%;
-	font-size: 2.5em;
+	font-size: 2em;
 	text-align: center;
 	color: #888;
 }

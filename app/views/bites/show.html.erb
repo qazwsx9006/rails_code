@@ -1,5 +1,5 @@
-<% provide(:title, "GiveMeBite - qazwsx9006") %>
-<% provide(:jsCall, "googleMap();contentResize();") %>
+<% provide(:title, "GiveMeBite - #{@user.nickname}") %>
+<% provide(:jsCall, "googleMap(#{@user.id});contentResize();") %>
 
 <%= render 'shared/sidebar' %>
 <div class="content">

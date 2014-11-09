@@ -1,5 +1,13 @@
+
 <header>
 	<div>
+		<%= form_tag root_path, {:method => :get ,:id => "findNear"} do %>
+		  <input id="center" name="c" type="text" placeholder="搜尋中心點">
+		  <input id="distance" type="number" min="0" max="500" name="d" placeholder="距離(km)">
+		  <label class="fa fa-search" >
+		  	<input type="submit" value="送出">
+		  </label>
+		<% end %>
 		<%= link_to "GiveMeBite!", root_path, class: "logo" %>
 		<nav>
 			<ul>

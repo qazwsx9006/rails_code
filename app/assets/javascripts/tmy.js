@@ -22,7 +22,7 @@ function contentResize(){
      });
 }
 
-function googleMap(){
+function googleMap(user_id,center,distance){
 	var map;
 	var markers = [];
 	var inicenter;
@@ -106,7 +106,8 @@ function googleMap(){
 		    });
 
 		    var branches = [];
-		    $.post("/askcoodinate", {}, function(data) {
+		    console.log(user_id);
+		    $.post("/askcoodinate", {id: user_id, c: center, d: distance}, function(data) {
 		    	//console.log(data);
 	            //有資料才做
 	            if(data!=""){

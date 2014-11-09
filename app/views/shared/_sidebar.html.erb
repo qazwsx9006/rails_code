@@ -1,5 +1,7 @@
 <div class="sidebar">
 	<%= render 'shared/sidebar_user_info' %>
-	<%= render 'shared/sidebar_post' if signed_in? %>
+	<% if signed_in? && current_user.id==params[:id].to_i %>
+		<%= render 'shared/sidebar_post' %>
+	<% end %>
 	<%= render 'shared/sidebar_think' %>
 </div>

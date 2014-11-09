@@ -1,12 +1,26 @@
 <% provide(:title, "咬我啊") %>
-<% provide(:jsCall, "") %>
+<% provide(:jsCall, "googleMap(0,'#{params[:c]}','#{params[:d]}');".html_safe) %>
 
 <style>
 	.box{
 		text-align: center;
 	}
+	.box .mapBox{
+		width: 100%;
+		height: 450px;
+		background: url('/assets/loading.gif') no-repeat center;
+	}
+	.box .mapBox #map-canvas{
+		width: 100%;
+		height: 100%;
+	}
 </style>
 <div >
+	<div class="box mapall">
+		<div class="mapBox">
+			<div id="map-canvas" class="map-canvas"  onselectstart="return false;"></div>
+		</div>
+	</div>
 	<div class="box">
 		<div class="boxheader">
 			網站更新記錄：
@@ -26,6 +40,11 @@
 				<div>2014-11-8：</div>
 				1.ＰＯ文時，訊息，地址目前為必填<br>
 				2.map顯示圖釘訊息(待調整顯示樣式)
+			</li>
+			<li>
+				<div>2014-11-9：</div>
+				1.個人頁面地圖只顯示該會員的資訊圖釘<br>
+				2.header增加搜尋bar(搜尋該位置的半徑距離內的資訊)
 			</li>
 		</ul>
 	</div>
