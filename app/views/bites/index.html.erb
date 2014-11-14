@@ -26,8 +26,8 @@
 		location:<%= request.location.to_json %><br/>
 		location city:<%= request.location.try(:city) %><br/>
 
-		all<% Favorite.near(request.location,1000).count %>,<% Favorite.near(request.location,1000).class %>,
-		<% Favorite.near(request.location,1000).to_json %>
+		all<%= Favorite.near(request.location,1000).count %>,<%= Favorite.near(request.location,1000).class %>,
+		<%= Favorite.near(request.location,1000).to_json %>
 
 
 	</div>
