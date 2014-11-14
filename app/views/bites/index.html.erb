@@ -22,9 +22,9 @@
 		</div>
 	</div>
 	<div>
-		<%= request.ip %>
-		<%= request.location %>
-		<%= request.location.try(:city) %>
+		ip:<%= request.ip %><br/>
+		location:<%= request.location %><br/>
+		location city:<%= request.location.try(:city) %>
 	</div>
 	<div class="box">
 		<div class="boxheader">
