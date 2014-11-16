@@ -167,7 +167,6 @@ section:after{
 	background: #fad8a8;
 	color: #cb923b;
 	position: relative;
-	cursor: pointer;
 }
 .user .statusbtn li:nth-child(2){
 	background: #8cd1ce;
@@ -345,6 +344,10 @@ section:after{
 .content .favoriteList{
 	width: 100%;
 	margin-top: 10px;
+}
+.content .favoriteList a{
+	text-decoration: none;
+	color: #666;
 }
 .content .favoriteList:after{
 	content: '';

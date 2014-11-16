@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141115070824) do
+ActiveRecord::Schema.define(version: 20141116121607) do
 
   create_table "comments", force: true do |t|
     t.string   "msg"
@@ -38,12 +38,26 @@ ActiveRecord::Schema.define(version: 20141115070824) do
     t.float    "longitude"
   end
 
+  create_table "followings", force: true do |t|
+    t.integer  "following_id"
+    t.integer  "followed_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "foods", force: true do |t|
     t.string   "pic"
     t.string   "name"
     t.string   "coodinate_x"
     t.string   "coodinate_y"
     t.string   "address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "likes", force: true do |t|
+    t.integer  "favorite_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

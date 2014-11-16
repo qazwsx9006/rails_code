@@ -1,4 +1,14 @@
-
+<style>
+	.socialBtn li{
+		padding: 5px;
+	}
+	.socialBtn a{
+		display: inline-block;
+		background: #9fe690;
+		color: #0e6012;
+		padding: 10px;
+	}
+</style>
 <div class="user">
 	<div><%= image_tag("bgapple.jpg", alt: " ") %></div>
 	<div>
@@ -9,8 +19,21 @@
 	<div class="statusbtn">
 		<ul>
 			<li><i class="fa fa-heart" data-num="100"></i></li>
-			<li><i class="fa fa-users" data-num="130"></i></li>
-			<li><i class="fa fa-eye" data-num="210"></i></li>
+			<li><i class="fa fa-users" data-num="<%= @user.followed_count %>"></i></li>
+			<li><i class="fa fa-cutlery" data-num="<%= @user.favorites.count %>"></i></li>
 		</ul>
 	</div>
 </div>
+<% if signed_in? %>
+	<div class="socialBtn">
+		<ul>
+			<li>
+				<% if !current_user.following?(@user) %>
+					<a href="<%= follow_user_path(@user) %>" data-method="post" rel="nofollow"><i class="fa fa-link">加入關注</i></a>
+				<% else %>
+					<a href="<%= unfollow_user_path(@user) %>" data-method="post" rel="nofollow"><i class="fa fa-unlink">取消關注</i></a>
+				<% end %>
+			</li>
+		</ul>
+	</div>
+<% end %>

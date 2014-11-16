@@ -94,6 +94,12 @@
 		<p>
 			<%= @favorite.msg %>
 			<span class="address"><%= "- #{@favorite.address}" unless @favorite.address.blank? %></span>
+			<span>讚數：<%= @likes.size %></span>
+			<% if !@favorite.like?(current_user) %>
+				<a href="<%= like_favorite_path(@favorite) %>" data-method="post" rel="nofollow"><i class="fa fa-link">like this</i></a>
+			<% else %>
+				<a href="<%= unlike_favorite_path(@favorite) %>" data-method="post" rel="nofollow"><i class="fa fa-unlink">unlike this</i></a>
+			<% end %>
 		</p>
 			<%= form_tag comment_favorite_path(@favorite) , onsubmit: "return true;" do %>
 				<textarea name="msg" id="" rows="5" placeholder="<%= signed_in? ? '留言...' : '登入後留言!' %>" <%= 'disabled' if !signed_in? %>></textarea>

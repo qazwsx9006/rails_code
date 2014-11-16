@@ -26,6 +26,11 @@ Teacher::Application.routes.draw do
   match '/avatar', to: 'users#avatar', via: :put
   match '/askcoodinate', to: 'bites#askcoodinate', via: :post
 
+  post '/follow/:id' => 'users#follow', :as => :follow_user
+  post '/unfollow/:id' => 'users#unfollow', :as => :unfollow_user
+  post '/like/:id' => 'favorites#like', :as => :like_favorite
+  post '/unlike/:id' => 'favorites#unlike', :as => :unlike_favorite
+
 
   get '/aws_ec2', to: 'static_page#index'
 

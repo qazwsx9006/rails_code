@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 	before_filter :signed_in_user, only: [:settings, :update, :avatar] #登入才能造訪自己的設定頁面
 	before_filter :signed_out_user, only: [:new, :create] #非登入才能註冊帳號
+	skip_before_filter :save_back_url, only: [:follow,:unfollow]
 
 	def index 
 	end
@@ -50,6 +51,22 @@ class UsersController < ApplicationController
 		current_user.save(validate: false)
 		
 		redirect_to settings_path
+	end
+	def follow
+		@user=current_user
+		@followed_user = User.find_by_id(params[:id])
+	    unless @user.following?(@followed_user)
+	      flash[:error] = '加入特别关注失败' unless @user.follow(@followed_user)
+	    end
+    	redirect_to session[:return_to] || bite_path(params[:id]) || root_path
+	end
+	def unfollow
+	    @user=current_user
+	    @followed_user =  User.find_by_id(params[:id])
+	    if @user.following?(@followed_user)
+	      flash[:error] = '取消特别关注失败' unless @user.unfollow(@followed_user)
+	    end
+		redirect_to session[:return_to] || bite_path(params[:id]) || root_path
 	end
 
   private

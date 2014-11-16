@@ -35,6 +35,14 @@ class User < ActiveRecord::Base
 	has_many :favorites , foreign_key: "user_id"
 	has_many :comments , foreign_key: "user_id"
 
+	has_many :followed_relationships, :class_name => 'Following', :foreign_key => 'followed_id', :dependent => :destroy
+ 	has_many :follower_relationships, :class_name => 'Following', :foreign_key => 'following_id', :dependent => :destroy
+
+ 	has_many :followeds, :through => :followed_relationships
+ 	has_many :follow_users, :through => :follower_relationships
+
+ 	has_many :likes, :class_name => 'Like', :foreign_key => 'user_id', :dependent => :destroy
+
 	validates :account, presence: true, uniqueness: { case_sensitive: false }
 	validates :password, presence: true
 	validates :password_confirmation, presence: true
@@ -63,5 +71,51 @@ class User < ActiveRecord::Base
 			return self.avatar.url(size)
 		end
 	end
+
+  #follow	
+  def follow(user)
+    self.follow_users << user and true
+  end
+
+  def unfollow(user)
+    user.followeds.delete(self) and true
+  end
+
+  def following?(user)
+	self.follower_relationships.where(:followed_id => user.id).exists?
+  end
+
+  def followed_by?(user)
+    self.followed_relationships.where(:following_id => user.id).exists?
+  end
+
+  def follower_count
+    @follower_count ||= self.follower_relationships.count
+  #  self.follower_relationships.count
+  end
+
+  def followed_count
+    @followed_user_count ||= self.followed_relationships.count
+  #  self.followed_relationships.count
+  end
+
+  def follower_ids
+    @follower_ids ||= self.follower_relationships.collect(&:followed_id)
+  end
+
+  def followed_ids
+    @followed_ids ||= self.followed_relationships.collect(&:following_id)
+   # self.followed_relationships.collect(&:followed_user_id)
+  end
+
+  # def followed_topic_timeline(num=10)
+  #   # FIXME: cache this result
+  #   DiscusTopic.where(user_id: self.followed_user_ids, hide: false).order('created_at DESC').limit(num)
+  # end
+  # def recent_followers
+  #   follower_ids = self.follower_relationships.order('created_at DESC').limit(10).pluck(:user_id)
+  #   follower_ids.map { |uid| User.find_cached(uid) }
+  # end
+
 
 end

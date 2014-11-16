@@ -31,6 +31,8 @@ class Favorite < ActiveRecord::Base
 	has_many :comments , foreign_key: "favority_id"
 	belongs_to :users, :class_name => "User", foreign_key: "user_id"
 
+	has_many :likes, :class_name => 'Like', :foreign_key => 'favorite_id', :dependent => :destroy
+
 	geocoded_by :address
 	after_validation :geocode 
 	reverse_geocoded_by :latitude, :longitude
@@ -43,4 +45,19 @@ class Favorite < ActiveRecord::Base
 	end
 	after_validation :reverse_geocode  
 
+	def like(user)
+		l=self.likes.new
+		l.user_id=user.id
+		l.save
+	end
+	def unlike(user)
+		self.likes.where(user_id: user.id).first.delete
+	end
+	def like?(user)
+		!self.likes.where(user_id: user.id).blank?
+	end
+
+	def likes_count
+		@likes_count ||= self.likes.count
+	end
 end
