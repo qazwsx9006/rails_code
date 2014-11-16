@@ -27,7 +27,9 @@ class Favorite < ActiveRecord::Base
 					    :url => "/favorities/:id/:style/:filename",
 					    :path => ":rails_root/public:url"
 	validates_attachment_content_type :pic, :content_type => /\Aimage\/.*\Z/
-	belongs_to :users, foreign_key: "user_id"
+	
+	has_many :comments , foreign_key: "favority_id"
+	belongs_to :users, :class_name => "User", foreign_key: "user_id"
 
 	geocoded_by :address
 	after_validation :geocode 

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_filter :signed_in_user, only: [:settings] #登入才能造訪自己的設定頁面
+	before_filter :signed_in_user, only: [:settings, :update, :avatar] #登入才能造訪自己的設定頁面
 	before_filter :signed_out_user, only: [:new, :create] #非登入才能註冊帳號
 
 	def index 

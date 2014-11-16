@@ -1,4 +1,5 @@
 class BitesController < ApplicationController
+	skip_before_filter :save_back_url, only: [:create, :askcoodinate]
 	def index 
 		
 	end
@@ -12,11 +13,17 @@ class BitesController < ApplicationController
 	end
 	def show 
 		@user=User.find_by_id(params[:id])
-		@favorities=@user.favorites.order(created_at: :desc)
+		if params[:near]=='1'
+			center= params[:location] || request.ip 
+			@favorities=@user.favorites.near(center).offset(params[:from].to_i || 0).limit(10)
+		else
+			@favorities=@user.favorites.order(created_at: :desc).offset(params[:from].to_i || 0).limit(10)
+		end
 	end
 	def askcoodinate
 		if params[:id]
 			if params[:id].to_i.abs==0
+				#首頁
 				if params[:c].blank?
 					center = [25.0479,121.517]
 				else
@@ -29,8 +36,16 @@ class BitesController < ApplicationController
 				end
 				@favorities=Favorite.near(center,distance)
 			else
+				#個人頁
 				@user=User.find_by_id(params[:id])
-				@favorities=@user.favorites #.order(created_at: :desc)
+				if params[:near]=='1'
+					center= params[:location] || request.ip
+					@favorities=@user.favorites.near(center).offset(params[:from].to_i || 0).limit(10)
+				else
+					@favorities=@user.favorites.order(created_at: :desc).offset(params[:from].to_i || 0).limit(10)
+				end
+
+				#@favorities=@user.favorites #.order(created_at: :desc)
 			end
 		else
 			@favorities = Favorite.all

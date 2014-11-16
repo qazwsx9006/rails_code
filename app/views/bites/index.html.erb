@@ -1,5 +1,9 @@
 <% provide(:title, "咬我啊") %>
-<% provide(:jsCall, "googleMap(0,'#{params[:c]}','#{params[:d]}');".html_safe) %>
+<% content_for :jsCall do %>
+  googleMap({
+	user_id:0, center:'<%= params[:c] %>', distance:'<%= params[:d] %>', near:'<%= params[:near] %>', from:'<%= params[:from] %>'
+  });
+<% end %>
 
 <style>
 	.box{

@@ -22,7 +22,18 @@ function contentResize(){
      });
 }
 
-function googleMap(user_id,center,distance){
+function googleMap(option){
+//function googleMap(user_id,center,distance)
+	var user_id = option.user_id,
+		center = option.center,
+		distance = option.distance,
+		from = option.from,
+		near = option.near,
+		isFavorite = option.favorite,
+		favoriteMsg = option.favoriteMsg,
+		favoriteLat = option.favoriteLat,
+		favoriteLon = option.favoriteLon,
+		favoriteAdd = option.favoriteAdd;
 	var map;
 	var markers = [];
 	var inicenter;
@@ -106,10 +117,31 @@ function googleMap(user_id,center,distance){
 		    });
 
 		    var branches = [];
-		    console.log(user_id);
-		    $.post("/askcoodinate", {id: user_id, c: center, d: distance}, function(data) {
+		    if(isFavorite){
+		    	//如果是內容頁，則不post
+		    	var infowindow_a = new google.maps.InfoWindow();
+		    	var latlon_a = new google.maps.LatLng(
+                        parseFloat(favoriteLat), parseFloat(favoriteLon));
+                markers = new google.maps.Marker({
+                    position: latlon_a,
+                    title: favoriteMsg,
+                    //icon: b.icon,
+                    map: map,
+                    zIndex: 1
+                });
+                attachSecretMessage(markers,favoriteAdd,favoriteMsg,'',infowindow_a);
+
+				var bounds = new google.maps.LatLngBounds();
+				bounds.extend(inicenter);
+				bounds.extend(latlon_a);
+                map.fitBounds(bounds);
+		    	
+		    	return
+		    }
+		    $.post("/askcoodinate", {id: user_id, c: center, d: distance, near: near, from: from}, function(data) {
 		    	//console.log(data);
 	            //有資料才做
+	            console.log('psot');
 	            if(data!=""){
 	                for (i = 0; i < data.length; i++) {
 
@@ -138,7 +170,7 @@ function googleMap(user_id,center,distance){
 	                    if ( b == undefined ){
 	                    	continue
 	                    }
-	                    console.dir(b.latlng.lat()+"/"+isNaN(b.latlng.lat()));
+	                    //console.dir(b.latlng.lat()+"/"+isNaN(b.latlng.lat()));
 	                    if(!isNaN(b.latlng.lat())){
 							bounds.extend(b.latlng);
 							//bounds.extend(b.siteLatlng);

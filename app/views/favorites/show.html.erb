@@ -1,0 +1,124 @@
+<% provide(:title, "GiveMeBite - #{@user.nickname}") %>
+<% content_for :jsCall do %>
+  googleMap({favorite: true, favoriteMsg : '<%= @favorite.msg %>', favoriteLat: '<%= @favorite.latitude %>', favoriteLon: '<%= @favorite.longitude %>', favoriteAdd: '<%= @favorite.address %>'});
+  <%= %>
+<% end %>
+<% provide(:jsCall, "contentResize();") %>
+
+<style>
+	.favorite_a{
+		border: 10px solid #fff;
+		background: #fff;
+		font-size: 1.8em;
+	}
+	.favorite_a img{
+		width: 100%;
+		margin: 0 0 3px 0;
+	}
+	.favorite_a .postTime{
+		margin-bottom: 6px;
+		text-align: right;
+		cursor: default;
+		color: #777;
+	}
+	.favorite_a p{
+		margin-bottom: 10px;
+	}
+	.favorite_a .address{
+		cursor: default;
+		color: #888;
+		font-size: .9em;
+	}
+	.favorite_a form:after{
+		content: '';
+		display: block;
+		clear: both;
+	}
+	.favorite_a form{
+		width: 100%;
+	}
+	.favorite_a form textarea{
+		padding: 5px;
+		width: 98%;
+		resize:none;
+		border:none; 
+		background: #f4f4f4;
+		border-bottom: 3px solid #ccc;
+	}
+	.favorite_a form input{
+		border: none;
+		float: right;
+		background: #8cd1ce;
+		color: #0a7969;
+		font-weight: 900;
+		font-size: 1em;
+		padding: 6px 10px;
+		cursor: pointer;
+		position: relative;
+	}
+	.favorite_a form input:hover{
+		background: #9acaee;
+		color: #3a83b8;
+	}
+	.comment{
+		margin-top: 10px;
+		width: 100%;
+	}
+	.comment td{
+		vertical-align:top;
+	}
+	.comment p{
+		padding: 5px;
+	}
+	.comment .image{
+		width: 60px;
+	}
+	.comment img{
+		width: 60px;
+		height: 60px;
+	}
+	.comment span{
+		display: block;
+		text-align: right;
+	}
+</style>
+
+<%= render 'shared/sidebar' %>
+<div class="content">
+	<div class="mapBox">
+		<div id="map-canvas" class="map-canvas"  onselectstart="return false;"></div>
+	</div>
+	<div class="favorite_a">
+		<%= image_tag @favorite.pic.url(:original) %>
+		<div class="postTime"><span class="fa fa-calendar-o">&nbsp;&nbsp;<%= @favorite.created_at.strftime("%F") %></span></div>
+		<p>
+			<%= @favorite.msg %>
+			<span class="address"><%= "- #{@favorite.address}" unless @favorite.address.blank? %></span>
+		</p>
+			<%= form_tag comment_favorite_path(@favorite) , onsubmit: "return true;" do %>
+				<textarea name="msg" id="" rows="5" placeholder="<%= signed_in? ? '留言...' : '登入後留言!' %>" <%= 'disabled' if !signed_in? %>></textarea>
+				<% if signed_in? %>
+					<input type="submit" value="送出">
+				<% end %>
+			<% end %>
+		<table class="comment">
+			<% @comments.each do |c| %>
+				<tr>
+					<td class="image">
+						<a href="<%= bite_path(c.users) %>">
+							<%= image_tag c.users.avatar_url(:thumb) %>
+						</a>
+					</td>
+					<td>
+						<p>
+							<%=  c.msg  %>
+						</p>
+						<span>
+							<%= time_between(c.created_at) %>
+						</span>
+					</td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>

@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
 	before_filter :signed_out_user, only: [:new, :create]
+	skip_before_filter :save_back_url
 
 	def new
 	end
@@ -7,7 +8,7 @@ class SessionsController < ApplicationController
 		user = User.find_by_account(params[:user][:account].downcase)
 		if user && user.authenticate(params[:user][:password]) 
 			sign_in_session(user)
-			redirect_to bite_path(current_user)
+			redirect_to session[:return_to] || root_path
 		elsif user
 			@wrong=true
 			render 'new'
@@ -18,7 +19,7 @@ class SessionsController < ApplicationController
 	end
 	def destroy
 		sign_out
-		redirect_to root_path
+		redirect_to session[:return_to] || root_path
 	end
 
 end

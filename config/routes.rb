@@ -4,6 +4,11 @@ Teacher::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   resources :bites
+  resources :favorites do
+    member do
+      post 'comment'
+    end
+  end
   #resources :users
 
 
@@ -20,6 +25,7 @@ Teacher::Application.routes.draw do
   match '/avatar', to: 'users#avatar', via: :patch
   match '/avatar', to: 'users#avatar', via: :put
   match '/askcoodinate', to: 'bites#askcoodinate', via: :post
+
 
   get '/aws_ec2', to: 'static_page#index'
 

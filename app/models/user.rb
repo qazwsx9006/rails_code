@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
 	validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
 	has_many :favorites , foreign_key: "user_id"
+	has_many :comments , foreign_key: "user_id"
 
 	validates :account, presence: true, uniqueness: { case_sensitive: false }
 	validates :password, presence: true
