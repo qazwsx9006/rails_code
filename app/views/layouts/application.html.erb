@@ -11,6 +11,61 @@
 </head>
 <body>
 <%= render 'shared/header' %>
+
+<% if false %>
+	<script>
+	//一鍵下載
+	//需要 zclip.js 以及 ZeroClipboard.swf 幫助
+	//裝上 zclip.js 並將 ZeroClipboard.swf 放到某資料夾(要記得路徑)
+	//這邊我放到 assets/javascript/zclip/ZeroClipboard.swf(rails 認的路徑為 assets/zclip/ZeroClipboard.swf )
+		$(function(){
+			//點擊反藍
+			$('#tmy_b').bind('click', function() {
+			   //$('#tmy_a').select();
+			   SelectText('tmy_c'); 
+			});
+			//點擊複製 透過flash
+		    $('#tmy_b').zclip({
+		        path:'assets/zclip/ZeroClipboard.swf',
+		        copy:function(){
+					return $('#tmy_a').val();
+					//return $('#tmy_a').text();
+				}
+			}).click(function(){
+				//alert($('#tmy_c').text());
+			});
+		})
+		//div,pre 反藍選取
+		//jquery的select() 只能用在 input , textarea
+
+		function SelectText(element) {
+		    var doc = document
+		        , text = doc.getElementById(element)
+		        , range, selection
+		    ;    
+		    if (doc.body.createTextRange) {
+		        range = document.body.createTextRange();
+		        range.moveToElementText(text);
+		        range.select();
+		    } else if (window.getSelection) {
+		        selection = window.getSelection();        
+		        range = document.createRange();
+		        range.selectNodeContents(text);
+		        selection.removeAllRanges();
+		        selection.addRange(range);
+		    }
+		}
+	</script>
+	一鍵下載
+	<div>
+		<textarea name="" id="tmy_a" cols="30" rows="10">
+			copy me sss
+		</textarea>
+		<pre id="tmy_c">&lt;html&gt;</pre>
+		<button id="tmy_b">copy!</button>
+	</div>
+<% end %>
+
 <section>
 	<%= yield %>
 </section>

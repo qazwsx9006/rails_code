@@ -11,7 +11,6 @@ Teacher::Application.routes.draw do
   end
   #resources :users
 
-
   root 'bites#index'
 
   get '/signup', to: 'users#new'
