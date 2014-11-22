@@ -21,6 +21,9 @@ class FavoritesController < ApplicationController
 		favorite=Favorite.find_by_id(params[:id])
 		unless favorite.like?(current_user)
 			favorite.like(current_user)
+			user=favorite.users
+			user.heart_sum+=1
+			user.save(validate: false)
 		end
 		redirect_to session[:return_to] || favorite_path(params[:id]) || root_path
 	end
@@ -28,6 +31,9 @@ class FavoritesController < ApplicationController
 		favorite=Favorite.find_by_id(params[:id])
 		if favorite.like?(current_user)
 			favorite.unlike(current_user)
+			user=favorite.users
+			user.heart_sum-=1
+			user.save(validate: false)
 		end
 		redirect_to session[:return_to] || favorite_path(params[:id]) || root_path
 	end

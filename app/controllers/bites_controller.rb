@@ -15,10 +15,10 @@ class BitesController < ApplicationController
 		@user=User.find_by_id(params[:id])
 		if params[:near]=='1'
 			center= params[:location] || request.ip 
-			@favorities=@user.favorites.near(center).offset(params[:from].to_i || 0).limit(10)
+			@favorities=@user.favorites.includes(:likes).includes(:comments).near(center).offset(params[:from].to_i || 0).limit(10)
 			#u.favorites.includes(:likes).near('taipei').offset(0).limit(10)
 		else
-			@favorities=@user.favorites.order(created_at: :desc).offset(params[:from].to_i || 0).limit(10)
+			@favorities=@user.favorites.includes(:likes).includes(:comments).order(created_at: :desc).offset(params[:from].to_i || 0).limit(10)
 		end
 	end
 	def askcoodinate

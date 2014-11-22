@@ -10,6 +10,11 @@ class UsersController < ApplicationController
 		render 'new', layout: 'signup'
 	end
 	def create
+		if User.find_by_account(params[:user][:account]).present?
+			flash[:signupErr]='already been used'
+			redirect_to signup_path
+			return
+		end
 		@user=User.new(user_params)
 		if @user.save
 			redirect_to bite_path(@user)

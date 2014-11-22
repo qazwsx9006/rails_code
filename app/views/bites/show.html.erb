@@ -13,7 +13,7 @@
 	</div>
 	<div class="favorite">
 		<%= render 'shared/content_subheading' %>
-		<ul class="favoriteList big">
+		<ul class="favoriteList medium">
 			<% @favorities.each do |favority| %>
 				<li>
 					<a href="/favorites/<%= favority.id %>">
@@ -23,6 +23,10 @@
 							<span class="address"><%= "- #{favority.address}" unless favority.address.blank? %></span>
 						</p>
 						<span class="postTime fa fa-calendar-o">&nbsp;&nbsp;<%= favority.created_at.strftime("%F") %></span>
+						<div class="socialInfo">
+							<span class="fa fa-heart">&nbsp;&nbsp;<%= favority.likes.size %></span>
+							<span class="fa fa-comments">&nbsp;&nbsp;<%= favority.comments.size  %></span>
+						</div>
 					</a>
 				</li>
 			<% end %>

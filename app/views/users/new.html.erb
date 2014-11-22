@@ -10,25 +10,34 @@
 	<li><%= image_tag("b5.jpg", alt: " " ) %></li>
 </ul>
 <!--首頁登入-->
+<% if !flash[:signupErr].blank? %>
+	<script>
+		$(function(){
+			$('.indexInfo').addClass('signUpError').delay(400).queue(function(){
+				$(this).removeClass("signUpError").dequeue();
+			});
+		})
+	</script>
+<% end %>
 <div class="indexInfo">
 	<h1>Give Me Bite</h1>
 	<h2>一起來咬美食吧！</h2>
-	<%= form_tag signup_path do %>
+	<%= form_tag signup_path , {:onSubmit => 'return logIn(this);'} do %>
 		<div class="inputBox">
-			<input type="text" id="nickname" name="user[nickname]" placeholder="Nickname">
-			<label for="nickname"  data-tip="Nickname"></label>
+			<input type="text" id="nickname" name="user[nickname]" placeholder="Nickname" maxlength="6">
+			<label for="nickname" data-tip="Nickname" data-tipB="Nickname" data-error=""></label>
 		</div>
 		<div class="inputBox">
-			<input type="text" id="account" name="user[account]" placeholder="Account">
-			<label for="account"  data-tip="Account"></label>
+			<input type="text" id="account" name="user[account]" placeholder="Account (ex:example@givemebite.me)">
+			<label for="account"  data-tip="Account" data-tipB="Account (ex:example@givemebite.me)" data-error="<%= flash[:signupErr] %>"></label>
 		</div>
 		<div class="inputBox">
-			<input type="password" id="password" name="user[password]" placeholder="Password">
-			<label for="password" data-tip="Password"></label>
+			<input type="password" id="password" name="user[password]" placeholder="Password (需為英數且開頭為英文。6~12碼)" maxlength="12">
+			<label for="password" data-tip="Password" data-tipB="PassWord (需為英數且開頭為英文。6~12碼)" data-error=""></label>
 		</div>
 		<div class="inputBox">
-			<input type="password" id="password_confirmation" name="user[password_confirmation]" placeholder="Password_confirmation">
-			<label for="password_confirmation" data-tip="Password_confirmation"></label>
+			<input type="password" id="password_confirmation" name="user[password_confirmation]" placeholder="Password_confirmation" maxlength="12">
+			<label for="password_confirmation" data-tip="Password_confirmation" data-tipB="Password_confirmation" data-error=""></label>
 		</div>
 		<br/>
 		<label for="submit" class="submit">會員註冊</label>
@@ -39,4 +48,6 @@
 	<% end %>
 	<span class="bottomTooth"></span>
 </div>
+<!--
 <footer></footer>
+-->

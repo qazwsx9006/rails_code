@@ -20,6 +20,23 @@
 		text-align: right;
 		cursor: default;
 		color: #777;
+		position: relative;
+	}
+	.favorite_a .postTime ul{
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	.favorite_a .postTime ul li{
+		display: inline-block;
+		margin-left:10px; 
+	}
+	.favorite_a .postTime ul li:first-child{
+		color: #de4467;
+	}
+	.favorite_a .postTime ul li:last-child{
+		color: #de7244;
 	}
 	.favorite_a p{
 		margin-bottom: 10px;
@@ -60,6 +77,20 @@
 		background: #9acaee;
 		color: #3a83b8;
 	}
+	.favorite_a form .likeBtn{
+		float: right;
+		margin-right: 10px;
+		display: inline-block;
+		background: #80b5de;
+		font-size: 1em;
+		padding: 8px 10px;
+		cursor: pointer;
+		color: #fff;
+		text-decoration: none;
+	}
+	.favorite_a form .likeBtn:hover{
+		background: #8dc1f3;
+	}
 	.comment{
 		margin-top: 10px;
 		width: 100%;
@@ -90,21 +121,26 @@
 	</div>
 	<div class="favorite_a">
 		<%= image_tag @favorite.pic.url(:original) %>
-		<div class="postTime"><span class="fa fa-calendar-o">&nbsp;&nbsp;<%= @favorite.created_at.strftime("%F") %></span></div>
+		<div class="postTime">
+			<ul>
+				<li><i class="fa fa-heart"></i>&nbsp;<%= @likes.size %></li>
+				<li><i class="fa fa-comments">&nbsp;<%= @comments.size %></i></li>
+			</ul>
+			<span class="fa fa-calendar-o">&nbsp;&nbsp;<%= @favorite.created_at.strftime("%F") %></span>
+		</div>
 		<p>
 			<%= @favorite.msg %>
 			<span class="address"><%= "- #{@favorite.address}" unless @favorite.address.blank? %></span>
-			<span>讚數：<%= @likes.size %></span>
-			<% if !@favorite.like?(current_user) %>
-				<a href="<%= like_favorite_path(@favorite) %>" data-method="post" rel="nofollow"><i class="fa fa-link">like this</i></a>
-			<% else %>
-				<a href="<%= unlike_favorite_path(@favorite) %>" data-method="post" rel="nofollow"><i class="fa fa-unlink">unlike this</i></a>
-			<% end %>
 		</p>
 			<%= form_tag comment_favorite_path(@favorite) , onsubmit: "return true;" do %>
 				<textarea name="msg" id="" rows="5" placeholder="<%= signed_in? ? '留言...' : '登入後留言!' %>" <%= 'disabled' if !signed_in? %>></textarea>
 				<% if signed_in? %>
 					<input type="submit" value="送出">
+					<% if !@favorite.like?(current_user) %>
+						<a class="likeBtn" href="<%= like_favorite_path(@favorite) %>" data-method="post" rel="nofollow">喜歡</a>
+					<% else %>
+						<a  class="likeBtn" href="<%= unlike_favorite_path(@favorite) %>" data-method="post" rel="nofollow">收回喜歡</a>
+					<% end %>
 				<% end %>
 			<% end %>
 		<table class="comment">

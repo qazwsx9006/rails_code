@@ -1,6 +1,56 @@
 /*version tmy20140921*/
 /*version tmy20141010*/
 
+function logIn(e){
+	var $nickname=$(e).find('#nickname'),
+		$account=$(e).find('#account'),
+		$password=$(e).find('#password'),
+		$password_confirmation=$(e).find('#password_confirmation'),
+		submit=true,
+		emailPattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
+		pwPattern= /^[a-zA-Z]{1}[a-zA-Z0-9]{5,11}$/;
+		
+	if($.trim($nickname.val())==''){
+		submit=false;
+		$nickname.next().attr('data-error','暱稱不可為空');
+	}else{
+		$nickname.next().attr('data-error','');
+	}
+	if($.trim($account.val())==''){
+		submit=false;
+		$account.next().attr('data-error','帳號不可為空');
+	}else if (!emailPattern.test($account.val())){
+	  	submit=false;
+	  	$account.next().attr('data-error','帳號格式錯誤(email)');
+	}else{
+		$account.next().attr('data-error','');
+	}
+
+	if($.trim($password.val())==''){
+		submit=false;
+		$password.next().attr('data-error','密碼不可為空');
+	}else if (!pwPattern.test($password.val())){
+	  	submit=false;
+	  	$password.next().attr('data-error','密碼格式錯誤');
+	}else{
+		$password.next().attr('data-error','');
+		if($password.val()!=$password_confirmation.val()){
+			submit=false;
+			$password_confirmation.next().attr('data-error','確認密碼不符合');
+		}else{
+			$password_confirmation.next().attr('data-error','');
+		}
+	}
+	if (submit) {
+		return true;
+	}else{
+		$('.indexInfo').addClass('signUpError').delay(400).queue(function(){
+			$(this).removeClass("signUpError").dequeue();
+		});
+		return false;
+	};
+}
+
 function contentResize(){
 	 contentWidth();
       $(window).resize(function(){
@@ -216,7 +266,7 @@ function inputAct(){
 		$(this).attr('placeholder','');
 	});
 	$( "input" ).blur(function() {
-		var placeHolder = $(this).next().attr('data-tip');
+		var placeHolder = $(this).next().attr('data-tipB');
 		$(this).attr('placeholder',placeHolder);
 	});
 }
