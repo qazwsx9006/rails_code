@@ -443,8 +443,8 @@ section:after{
 }
 .content .favoriteList.big li{
 	width: 450px;
-	padding: 5px;
-	height: 400px;
+	padding: 5px 5px 30px 5px;
+	max-height: 500px;
 	background: #fff;
 	border-radius: 5px;
 	box-shadow: 0 0 5px #aaa;

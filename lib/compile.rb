@@ -10,4 +10,4 @@ puts 'tmy:restart apache'
 
 `sudo service nginx restart`
 
-puts 'end
+puts 'end'
