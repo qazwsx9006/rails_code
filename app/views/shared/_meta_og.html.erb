@@ -1,0 +1,25 @@
+<% content_for :og do %>
+    <meta name="description" content="givemebite!咬我啊！美食分享～！"/>
+    <meta name="keywords" content="givemebite,咬我啊">
+
+  	<meta property="fb:app_id" content="1505138316410533"/>
+    <meta property="og:image:width" content="500"/>
+    <meta property="og:image:height" content="500"/>
+    
+	<% if @user %>
+      <meta property="og:title" content="<%= "#{@user.nickname} - givemebite.me" %>"/>
+     <% else %>
+      <meta property="og:title" content="<%= "givemebite.me" %>"/>
+     <% end %>
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="<%= request.original_url %>"/>
+
+	<% if false %>
+    	<meta property="og:image" content=""/>
+    <% end %>
+    
+    <meta property="og:description" content="老饕的最愛，美食分享，咬我啊！"/>
+    <meta property="og:site_name" content="givenebite-咬我啊"/>
+    <link rel="canonical" href="<%= request.original_url %>"/>
+<% end %>
