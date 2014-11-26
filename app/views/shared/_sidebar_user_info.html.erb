@@ -1,5 +1,5 @@
 <style>
-	.socialBtn li{
+	.socialBtn li,.fbBtn li{
 		padding: 5px 0 5px 5px;
 		display: inline-block;
 	}
@@ -8,6 +8,12 @@
 		background: #9fe690;
 		color: #0e6012;
 		padding: 10px;
+	}
+	.fbBtn div{
+		box-shadow: none;
+	}
+	.fbBtn li{
+		width: 95%;
 	}
 </style>
 <div class="user">
@@ -40,51 +46,9 @@
 			<li>
 				<a href="<%= bite_path(current_user) %>"><i class="fa fa-paper-plane">我的頁面</i></a>
 			</li>
-			<li>
-				<!-- <div class="fb-share-button" data-href="<%= request.url %>" data-layout="button_count"></div> -->
-				<div class="fb-like" data-href="<%= request.url %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-			</li>
-			<li>
-				<a href="javascript:;" id="facebook-share">testMe</a>
-			</li>
 		</ul>
 	</div>
 <% end %>
-
-
-
-
-
-
-<div id="fb-root"></div>
-<script>
-window.fbAsyncInit = function () {
-
-    $('#facebook-share').click(function () {
-        FB.ui({
-            method: 'feed',
-            link: document.URL,
-            caption: 'http://givemebite.me',
-        }, function (response) {
-        	console.log(response)
-            if (response === null) {
-                console.log('post was not shared');
-            } else {
-                console.log('post was shared');
-            }
-        });
-    });
-};
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  // js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&appId=1505138316410533&version=v2.0";
-  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
-
 
 
 
