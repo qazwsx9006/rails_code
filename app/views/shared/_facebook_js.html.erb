@@ -3,6 +3,12 @@
 window.fbAsyncInit = function () {
 
 	//這邊需要app_id
+	$('#fbLogout').click(function(){
+		FB.logout(function(response) {
+			console.log(response);
+		  // user is now logged out
+		});
+	});
     $('#facebook-share').click(function () {
     	FB.getLoginStatus(function(response) {
     		console.log(response);
