@@ -1,0 +1,38 @@
+<div id="fb-root"></div>
+<script>
+window.fbAsyncInit = function () {
+
+    $('#facebook-share').click(function () {
+        FB.ui({
+            method: 'feed',
+            link: document.URL,
+            caption: 'http://givemebite.me',
+        }, function (response) {
+        	console.log(response)
+            if (response === null) {
+                console.log('post was not shared');
+            } else {
+                console.log('post was shared');
+            }
+        });
+    });
+
+    //這邊不一定要有app_id
+    var page_like_or_unlike_callback = function(url, html_element) {
+	  console.log("page_like_or_unlike_callback");
+	  console.log(url);
+	  console.log(html_element);
+	}
+	FB.Event.subscribe('edge.create', page_like_or_unlike_callback);
+	FB.Event.subscribe('edge.remove', page_like_or_unlike_callback);
+	//
+};
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  //js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&appId=1505138316410533&version=v2.0";
+  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
