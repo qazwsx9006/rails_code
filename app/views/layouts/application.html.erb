@@ -8,6 +8,7 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&sensor=false"></script>
   <%= csrf_meta_tags %>
+  <%= content_for?(:og) ? yield(:og) : '' %>
 </head>
 <body>
 <%= render 'shared/header' %>
