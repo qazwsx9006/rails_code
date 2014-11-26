@@ -15,6 +15,12 @@ window.fbAsyncInit = function () {
 		    var uid = response.authResponse.userID;
 		    var accessToken = response.authResponse.accessToken;
 		  } else if (response.status === 'not_authorized') {
+		  	FB.login(function(response) {
+			   console.log(response);
+			 }, {
+			   scope: 'publish_actions', 
+			   return_scopes: true
+			 });
 		    // the user is logged in to Facebook, 
 		    // but has not authenticated your app
 		  } else {
