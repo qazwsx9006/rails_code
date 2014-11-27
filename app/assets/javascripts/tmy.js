@@ -55,6 +55,8 @@ function contentResize(){
 	 contentWidth();
       $(window).resize(function(){
         contentWidth();
+        $('#fb-comments').find('span').width('100%');
+        $('#fb-comments').find('iframe').width('100%');//修改ＦＢ外掛留言視窗寬度
       });
 
     function contentWidth(){
