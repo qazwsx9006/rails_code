@@ -1,7 +1,6 @@
 <div id="fb-root"></div>
 <script>
 window.fbAsyncInit = function () {
-
 	//這邊需要app_id
 	FB.getLoginStatus(function(response) {
 		console.log(response);
@@ -13,6 +12,36 @@ window.fbAsyncInit = function () {
 	    // and signed request each expire
 	    var uid = response.authResponse.userID;
 	    var accessToken = response.authResponse.accessToken;
+
+	    //獲取使用者資訊
+	    FB.api('/me', function(response) {
+		  console.log(response);
+		});
+		//使用者ＰＯ文在自己的塗鴉牆
+		FB.api('/me/feed', 'post', { message: 'test' }, function(response) {
+		  if (!response || response.error) {
+		    alert('Error occured');
+		  } else {
+		    alert('Post ID: ' + response.id);
+		  }
+		});
+
+		//appid:1484036951884674
+		/* make the API call */
+		FB.api(
+		    "/1484036951884674/feed",
+		    "POST",
+		    {
+		        "message": "This is a test message"
+		    },
+		    function (response) {
+		    	console.log(response);
+		      if (response && !response.error) {
+		        /* handle the result */
+		      }
+		    }
+		);
+
 
 	    $('#fbLogin').hide();
 	    $('#fbLogout').show();
