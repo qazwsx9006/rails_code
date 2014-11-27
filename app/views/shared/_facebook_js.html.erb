@@ -99,6 +99,14 @@ window.fbAsyncInit = function () {
 	}
 	FB.Event.subscribe('edge.create', page_like_or_unlike_callback);
 	FB.Event.subscribe('edge.remove', page_like_or_unlike_callback);
+
+    var page_comment_callback = function(url, html_element) {
+	  console.log("page_comment_callback");
+	  console.log(url);
+	  console.log(html_element);
+	}
+	FB.Event.subscribe('comment.create', page_comment_callback);
+	FB.Event.subscribe('comment.remove', page_comment_callback);
 	//end
 };
 (function(d, s, id) {
