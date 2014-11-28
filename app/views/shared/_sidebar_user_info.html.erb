@@ -1,19 +1,26 @@
 <style>
-	.socialBtn li,.fbBtn li{
-		padding: 5px 0 5px 5px;
+	.socialBtn ul{
+		padding: 0 5px;
+	}
+	.socialBtn li{
+		padding: 5px 0 5px 0px;
 		display: inline-block;
+		width: 32%;
+	}
+	.socialBtn li .fa:before{
+		margin-right: 5px;
 	}
 	.socialBtn a{
 		display: inline-block;
 		background: #9fe690;
 		color: #0e6012;
-		padding: 10px;
+		padding: 10px 0;
+		width: 100%;
+		text-align: center;
 	}
-	.fbBtn div{
-		box-shadow: none;
-	}
-	.fbBtn li{
-		width: 95%;
+	#facebook-share{
+		background: #358fc9;
+		color: #fff;
 	}
 </style>
 <div class="user">
@@ -31,9 +38,9 @@
 		</ul>
 	</div>
 </div>
-<% if signed_in? %>
-	<div class="socialBtn">
-		<ul>
+<div class="socialBtn">
+	<ul>
+		<% if signed_in? %>
 			<% if current_user != @user %>
 				<li>
 					<% if !current_user.following?(@user) %>
@@ -46,9 +53,13 @@
 			<li>
 				<a href="<%= bite_path(current_user) %>"><i class="fa fa-paper-plane">我的頁面</i></a>
 			</li>
-		</ul>
-	</div>
-<% end %>
+		<% end %>
+		<li>
+			<a id="facebook-share" href="javascript:;"><i class="fa fa-facebook-square">分享此頁</i></a>
+		</li>
+	</ul>
+</div>
+<%= render 'shared/facebook_js' %>
 
 
 

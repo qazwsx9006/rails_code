@@ -7,6 +7,7 @@ Teacher::Application.routes.draw do
   resources :favorites do
     member do
       post 'comment'
+      post 'more_comment'
     end
   end
   #resources :users

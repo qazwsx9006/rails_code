@@ -3,7 +3,7 @@ class FavoritesController < ApplicationController
 	def show
 		@favorite=Favorite.find_by_id(params[:id])
 		@user=User.find_by_id(@favorite.user_id)
-		@comments = @favorite.comments.includes(:users)
+		@comments = @favorite.comments.includes(:users).offset(0).limit(10)
 		@likes=@favorite.likes.includes(:users)
 	end
 
@@ -17,6 +17,13 @@ class FavoritesController < ApplicationController
 		end
 		redirect_to favorite_path(params[:id])
 	end
+	def more_comment
+		@favorite=Favorite.find_by_id(params[:id])
+		@comments = @favorite.comments.includes(:users).offset(params[:next].to_i).limit(10)
+
+		render 'more_comment',layout: false
+	end
+
 	def like
 		favorite=Favorite.find_by_id(params[:id])
 		unless favorite.like?(current_user)

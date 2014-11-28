@@ -1,5 +1,47 @@
 /*version tmy20140921*/
 /*version tmy20141010*/
+/*version tmy20141128*/
+
+
+function isScrolledIntoView(id){
+	var commentNum=10;
+  	$.ajaxSetup({
+	  headers: {
+	    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+	  }
+	});
+
+	$(window).bind('scroll',function(){
+		commentAjax();
+	});
+
+	function commentAjax() {
+	    var docViewTop = $(window).scrollTop();
+	    var docViewBottom = docViewTop + $(window).height();
+
+	    var elemTop = $('.comment').find('tr').last().offset().top;
+	    var elemBottom = elemTop + $('.comment').find('tr').last().height();
+	    if(docViewBottom>=elemBottom){
+	    	var post_url="/favorites/"+id+"/more_comment";
+	    	$.post( post_url, { next: commentNum }, function( data ) {
+	    		if($.trim(data)==''){
+					$(window).unbind('scroll');
+					$('#loading').hide();
+	    		}else{
+					$(window).unbind('scroll');
+
+	    			$('.comment').find('tbody').append(data);//tbody?
+
+	    			$(window).bind('scroll',function(){
+						commentAjax();
+					});
+	    		};
+			});
+			commentNum+=10;
+	    };
+	}
+}
+
 
 function logIn(e){
 	var $nickname=$(e).find('#nickname'),

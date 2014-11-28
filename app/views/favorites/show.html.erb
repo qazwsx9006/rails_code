@@ -3,7 +3,7 @@
   googleMap({favorite: true, favoriteMsg : '<%= @favorite.msg %>', favoriteLat: '<%= @favorite.latitude %>', favoriteLon: '<%= @favorite.longitude %>', favoriteAdd: '<%= @favorite.address %>'});
   <%= %>
 <% end %>
-<% provide(:jsCall, "contentResize();") %>
+<% provide(:jsCall, "contentResize();isScrolledIntoView(#{@favorite.id});") %>
 <%= render 'shared/meta_og' %>
 
 <style>
@@ -113,6 +113,10 @@
 		display: block;
 		text-align: right;
 	}
+
+	#loading{
+		text-align: center;
+	}
 </style>
 
 <%= render 'shared/sidebar' %>
@@ -125,7 +129,7 @@
 		<div class="postTime">
 			<ul>
 				<li><i class="fa fa-heart"></i>&nbsp;<%= @likes.size %></li>
-				<li><i class="fa fa-comments">&nbsp;<%= @comments.size %></i></li>
+				<li><i class="fa fa-comments">&nbsp;<%= @favorite.comment_sum %></i></li>
 			</ul>
 			<span class="fa fa-calendar-o">&nbsp;&nbsp;<%= @favorite.created_at.strftime("%F") %></span>
 		</div>
@@ -133,7 +137,6 @@
 			<%= @favorite.msg %>
 			<span class="address"><%= "- #{@favorite.address}" unless @favorite.address.blank? %></span>
 		</p>
-		<div id="fb-comments" class="fb-comments" data-href="<%= request.url %>" data-width="100%" data-numposts="5" data-colorscheme="light"></div>
 			<%= form_tag comment_favorite_path(@favorite) , onsubmit: "return true;" do %>
 				<textarea name="msg" id="" rows="5" placeholder="<%= signed_in? ? '留言...' : '登入後留言!' %>" <%= 'disabled' if !signed_in? %>></textarea>
 				<% if signed_in? %>
@@ -164,5 +167,8 @@
 				</tr>
 			<% end %>
 		</table>
+		<div id="loading">
+			loading!
+		</div>
 	</div>
 </div>

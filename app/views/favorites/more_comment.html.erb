@@ -1,0 +1,17 @@
+<% @comments.each do |c| %>
+	<tr>
+		<td class="image">
+			<a href="<%= bite_path(c.users) %>">
+				<%= image_tag c.users.avatar_url(:thumb) %>
+			</a>
+		</td>
+		<td>
+			<p>
+				<%=  c.msg  %>
+			</p>
+			<span>
+				<%= time_between(c.created_at) %>
+			</span>
+		</td>
+	</tr>
+<% end %>
