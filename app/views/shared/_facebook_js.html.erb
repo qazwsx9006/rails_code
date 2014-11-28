@@ -1,77 +1,79 @@
 <div id="fb-root"></div>
 <script>
 window.fbAsyncInit = function () {
-	//這邊需要app_id
-	FB.getLoginStatus(function(response) {
-		console.log(response);
-	  if (response.status === 'connected') {
-	    // the user is logged in and has authenticated your
-	    // app, and response.authResponse supplies
-	    // the user's ID, a valid access token, a signed
-	    // request, and the time the access token 
-	    // and signed request each expire
-	    var uid = response.authResponse.userID;
-	    var accessToken = response.authResponse.accessToken;
-	    //獲取使用者資訊
-	    FB.api('/me', function(response) {
-		  console.log(response);
-		});
-		// //使用者ＰＯ文在自己的塗鴉牆
-		// FB.api('/me/feed', 'post', { message: 'test' }, function(response) {
-		//   if (!response || response.error) {
-		//     alert('Error occured');
-		//   } else {
-		//     alert('Post ID: ' + response.id);
-		//   }
-		// });		
-		/* make the API call */
-		// //fanspage_pageid:1484036951884674(派特網寵物五四三)
-		// FB.api(
-		//     "/1484036951884674/feed",
-		//     "POST",
-		//     {
-		//         "message": "This is a test message"
-		//     },
-		//     function (response) {
-		//     	console.log(response);
-		//       if (response && !response.error) {
-		//         /* handle the result */
-		//       }
-		//     }
-		// );
+	// //這邊需要app_id
+	// FB.getLoginStatus(function(response) {
+	// 	//console.log(response);
+	//   if (response.status === 'connected') {
+	//     // the user is logged in and has authenticated your
+	//     // app, and response.authResponse supplies
+	//     // the user's ID, a valid access token, a signed
+	//     // request, and the time the access token 
+	//     // and signed request each expire
+	//     var uid = response.authResponse.userID;
+	//     var accessToken = response.authResponse.accessToken;
+	    
+	//     //獲取使用者資訊
+	//  //    FB.api('/me', function(response) {
+	// 	//   console.log(response);
+	// 	// });
+
+	// 	// //使用者ＰＯ文在自己的塗鴉牆
+	// 	// FB.api('/me/feed', 'post', { message: 'test' }, function(response) {
+	// 	//   if (!response || response.error) {
+	// 	//     alert('Error occured');
+	// 	//   } else {
+	// 	//     alert('Post ID: ' + response.id);
+	// 	//   }
+	// 	// });		
+	// 	/* make the API call */
+	// 	// //fanspage_pageid:1484036951884674(派特網寵物五四三)
+	// 	// FB.api(
+	// 	//     "/1484036951884674/feed",
+	// 	//     "POST",
+	// 	//     {
+	// 	//         "message": "This is a test message"
+	// 	//     },
+	// 	//     function (response) {
+	// 	//     	console.log(response);
+	// 	//       if (response && !response.error) {
+	// 	//         /* handle the result */
+	// 	//       }
+	// 	//     }
+	// 	// );
 
 
-	    $('#fbLogin').hide();
-	    $('#fbLogout').show();
+	//     $('#fbLogin').hide();
+	//     $('#fbLogout').show();
 
-	  } else if (response.status === 'not_authorized') {
-	    // the user is logged in to Facebook, 
-	    // but has not authenticated your app
-	    $('#fbLogin').show();
-	    $('#fbLogout').hide();
-	  } else {
-	    // the user isn't logged in to Facebook.
-	    $('#fbLogin').show();
-	    $('#fbLogout').hide();
-	  }
-	 });
-	//logout 須先取出 accessToken
-	$('#fbLogout').click(function(){
-		FB.logout(function(response) {
-			console.log(response);
-		  // user is now logged out
-		});
-	});
-	$('#fbLogin').click(function(){
-	  	//登入動作，取得使用者授權
-	  	//Mind you, this should be called from a button. Otherwise, the popup could be blocked.
-	  	FB.login(function(response) {
-		   console.log(response);
-		 }, {
-		   scope: 'public_profile,email,user_friends,publish_actions', 
-		   return_scopes: true
-		 });
-	});
+	//   } else if (response.status === 'not_authorized') {
+	//     // the user is logged in to Facebook, 
+	//     // but has not authenticated your app
+	//     $('#fbLogin').show();
+	//     $('#fbLogout').hide();
+	//   } else {
+	//     // the user isn't logged in to Facebook.
+	//     $('#fbLogin').show();
+	//     $('#fbLogout').hide();
+	//   }
+	//  });
+	// //logout 須先取出 accessToken
+	// $('#fbLogout').click(function(){
+	// 	FB.logout(function(response) {
+	// 		console.log(response);
+	// 	  // user is now logged out
+	// 	});
+	// });
+	// $('#fbLogin').click(function(){
+	//   	//登入動作，取得使用者授權
+	//   	//Mind you, this should be called from a button. Otherwise, the popup could be blocked.
+	//   	FB.login(function(response) {
+	// 	   console.log(response);
+	// 	 }, {
+	// 	   scope: 'public_profile,email,user_friends,publish_actions', 
+	// 	   return_scopes: true
+	// 	 });
+	// });
 	
     $('#facebook-share').click(function () {
         FB.ui({
