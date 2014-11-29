@@ -23,6 +23,23 @@ class BitesController < ApplicationController
 			@favorities=@user.favorites.includes(:likes).order(created_at: :desc).offset(params[:from].to_i || 0).limit(10)
 		end
 	end
+	def more_favorites
+		@user=User.find_by_id(params[:id])
+		if params[:near]=='1'
+			center= params[:location] || request.ip 
+			#@favorities=@user.favorites.includes(:likes).includes(:comments).near(center).offset(params[:from].to_i || 0).limit(10)
+			@favorities=@user.favorites.includes(:likes).near(center).offset(params[:from].to_i || 0).limit(10)
+			#u.favorites.includes(:likes).near('taipei').offset(0).limit(10)
+		else
+			#@favorities=@user.favorites.includes(:likes).includes(:comments).order(created_at: :desc).offset(params[:from].to_i || 0).limit(10)
+			@favorities=@user.favorites.includes(:likes).order(created_at: :desc).offset(params[:from].to_i || 0).limit(10)
+		end
+		render json: {
+		  'json' => @favorities.as_json,
+		    'html' => render_to_string(partial: 'more_favorites.html.erb')
+		}
+		#render 'more_favorites',layout: false
+	end
 	def askcoodinate
 		if params[:id]
 			if params[:id].to_i.abs==0

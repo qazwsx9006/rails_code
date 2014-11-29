@@ -2,8 +2,101 @@
 /*version tmy20141010*/
 /*version tmy20141128*/
 
+function isScrolledIntoView_index(id){
+	if($('.favoriteList').find('li').length==0){
+		//$('#loading').hide();
+		return
+	}
 
+	var commentNum=10;
+  	$.ajaxSetup({
+	  headers: {
+	    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+	  }
+	});
+
+	$(window).bind('scroll',function(){
+		commentAjax();
+	});
+
+	function commentAjax() {
+	    var docViewTop = $(window).scrollTop();
+	    var docViewBottom = docViewTop + $(window).height();
+
+	    var elemTop = $('.favoriteList').find('li').last().offset().top;
+	    var elemBottom = elemTop + $('.favoriteList').find('li').last().height();
+	    if(docViewBottom>=elemTop && typeof(map)!=='undefined'){
+	     	var post_url="/bites/"+id+"/more_favorites";
+	    	$(window).unbind('scroll');
+	    	$.post( post_url, { from: commentNum }, function( data ) {
+	    		if($.trim(data.html)==''){
+					$('#loading').hide();
+	    		}else{
+	    			$('.favoriteList').append(data.html);
+	    			//新增圖釘到地圖上
+	    			var branches=[];
+	                for (i = 0; i < data.json.length; i++) {
+	                	var store = data.json[i];
+	                    branches.push({
+	                        address: store['address'],
+	                        msg: store['msg'],
+	                        pic_file_name: store['pic_file_name'],
+	                        latlng: new google.maps.LatLng(
+	                            parseFloat(store['latitude']), parseFloat(store['longitude'])),
+	                        dist: 0
+	                    });
+	                }
+					var infowindow = new google.maps.InfoWindow();
+					var bounds = new google.maps.LatLngBounds();
+					bounds.extend(inicenter);
+					for (i = commentNum ; i < commentNum+data.json.length; i++) {
+						var b = branches[i-commentNum];
+	                    if ( b == undefined ){
+	                    	continue
+	                    }
+	                    if(!isNaN(b.latlng.lat())){
+							bounds.extend(b.latlng);
+	                    }
+	                    markers[i] = new google.maps.Marker({
+	                        position: b.latlng,
+	                        title: b.msg,
+	                        icon: '/assets/marker_a.png',
+	                        map: map,
+	                        zIndex: 1
+	                    });
+
+	                    $('.favoriteList').children('li').eq(i).hover(function(){
+	                    	if(pre_mk!=""){
+	                    		pre_mk.setAnimation(null);
+	                    		pre_mk.setIcon('/assets/marker_a.png');
+	                    	}
+	                    	var mk = markers[$(this).index()];
+	                    	map.panTo(mk.getPosition());
+	                    	mk.setAnimation(google.maps.Animation.BOUNCE);
+	                    	mk.setIcon('/assets/marker_c.png');
+	                    	pre_mk=mk
+	                    },function(){
+	                    	//hove out
+	                    });
+	                    attachSecretMessage(markers[i],b.address,b.msg,b.pic_file_name,infowindow);
+					}
+	                map.fitBounds(bounds);
+	                //end
+	                console.log(markers);
+	    			$(window).bind('scroll',function(){
+						commentAjax();
+					});
+	    		};
+	    		commentNum+=10;
+			});
+	    };
+	}
+}
 function isScrolledIntoView(id){
+	if($('.comment').find('tr').length==0){
+		$('#loading').hide();
+		return
+	}
 	var commentNum=10;
   	$.ajaxSetup({
 	  headers: {
@@ -128,10 +221,10 @@ function googleMap(option){
 		favoriteLat = option.favoriteLat,
 		favoriteLon = option.favoriteLon,
 		favoriteAdd = option.favoriteAdd;
-	var map;
-	var markers = [];
-	var inicenter;
-
+	window.map;
+	window.markers = [];
+	window.inicenter;
+	window.pre_mk="";
 	var locationStr='媽，我在這!(･∀･)っ'
 	var askbounds;
 	var mapTimeOut;
@@ -198,7 +291,9 @@ function googleMap(option){
 	        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 	        var marker = new google.maps.Marker({
 	            position: inicenter,
-	            map: map
+	            icon: '/assets/marker_d.png',
+	            map: map,
+	            zIndex: 1
 	        });
 	        var infowindow = new google.maps.InfoWindow({
 		        content: "<div style=\"width:130px;padding:5px 0;text-align:center;\">"+locationStr+"</div>"
@@ -219,12 +314,11 @@ function googleMap(option){
                 markers = new google.maps.Marker({
                     position: latlon_a,
                     title: favoriteMsg,
-                    //icon: b.icon,
+                    icon: '/assets/marker_a.png',
                     map: map,
                     zIndex: 1
                 });
                 attachSecretMessage(markers,favoriteAdd,favoriteMsg,'',infowindow_a);
-
 				var bounds = new google.maps.LatLngBounds();
 				bounds.extend(inicenter);
 				bounds.extend(latlon_a);
@@ -235,7 +329,7 @@ function googleMap(option){
 		    $.post("/askcoodinate", {id: user_id, c: center, d: distance, near: near, from: from}, function(data) {
 		    	//console.log(data);
 	            //有資料才做
-	            console.log('psot');
+	            console.log('post');
 	            if(data!=""){
 	                for (i = 0; i < data.length; i++) {
 
@@ -272,9 +366,22 @@ function googleMap(option){
 	                    markers[i] = new google.maps.Marker({
 	                        position: b.latlng,
 	                        title: b.msg,
-	                        //icon: b.icon,
+	                        icon: '/assets/marker_a.png',
 	                        map: map,
 	                        zIndex: 1
+	                    });
+	                    $('.favoriteList').children('li').eq(i).hover(function(){
+	                    	if(pre_mk!=""){
+	                    		pre_mk.setAnimation(null);
+	                    		pre_mk.setIcon('/assets/marker_a.png');
+	                    	}
+	                    	var mk = markers[$(this).index()];
+	                    	map.panTo(mk.getPosition());
+	                    	mk.setAnimation(google.maps.Animation.BOUNCE);
+	                    	mk.setIcon('/assets/marker_c.png');
+	                    	pre_mk=mk
+	                    },function(){
+	                    	//hove out
 	                    });
 	                    attachSecretMessage(markers[i],b.address,b.msg,b.pic_file_name,infowindow);
 
@@ -285,6 +392,9 @@ function googleMap(option){
 		    });
 	    }
 	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+}
 	//每一個標記點加入一個視窗資訊的事件處理器
 	function attachSecretMessage(marker, address, msg, pic ,infowindow) {
 	    var cont = "<div id=\"infobox\">"+address+"</div>";
@@ -300,9 +410,6 @@ function googleMap(option){
 	    google.maps.event.addListener(marker, 'click', function() {
 	    });	
 	}
-	google.maps.event.addDomListener(window, 'load', initialize);
-
-}
 
 function inputAct(){
 

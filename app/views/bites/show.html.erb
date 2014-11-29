@@ -4,7 +4,7 @@
 	user_id:<%= @user.id %>, center:'<%= params[:c] %>', distance:'<%= params[:d] %>', near:'<%= params[:near] %>', from:'<%= params[:from] %>'
   });
 <% end %>
-<% provide(:jsCall, "contentResize();") %>
+<% provide(:jsCall, "contentResize();isScrolledIntoView_index(#{@user.id});") %>
 <%= render 'shared/meta_og' %>
 
 <%= render 'shared/sidebar' %>
