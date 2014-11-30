@@ -35,7 +35,7 @@ Teacher::Application.routes.draw do
   post '/like/:id' => 'favorites#like', :as => :like_favorite
   post '/unlike/:id' => 'favorites#unlike', :as => :unlike_favorite
 
-
+  get '/about', to: 'static_page#about'
   get '/aws_ec2', to: 'static_page#index'
 
 

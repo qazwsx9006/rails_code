@@ -4,6 +4,9 @@
 	user_id:0, center:'<%= params[:c] %>', distance:'<%= params[:d] %>', near:'<%= params[:near] %>', from:'<%= params[:from] %>'
   });
 <% end %>
+<% provide(:jsCall, "contentResizeIndex();") %>
+
+
 
 <style>
 	.box{
@@ -23,66 +26,124 @@
 		padding-bottom: 5px;
 		border-bottom: 1px dashed #888;
 	}
+	.index_sidebar{
+		width: 250px;
+		display: inline-block;
+	}
+	.index_sidebar .box{
+		border-radius: 1px;
+	}
+	.index_sidebar .box.fb .fb-like{
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.index_sidebar .box.fb .fb-activity{
+		margin-top: 10px;
+	}
+	.index_content{
+		background: #fff;
+		padding: 10px;
+		width: 670px;
+		display: inline-block;
+		vertical-align: top;
+		margin-left: 10px; 
+	}
+	.index_content .topUsers h3{
+		background: #e9a882;
+		color: #fff;
+		width: 130px;
+		padding: 8px;
+		font-size: 1.8rem; 
+		position: relative;
+		margin-bottom: 10px;
+	}
+	.index_content .topUsers h3:after{
+		content: '';
+		display: block;
+		width: 0;
+		height: 0;
+		border: 20px solid #000;
+		border-color: transparent #fff transparent transparent;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	.index_content .topUsers h3 .fa{
+		font-size: 2.2rem;
+		margin-right: 5px;
+		text-shadow: 0 0 2px #fff;
+	}
+	.index_content .topUsers ul li{
+		display: inline-block;
+		text-align: center;
+		margin:0 20px 20px 0;
+	}
+	.index_content .topUsers ul li a{
+		text-decoration: none;
+	}
+	.index_content .topUsers ul li span{
+		display: inline-block;
+		font-size: 1.5rem;
+		color: #666;
+		position: relative;
+	}
+	.index_content .topUsers ul li span:after{
+		content: '';
+		display: block;
+		width: 100%;
+		height: 2px;
+		background: rgba(50,50,50,.3);
+		box-shadow: 0 0 3px rgba(50,50,50,.3);
+		border-radius: 50%;
+	}
+	.index_content .topUsers ul li .userImg{
+		border:5px solid #fff; 
+		width: 120px;
+		height: 120px;
+		box-shadow: 0 0 5px #aaa;
+		border-radius: 50%;
+		overflow: hidden;
+		margin-bottom: 5px;
+		transition: .6s;
+	}
+	.index_content .topUsers ul li .userImg:hover{
+		border-radius: 0;
+	}
+	.index_content .topUsers ul li .userImg img{
+		width: 100%;
+		height: 100%;
+	}
 </style>
-<div >
+<div class="indexWrap">
 	<div class="box mapall">
 		<div class="mapBox">
 			<div id="map-canvas" class="map-canvas"  onselectstart="return false;"></div>
 		</div>
 	</div>
-	<div>
-	</div>
-	<div class="box">
-		<div class="boxheader">
-			網站更新記錄：
+
+	<div class="index_sidebar">
+		<div class="box fb">
+			你的推薦,是我進步的動力! &nbsp;
+			<div class="fb-like" data-href="<%= root_url %>" data-layout="box_count" data-action="recommend" data-show-faces="true" data-share="false"></div>
+			<div class="fb-activity" data-site="<%= root_url %>" data-width="240" data-action="likes, recommends" data-colorscheme="light" data-header="true"></div>
+			<%= render 'shared/facebook_js' %>
 		</div>
-		<ul>
-			<li>
-				<div>2014-11-1：</div>
-				1.修改登入登出功能<br>
-				2.增加個人頭像圖片上傳功能
-			</li>
-			<li>
-				<div>2014-11-2：</div>
-				1.「分享訊息」功能<br>
-				2.尚未使用地理定位功能
-			</li>
-			<li>
-				<div>2014-11-8：</div>
-				1.ＰＯ文時，訊息，地址目前為必填<br>
-				2.map顯示圖釘訊息(待調整顯示樣式)
-			</li>
-			<li>
-				<div>2014-11-9：</div>
-				1.個人頁面地圖只顯示該會員的資訊圖釘<br>
-				2.header增加搜尋bar(搜尋該位置的半徑距離內的資訊)
-			</li>
-			<li>
-				<div>2014-11-16：</div>
-				    1.分享美食的（內容＆留言）頁<br>
-				    2.留言功能<br>
-				    3.追蹤(關注)功能<br>
-				   	4.like 功能（未完成）
-			</li>
-			<li>
-				<div>2014-11-22：</div>
-					1.前端註冊驗證功能提示<br>
-					2.「喜歡」功能<br>
-				   	3.增加文章喜愛數，評論數<br>
-				   	4.增加會員喜愛數
-			</li>
-			<li>
-				<div>2014-11-28：</div>
-					1.fb 分享按鈕安裝<br>
-					2.內容頁留言預設十個滑到底在load十個留言（lazy load）
-			</li>
-			<li>
-				<div>2014-11-29：</div>
-					<h2>1.改變成真！！！！！！！！！！！！</h2>
-					2.內容頁留言lazyload 修改<br>
-					3.個人頁新增lazyload 功能(loading提示尚未)<br>
-					4.個人頁，滑鼠移到ＰＯ文，地圖icon同步動作（置中，跳躍）
-			</li>
-		</ul>
+	</div>
+	<div class="index_content">
+		<div class="topUsers">
+			<h3><i class="fa fa-child"></i>今日之星</h3>
+			<ul>
+				<% @users.each do |user| %>
+					<li>
+						<a href="<%= bite_path(user) %>">
+							<div class="userImg"><img src="<%= user.avatar_url(:medium) %>" alt=""></div>
+							<span><%= user.nickname %></span>
+						</a>
+					</li>
+				<% end %>
+			</ul>
+
+		</div>
+		<div class="topFavorites"></div>
 	</div>
 </div>

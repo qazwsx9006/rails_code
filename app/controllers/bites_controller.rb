@@ -1,7 +1,7 @@
 class BitesController < ApplicationController
 	skip_before_filter :save_back_url, only: [:create, :askcoodinate]
 	def index 
-		
+		@users=User.all.limit(10)
 	end
 	def create
 		favorities = current_user.favorites.build(favority_params)

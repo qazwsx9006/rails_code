@@ -1,0 +1,82 @@
+<% provide(:title, "關於咬我啊") %>
+
+<style>
+	.box{
+		text-align: center;
+	}
+	.box li{
+		margin-bottom: 5px;
+		padding-bottom: 5px;
+		border-bottom: 1px dashed #888;
+	}
+	.report h2{
+		font-size: 3rem;
+		padding: 10px 0;
+	}
+</style>
+
+<div class="box">
+	<div class="boxheader">
+		網站更新記錄：
+	</div>
+	<ul>
+		<li>
+			<div>2014-11-1：</div>
+			1.修改登入登出功能<br>
+			2.增加個人頭像圖片上傳功能
+		</li>
+		<li>
+			<div>2014-11-2：</div>
+			1.「分享訊息」功能<br>
+			2.尚未使用地理定位功能
+		</li>
+		<li>
+			<div>2014-11-8：</div>
+			1.ＰＯ文時，訊息，地址目前為必填<br>
+			2.map顯示圖釘訊息(待調整顯示樣式)
+		</li>
+		<li>
+			<div>2014-11-9：</div>
+			1.個人頁面地圖只顯示該會員的資訊圖釘<br>
+			2.header增加搜尋bar(搜尋該位置的半徑距離內的資訊)
+		</li>
+		<li>
+			<div>2014-11-16：</div>
+			    1.分享美食的（內容＆留言）頁<br>
+			    2.留言功能<br>
+			    3.追蹤(關注)功能<br>
+			   	4.like 功能（未完成）
+		</li>
+		<li>
+			<div>2014-11-22：</div>
+				1.前端註冊驗證功能提示<br>
+				2.「喜歡」功能<br>
+			   	3.增加文章喜愛數，評論數<br>
+			   	4.增加會員喜愛數
+		</li>
+		<li>
+			<div>2014-11-28：</div>
+				1.fb 分享按鈕安裝<br>
+				2.內容頁留言預設十個滑到底在load十個留言（lazy load）
+		</li>
+		<li>
+			<div>2014-11-29：</div>
+				<h2>1.改變成真！！！！！！！！！！！！</h2>
+				2.內容頁留言lazyload 修改<br>
+				3.個人頁新增lazyload 功能(loading提示尚未)<br>
+				4.個人頁，滑鼠移到ＰＯ文，地圖icon同步動作（置中，跳躍）
+		</li>
+		<li>
+			<div>2014-11-30：</div>
+				1.更新記錄移到/about(新增建議與回應留言-使用fb comments外掛)<br>
+				2.首頁修改，增加ＦＢ推薦按扭，以及ＦＢ活動記錄<br>
+				3.首頁新增今日之星（本日美食待續）
+		</li>
+	</ul>
+</div>
+
+<div class="box report">
+	<h2>建議與回報</h2>
+	<div class="fb-comments" data-href="<%= request.url %>" data-numposts="5" data-colorscheme="light"></div>
+</div>
+<%= render 'shared/facebook_js' %>

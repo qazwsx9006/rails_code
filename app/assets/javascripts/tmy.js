@@ -4,7 +4,7 @@
 
 function isScrolledIntoView_index(id){
 	if($('.favoriteList').find('li').length==0){
-		//$('#loading').hide();
+		$('#loading').hide();
 		return
 	}
 
@@ -82,7 +82,6 @@ function isScrolledIntoView_index(id){
 					}
 	                map.fitBounds(bounds);
 	                //end
-	                console.log(markers);
 	    			$(window).bind('scroll',function(){
 						commentAjax();
 					});
@@ -207,6 +206,18 @@ function contentResize(){
      	var listStyle = $(this).val();
      	$('.favoriteList').removeClass().addClass('favoriteList').addClass(listStyle);
      });
+}
+function contentResizeIndex(){
+	 contentWidth();
+      $(window).resize(function(){
+        contentWidth();
+      });
+
+    function contentWidth(){
+    	var w = $('.indexWrap').width();
+    	var vatContentW = w-290;
+    	$('.index_content').width(vatContentW);
+     };
 }
 
 function googleMap(option){
