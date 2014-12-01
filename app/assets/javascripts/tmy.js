@@ -219,6 +219,18 @@ function contentResizeIndex(){
     	$('.index_content').width(vatContentW);
      };
 }
+function contentResizeSetting(){
+	 contentWidth();
+      $(window).resize(function(){
+        contentWidth();
+      });
+
+    function contentWidth(){
+    	var w = $('section').width();
+    	var vatContentW = w-290;
+    	$('.content').width(vatContentW);
+     };
+}
 
 function googleMap(option){
 //function googleMap(user_id,center,distance)
