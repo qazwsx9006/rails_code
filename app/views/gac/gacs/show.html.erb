@@ -123,11 +123,11 @@
 		.action input[type="radio"]{
 			display: none;
 		}
-		.action input.join_a:checked + label{
+		.action input.play_a:checked + label{
 			background: #5bd952;
 			color: #265c22;
 		}
-		.action input.join_b:checked + label{
+		.action input.play_b:checked + label{
 			background: #67b6cf;
 			color: #386371;
 		}
@@ -174,7 +174,9 @@
 		<h1><i class="fa fa-users"></i>&nbsp;活動通訊錄</h1>
 	</header>
 	<div class="wrap">
-		<div><span>目前漆彈參與人數：</span> <%= @action_count %></div><br/>
+		<div><span>目前回報人數：</span> <%= @action_count %></div>
+		<div><span>漆彈參與人數：</span> <%= @action_count_play %></div>
+		<br/>
 		<ul>
 			<% @gacs.each do |gac| %>
 				<li>
@@ -202,10 +204,10 @@
 					<% gac.actions.each do |act| %>
 						<div class="action" data-act="<%= act.id %>">
 							<h3><i class="fa fa-paper-plane"></i><%= act.name %>活動：</h3>
-							<input type="radio" name="join_<%= act.id %>"value="1" id="join_a_<%= act.id %>" class="join_a" <%= 'checked' if act.join==true %>>
-							<label for="join_a_<%= act.id %>"  class="join" >參加</label>
-							<input type="radio" name="join_<%= act.id %>" value="0" id="join_b_<%= act.id %>" class="join_b_<%= act.id %>" <%= 'checked' if act.join==false %>>
-							<label for="join_b"  class="join" >不參加</label>
+							<input type="radio" name="play_<%= act.id %>"value="1" id="play_a_<%= act.id %>" class="play_a" <%= 'checked' if act.play==true %>>
+							<label for="play_a_<%= act.id %>"  class="play" >參加</label>
+							<input type="radio" name="play_<%= act.id %>" value="0" id="play_b_<%= act.id %>" class="play_b" <%= 'checked' if act.play==false %>>
+							<label for="play_b_<%= act.id %>"  class="play" >不參加</label>
 						</div>
 					<% end %>
 				</li>
@@ -288,16 +290,17 @@
 	     };	
 
 
-	     $('.join').click(function(){
+	     $('.play').click(function(){
 	     		if(!$(this).prev()[0].checked){
 		     		var value=$(this).prev().val();
 		     		var id=$(this).parents('.action').attr('data-act');
 		     		url="/act/"+id+"/edit";
-		     		$.post(url,{join: value},function(data){
+		     		$.post(url,{play: value},function(data){
 		     			if(data=='err'){
 		     				alert('伺服器錯誤');
 		     			}else{
 		     				console.log(data);
+		     				location.reload();
 		     			}
 		     		})
 	     		};
