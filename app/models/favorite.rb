@@ -17,6 +17,7 @@
 #  pic_updated_at   :datetime
 #  latitude         :float
 #  longitude        :float
+#  comment_sum      :integer          default(0)
 #
 
 class Favorite < ActiveRecord::Base

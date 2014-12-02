@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>ntnu gac 通訊錄</title>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <%= javascript_include_tag "application"%>
+  <%= csrf_meta_tags %>
+	<style>
+		html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align: baseline;}
+		header{
+			text-align: center;
+			padding: 10px;
+			background: #b5a797;
+		}
+		header h1{
+			color: #fff;
+			font-size: 2rem;
+		}
+		.wrap{
+			width: 90%;
+			max-width:800px ;
+			margin: 10px auto 0;
+			padding: 10px;
+		}
+		.wrap ul{
+			list-style: none;
+		}
+		.wrap li{
+			margin-bottom: 10px;
+			background: rgba(155,155,155,.5);
+			padding: 5px;
+			border-radius: 5px;
+		}
+		.wrap li .image{
+			display: inline-block;
+			width: 100px;
+		}
+		.wrap li .image img{
+			width: 100%;
+		}
+		.wrap li dl{
+			display: inline-block;
+			vertical-align: top;
+			margin-left: 30px;
+		}
+		.wrap li dt,.wrap li dd{
+		line-height: 2em;
+		clear: both;
+		border-bottom: 1px dashed #999;
+		}
+		.wrap li dt{
+			width: 120px;
+			float: left;
+			text-align: right;
+			color: #2C6054;
+		}
+		.wrap li dt:after{
+			content:'：';
+		}
+		.wrap li dd{
+			display: inline-block;
+			width: 63%;
+			text-align: left;
+			margin: 0;
+			color: #333;
+		}
+		.wrap li dd:before{
+			content: '　';
+			margin-left: -1em; 
+		}
+		.action{
+			padding: 10px;
+			margin-top: 5px;
+			height: 40px;
+			line-height: 40px;;
+		}
+		.action h3{
+			display: inline-block;
+			width: 125px
+		}
+		.action label{
+			padding: 0;
+			display: inline-block;
+			text-align: center;
+			background: #999;
+			color: #fff;
+			max-width: 80px;
+			width: 20%;
+			margin-right:10px; 
+			position: relative;
+			border-radius: 5px;
+			cursor: pointer;
+			top: 0;
+			transition: .1s;
+		}
+		.action label:after{
+			content: '';
+			display: block;
+			background: #666;
+			border-radius: 5px;
+			width: 100%;
+			height: 10px;
+			position: absolute;
+			z-index: -1;
+			bottom: 0;
+			transition: .1s;
+		}
+		.action label:hover{
+			top: -5px;
+		}
+		.action label:hover:after{
+			bottom: -5px;
+		}
+		.action label:active{
+			top: -2px;
+		}
+		.action label:active:after{
+			bottom: -2px;
+		}
+		.action input[type="radio"]{
+			display: none;
+		}
+		.action input#join_a:checked + label{
+			background: #5bd952;
+			color: #265c22;
+		}
+		.action input#join_b:checked + label{
+			background: #67b6cf;
+			color: #386371;
+		}
+		#addGac{
+			background: #eee;
+			box-shadow: 0 0 5px #999;
+		}
+		#addGac input[type="text"]{
+			width: 80%;
+		}
+		#addGac input[type="submit"]{
+			border: none;
+			display: inline-block;
+			background: #aaa;
+			padding: 10px 20px;
+			font-size: 1rem;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+		#addGac input[type="submit"]:hover{
+			background: #111;
+			color: #fff;
+		}
+		#addGac form{
+			display: inline-block;
+			vertical-align: top;
+		}
+		#addGac .action{
+			margin-left: 20px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1><i class="fa fa-users"></i>&nbsp;活動通訊錄</h1>
+	</header>
+	<div class="wrap">
+		<ul>
+			<% @gacs.each do |gac| %>
+				<li>
+					<div class="image">
+						<img src="/assets/default_avatar.jpg" alt="">
+					</div>
+					<dl>
+						<dt>姓名</dt>
+						<dd><%= gac.name %></dd>
+						<dt>電話</dt>
+						<dd><%= gac.phone %></dd>
+						<dt>年齡</dt>
+						<dd><%= gac.age %> 歲</dd>
+						<dt>系級</dt>
+						<dd><%= gac.grade %> 級</dd>
+						<dt>地址</dt>
+						<dd><%= gac.add %></dd>
+						<dt>facebook</dt>
+						<dd><%= gac.fb %></dd>
+						<dt>line</dt>
+						<dd><%= gac.line %></dd>
+						<dt>其他</dt>
+						<dd><%= gac.other %></dd>
+					</dl>
+					<% gac.actions.each do |act| %>
+						<div class="action" data-act="<%= act.id %>">
+							<h3><i class="fa fa-paper-plane"></i><%= act.name %>活動：</h3>
+							<input type="radio" name="join"value="1" id="join_a" <%= 'checked' if act.join==true %>>
+							<label for="join_a"  class="join" >參加</label>
+							<input type="radio" name="join" value="0" id="join_b" <%= 'checked' if act.join==false %>>
+							<label for="join_b"  class="join" >不參加</label>
+						</div>
+					<% end %>
+				</li>
+			<% end %>
+			<li id="addGac">
+				<div class="image">
+					<img src="/assets/default_avatar.jpg" alt="">
+				</div>
+				<%= form_tag gac_path , multipart: true, onsubmit: "return check(this);" do %>
+					<dl>
+						<dt>姓名</dt>
+						<dd><input type="text" name="gac[name]" id="name" placeholder=""></dd>
+						<dt>電話</dt>
+						<dd><input type="text" name="gac[phone]" placeholder=""></dd>
+						<dt>年齡</dt>
+						<dd>
+							<select name="gac[age]">
+								<% (1..100).each do |i| %>
+									<option value="<%= i %>"><%= i %>歲</option>
+								<% end %>
+							</select>
+						</dd>
+						<dt>系級</dt>
+						<dd>
+							<select name="gac[grade]">
+								<% (89..107).each do |i| %>
+									<option value="<%= i %>"><%= i %>級</option>
+								<% end %>
+							</select>
+						</dd>
+						<dt>地址</dt>
+						<dd><input type="text" name="gac[add]" placeholder=""></dd>
+						<dt>facebook</dt>
+						<dd><input type="text" name="gac[fb]" placeholder=""></dd>
+						<dt>line</dt>
+						<dd><input type="text" name="gac[line]" placeholder=""></dd>
+						<dt>其他</dt>
+						<dd><input type="text" name="gac[other]" placeholder=""></dd>
+					</dl>
+					<div class="action">
+						<input type="submit" name="submit" value="送出" id="submit">
+					</div>
+				<% end %>
+			</li>
+		</ul>
+	</div>
+	<footer></footer>
+	<script>
+	function check(e){
+		var $name=$(e).find('#name');
+		var s=true;
+		if($.trim($name.val())==''){
+			s=false;
+			alert('姓名不可留白');
+			$name.css({
+				"border":"1px solid #f00",
+				"box-shadow":"0 0 3px #f00"
+			});
+		};
+		return s;
+
+	}
+	$(function(){
+
+	  	$.ajaxSetup({
+		  headers: {
+		    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+		  }
+		});
+
+		 contentWidth();
+	      $(window).resize(function(){
+	        contentWidth();
+	      });
+
+	    function contentWidth(){
+	    	 var w = $('.wrap').width();
+	    	 var vatContentW = w-150;
+	    	$('.wrap').find('dl').width(vatContentW);
+	     };	
+
+
+	     $('.join').click(function(){
+	     		if(!$(this).prev()[0].checked){
+		     		var value=$(this).prev().val();
+		     		var id=$(this).parents('.action').attr('data-act');
+		     		url="/act/"+id+"/edit";
+		     		$.post(url,{join: value},function(data){
+		     			if(data=='err'){
+		     				alert('伺服器錯誤');
+		     			}else{
+		     				console.log(data);
+		     			}
+		     		})
+	     		};
+	     		
+	     });
+	})
+	</script>
+</body>
+</html>

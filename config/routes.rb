@@ -40,6 +40,14 @@ Teacher::Application.routes.draw do
 
 
 
+
+#這邊是gac用
+  get '/gac',to: 'gac/gacs#show'
+  post '/gac',to: 'gac/gacs#create'
+  post '/act/:id/edit',to: 'gac/actions#update', :as => :act_update
+#gac用結束
+
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

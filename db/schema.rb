@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141128131838) do
+ActiveRecord::Schema.define(version: 20141202040817) do
+
+  create_table "actions", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "gac_id"
+    t.boolean  "join"
+  end
 
   create_table "comments", force: true do |t|
     t.string   "msg"
@@ -52,6 +60,19 @@ ActiveRecord::Schema.define(version: 20141128131838) do
     t.string   "coodinate_x"
     t.string   "coodinate_y"
     t.string   "address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "gacs", force: true do |t|
+    t.string   "name"
+    t.integer  "age"
+    t.integer  "grade"
+    t.string   "add"
+    t.string   "phone"
+    t.string   "fb"
+    t.string   "line"
+    t.text     "other"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
