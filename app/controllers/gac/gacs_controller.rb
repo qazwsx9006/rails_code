@@ -2,6 +2,7 @@ class Gac::GacsController < Gac::ApplicationController
 
 	def show
 		@gacs=Gac.all.includes(:actions)
+		@action_count=Action.where("name='漆彈'").count
 	end
 
 	def create

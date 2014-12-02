@@ -157,6 +157,15 @@
 		#addGac .action{
 			margin-left: 20px;
 		}
+		@media screen and (min-width: 320px) and (max-width: 600px){
+			.wrap li dd,.wrap li dt{
+				width: 100%;
+				text-align: center;
+			}
+			.noMobile,.wrap li dd.noMobile{
+				display: none;
+			}
+		}
 	</style>
 </head>
 <body>
@@ -164,6 +173,7 @@
 		<h1><i class="fa fa-users"></i>&nbsp;活動通訊錄</h1>
 	</header>
 	<div class="wrap">
+		<div><span>目前漆彈參與人數：</span> <%= @action_count %></div><br/>
 		<ul>
 			<% @gacs.each do |gac| %>
 				<li>
@@ -173,20 +183,20 @@
 					<dl>
 						<dt>姓名</dt>
 						<dd><%= gac.name %></dd>
-						<dt>電話</dt>
-						<dd><%= gac.phone %></dd>
-						<dt>年齡</dt>
-						<dd><%= gac.age %> 歲</dd>
+						<dt class="noMobile">電話</dt>
+						<dd class="noMobile"><%= gac.phone %></dd>
+						<dt class="noMobile">年齡</dt>
+						<dd class="noMobile"><%= gac.age %> 歲</dd>
 						<dt>系級</dt>
 						<dd><%= gac.grade %> 級</dd>
-						<dt>地址</dt>
-						<dd><%= gac.add %></dd>
-						<dt>facebook</dt>
-						<dd><%= gac.fb %></dd>
-						<dt>line</dt>
-						<dd><%= gac.line %></dd>
-						<dt>其他</dt>
-						<dd><%= gac.other %></dd>
+						<dt class="noMobile">地址</dt>
+						<dd class="noMobile"><%= gac.add %></dd>
+						<dt class="noMobile">facebook</dt>
+						<dd class="noMobile"><%= gac.fb %></dd>
+						<dt class="noMobile">line</dt>
+						<dd class="noMobile"><%= gac.line %></dd>
+						<dt class="noMobile">其他</dt>
+						<dd class="noMobile"><%= gac.other %></dd>
 					</dl>
 					<% gac.actions.each do |act| %>
 						<div class="action" data-act="<%= act.id %>">
