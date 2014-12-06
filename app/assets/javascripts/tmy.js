@@ -349,7 +349,7 @@ function googleMap(option){
 		    	
 		    	return
 		    }
-		    $.post("/askcoodinate", {id: user_id, c: center, d: distance, near: near, from: from}, function(data) {
+		    $.post("/askcoodinate", {id: user_id, c: center, d: distance, near: near, from: from, inilat: inilat, inilnt: inilnt}, function(data) {
 		    	//console.log(data);
 	            //有資料才做
 	            console.log('post');

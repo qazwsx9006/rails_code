@@ -48,7 +48,7 @@
 		vertical-align: top;
 		margin-left: 10px; 
 	}
-	.index_content .topUsers h3{
+	.index_content div h3{
 		background: #e9a882;
 		color: #fff;
 		width: 130px;
@@ -57,7 +57,7 @@
 		position: relative;
 		margin-bottom: 10px;
 	}
-	.index_content .topUsers h3:after{
+	.index_content div h3:after{
 		content: '';
 		display: block;
 		width: 0;
@@ -68,26 +68,26 @@
 		right: 0;
 		top: 0;
 	}
-	.index_content .topUsers h3 .fa{
+	.index_content div h3 .fa{
 		font-size: 2.2rem;
 		margin-right: 5px;
 		text-shadow: 0 0 2px #fff;
 	}
-	.index_content .topUsers ul li{
+	.index_content div ul li{
 		display: inline-block;
 		text-align: center;
 		margin:0 20px 20px 0;
 	}
-	.index_content .topUsers ul li a{
+	.index_content div ul li a{
 		text-decoration: none;
 	}
-	.index_content .topUsers ul li span{
+	.index_content div ul li span{
 		display: inline-block;
 		font-size: 1.5rem;
 		color: #666;
 		position: relative;
 	}
-	.index_content .topUsers ul li span:after{
+	.index_content div ul li span:after{
 		content: '';
 		display: block;
 		width: 100%;
@@ -96,7 +96,7 @@
 		box-shadow: 0 0 3px rgba(50,50,50,.3);
 		border-radius: 50%;
 	}
-	.index_content .topUsers ul li .userImg{
+	.index_content div ul li .userImg{
 		border:5px solid #fff; 
 		width: 120px;
 		height: 120px;
@@ -106,12 +106,24 @@
 		margin-bottom: 5px;
 		transition: .6s;
 	}
-	.index_content .topUsers ul li .userImg:hover{
+	.index_content div ul li .userImg:hover{
 		border-radius: 0;
 	}
-	.index_content .topUsers ul li .userImg img{
+	.index_content div ul li .userImg img{
 		width: 100%;
 		height: 100%;
+	}
+	.index_content .topFavorites h3{
+		background: #ff424a;
+	}
+	.index_content .topFavorites span{
+		color: #ff4341;
+	}
+	.index_content .topFavorites span:after{
+		margin-top: 5px;
+	}
+	.index_content .topFavorites span .fa{
+		margin-right: 5px;
 	}
 </style>
 <div class="indexWrap">
@@ -144,6 +156,18 @@
 			</ul>
 
 		</div>
-		<div class="topFavorites"></div>
+		<div class="topFavorites">
+			<h3><i class="fa fa-star"></i>鄰近美食</h3>
+			<ul>
+				<% @favorites.each do |favorite| %>
+					<li>
+						<a href="<%= favorite_path(favorite) %>">
+							<div class="userImg"><img src="<%= favorite.pic.url(:original) %>" alt=""></div>
+							<span><i class="fa fa-heart"></i><%= favorite.likes.size %></span>
+						</a>
+					</li>
+				<% end %>
+			</ul>
+		</div>
 	</div>
 </div>

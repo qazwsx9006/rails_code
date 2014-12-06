@@ -2,6 +2,16 @@ class BitesController < ApplicationController
 	skip_before_filter :save_back_url, only: [:create, :askcoodinate]
 	def index 
 		@users=User.all.limit(10)
+		if params[:c].blank?
+			#center = session[:location]  || '臺北' || request.ip
+			center = session[:location] || request.ip || '臺北'
+		else
+			center = params[:c] 
+		end
+		distance = params[:d].blank? ? 500 : params[:d]
+		#@favorites=Favorite.includes(:likes).near(center,distance).limit(10)
+		@favorites=Favorite.where("pic_file_name IS NOT NULL").includes(:likes).near(center,distance).limit(10)
+		session[:index_facorites]=@favorites.map(&:id)
 	end
 	def create
 		favorities = current_user.favorites.build(favority_params)
@@ -44,17 +54,7 @@ class BitesController < ApplicationController
 		if params[:id]
 			if params[:id].to_i.abs==0
 				#首頁
-				if params[:c].blank?
-					center = [25.0479,121.517]
-				else
-					center = params[:c]
-				end
-				if params[:d].blank?
-					distance = 500
-				else
-					distance = params[:d]
-				end
-				@favorities=Favorite.near(center,distance)
+				@favorities=Favorite.where(id: session[:index_facorites]).includes(:likes)
 			else
 				#個人頁
 				@user=User.find_by_id(params[:id])
@@ -71,6 +71,9 @@ class BitesController < ApplicationController
 			@favorities = Favorite.all
 		end
 
+		if !params[:inilat].blank? && !params[:inilnt].blank?
+			session[:location]=[params[:inilat].to_f,params[:inilnt].to_f]
+		end
 
 		#if params[:search].present?
 		#	@favorities = Favorite.near(params[:search], 500, :order => :distance)#距離判斷遠近
