@@ -40,7 +40,8 @@ function isScrolledIntoView_index(id){
 	                    branches.push({
 	                        address: store['address'],
 	                        msg: store['msg'],
-	                        pic_file_name: store['pic_file_name'],
+	                        f_id: store['id'],
+	                        pic_file_name: "/favorities/"+store['id']+"/original/"+store['pic_file_name'],
 	                        latlng: new google.maps.LatLng(
 	                            parseFloat(store['latitude']), parseFloat(store['longitude'])),
 	                        dist: 0
@@ -78,7 +79,7 @@ function isScrolledIntoView_index(id){
 	                    },function(){
 	                    	//hove out
 	                    });
-	                    attachSecretMessage(markers[i],b.address,b.msg,b.pic_file_name,infowindow);
+	                    attachSecretMessage(markers[i],b.address,b.msg,b.pic_file_name,infowindow,b.f_id);
 					}
 	                map.fitBounds(bounds);
 	                //end
@@ -364,7 +365,8 @@ function googleMap(option){
 	                    branches.push({
 	                        address: store['address'],
 	                        msg: store['msg'],
-	                        pic_file_name: store['pic_file_name'],
+	                        f_id: store['id'],
+	                        pic_file_name: "/favorities/"+store['id']+"/original/"+store['pic_file_name'],
 	                        latlng: new google.maps.LatLng(
 	                            parseFloat(store['latitude']), parseFloat(store['longitude'])),
 	                        siteLatlng: new google.maps.LatLng(
@@ -393,20 +395,35 @@ function googleMap(option){
 	                        map: map,
 	                        zIndex: 1
 	                    });
-	                    $('.favoriteList').children('li').eq(i).hover(function(){
-	                    	if(pre_mk!=""){
-	                    		pre_mk.setAnimation(null);
-	                    		pre_mk.setIcon('/assets/marker_a.png');
-	                    	}
-	                    	var mk = markers[$(this).index()];
-	                    	map.panTo(mk.getPosition());
-	                    	mk.setAnimation(google.maps.Animation.BOUNCE);
-	                    	mk.setIcon('/assets/marker_c.png');
-	                    	pre_mk=mk
-	                    },function(){
-	                    	//hove out
-	                    });
-	                    attachSecretMessage(markers[i],b.address,b.msg,b.pic_file_name,infowindow);
+	                    if($('.topFavorites').length!=0){
+		                    $('.topFavorites').children('ul').children('li').eq(i).hover(function(){
+		                    	if(pre_mk!=""){
+		                    		pre_mk.setAnimation(null);
+		                    		pre_mk.setIcon('/assets/marker_a.png');
+		                    	}
+		                    	var mk = markers[$(this).index()];
+		                    	map.panTo(mk.getPosition());
+		                    	mk.setAnimation(google.maps.Animation.BOUNCE);
+		                    	mk.setIcon('/assets/marker_c.png');
+		                    	pre_mk=mk;	
+		                    },function(){
+		                    });
+	                    }else{
+		                    $('.favoriteList').children('li').eq(i).hover(function(){
+		                    	if(pre_mk!=""){
+		                    		pre_mk.setAnimation(null);
+		                    		pre_mk.setIcon('/assets/marker_a.png');
+		                    	}
+		                    	var mk = markers[$(this).index()];
+		                    	map.panTo(mk.getPosition());
+		                    	mk.setAnimation(google.maps.Animation.BOUNCE);
+		                    	mk.setIcon('/assets/marker_c.png');
+		                    	pre_mk=mk;
+		                    },function(){
+		                    	//hove out
+		                    });
+	                    }
+	                    attachSecretMessage(markers[i],b.address,b.msg,b.pic_file_name,infowindow,b.f_id);
 
 					}
 
@@ -419,18 +436,29 @@ function googleMap(option){
 
 }
 	//每一個標記點加入一個視窗資訊的事件處理器
-	function attachSecretMessage(marker, address, msg, pic ,infowindow) {
-	    var cont = "<div id=\"infobox\">"+address+"</div>";
+	function attachSecretMessage(marker, address, msg, pic ,infowindow,f_id) {
+		if($('.topFavorites').length==0 && $('.favoriteList').length==0){
+			return; //美食內容頁圖釘暫時不需要視窗。
+		}
+	    var cont = 	"<div id=\"infobox\" class=\"infobox\">"+
+	    				"<div class=\"imagebox\"><img src=\""+pic+"\" alt=\"\"></div>"+
+	    				"<div class=\"infocontent\">"+
+	    					"<a href=\"/favorites/"+f_id+"\"><i  class=\"fa fa-arrow-circle-right arrow\"></i>&nbsp;進入內容</a>"+
+	    				"</div>"+
+	    			"</div>";
 	    google.maps.event.addListener(marker, 'mouseover', function() {
 	    	infowindow.setContent(cont);
 	        infowindow.open(map, this);
 	       	this.setOptions({zIndex:2});
 	    });
-	    google.maps.event.addListener(marker, 'mouseout', function() {
-	        infowindow.close(map, this);
-	       	this.setOptions({zIndex:1});
-	    });
+	    // google.maps.event.addListener(marker, 'mouseout', function() {
+	    //     infowindow.close(map, this);
+	    //    	this.setOptions({zIndex:1});
+	    // });
 	    google.maps.event.addListener(marker, 'click', function() {
+	    	infowindow.setContent(cont);
+	        infowindow.open(map, this);
+	       	this.setOptions({zIndex:2});
 	    });	
 	}
 
