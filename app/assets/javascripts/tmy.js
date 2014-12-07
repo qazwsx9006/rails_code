@@ -37,11 +37,16 @@ function isScrolledIntoView_index(id){
 	    			var branches=[];
 	                for (i = 0; i < data.json.length; i++) {
 	                	var store = data.json[i];
+                        if(store['pic_file_name']==null){
+                        	var pic_url = "/assets/missing.jpg";
+                        }else{
+                        	var pic_url =  "/favorities/"+store['id']+"/original/"+store['pic_file_name'];
+                        };
 	                    branches.push({
 	                        address: store['address'],
 	                        msg: store['msg'],
 	                        f_id: store['id'],
-	                        pic_file_name: "/favorities/"+store['id']+"/original/"+store['pic_file_name'],
+	                        pic_file_name: pic_url,
 	                        latlng: new google.maps.LatLng(
 	                            parseFloat(store['latitude']), parseFloat(store['longitude'])),
 	                        dist: 0
@@ -361,12 +366,16 @@ function googleMap(option){
 
 						var siteX=(inilat*2)-store['latitude'];
 						var siteY=(inilnt*2)-store['longitude'];
-	                    
+                        if(store['pic_file_name']==null){
+                        	var pic_url = "/assets/missing.jpg";
+                        }else{
+                        	var pic_url =  "/favorities/"+store['id']+"/original/"+store['pic_file_name'];
+                        };
 	                    branches.push({
 	                        address: store['address'],
 	                        msg: store['msg'],
 	                        f_id: store['id'],
-	                        pic_file_name: "/favorities/"+store['id']+"/original/"+store['pic_file_name'],
+	                        pic_file_name: pic_url,	
 	                        latlng: new google.maps.LatLng(
 	                            parseFloat(store['latitude']), parseFloat(store['longitude'])),
 	                        siteLatlng: new google.maps.LatLng(
