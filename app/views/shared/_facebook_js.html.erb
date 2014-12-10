@@ -77,7 +77,7 @@ window.fbAsyncInit = function () {
 	
     $('#facebook-share').click(function () {
         FB.ui({
-            method: 'feed',
+            method: 'share',
             link: document.URL,
             caption: 'http://givemebite.me',
         }, function (response) {
