@@ -90,6 +90,20 @@ window.fbAsyncInit = function () {
             }
         });
     });
+    $('#facebook-share2').click(function () {
+        FB.ui({
+            method: 'feed',
+            link: document.URL,
+            caption: 'http://givemebite.me',
+        }, function (response) {
+        	console.log(response)
+            if (response === null) {
+                console.log('post was not shared');
+            } else {
+                console.log('post was shared');
+            }
+        });
+    });
     //end
 
 
