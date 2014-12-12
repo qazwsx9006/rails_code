@@ -8,16 +8,22 @@
     
 	<% if @user %>
       <meta property="og:title" content="<%= "#{@user.nickname} - givemebite.me" %>"/>
-     <% else %>
+      <meta property="og:image" content="<%= "#{root_url}#{@user.avatar_url(:medium)[1..-1]}" %>"/>
+  <% else %>
       <meta property="og:title" content="<%= "givemebite.me" %>"/>
-     <% end %>
+  <% end %>
 
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="<%= request.original_url %>"/>
 
-	<% if false %>
-    	<meta property="og:image" content=""/>
-    <% end %>
+  <% if @favorite %>
+    <meta property="og:image" content="<%= root_url+@favorite.pic.url(:original)[1..-1] %>"/>
+  <% end %>
+  <% if current_page?(root_url) %>
+    <meta property="og:image" content="<%= root_url %>assets/givemebite_b.jpg"/>
+  <% end %>
+
+    <meta property="og:image" content="<%= root_url %>assets/givemebite_a.jpg"/>
     
     <meta property="og:description" content="老饕的最愛，美食分享，咬我啊！"/>
     <meta property="og:site_name" content="givenebite-咬我啊"/>
