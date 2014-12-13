@@ -202,10 +202,10 @@ function contentResize(){
     function contentWidth(){
     	var w = $('section').width();
     	var vatContentW = w-290;
-    	if(vatContentW>390){
+    	if(vatContentW>430){
         	$('.content').width(vatContentW);
     	}else{
-    		$('.content').width(390);
+    		$('.content').width(430);
     	};
      };
      $( 'input[name="subBtn"]:radio' ).change(function(){

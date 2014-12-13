@@ -1,6 +1,7 @@
 
 <header>
 	<div>
+		<%= link_to "GiveMeBite!", root_path, class: "logo" %>
 		<%= form_tag root_path, {:method => :get ,:id => "findNear"} do %>
 		  <input id="center" name="c" type="text" placeholder="搜尋中心點">
 		  <input id="distance" type="number" min="0" max="500" name="d" placeholder="距離(km)">
@@ -8,24 +9,35 @@
 		  	<input type="submit" value="送出">
 		  </label>
 		<% end %>
-		<%= link_to "GiveMeBite!", root_path, class: "logo" %>
 		<nav>
-			<ul>
+			<ul class="menuBtn">
 				<% if signed_in? %>				
-					<li><%= link_to current_user.nickname, bite_path(current_user) %> 你好！</li>
+					<li class="user "><%= link_to current_user.nickname, bite_path(current_user) %> <span>你好！</span></li>
 				<% end %>
 
-				<li><%= link_to "首頁", root_path %></li>
+				<li class=""><%= link_to "首頁", root_path %></li>
 
 				<% if signed_in? %>
-					<li><%= link_to "設定", settings_path %></li>
-					<li><%= link_to "登出", signout_path, method: "delete" %></li>
+					<li class=""><%= link_to "設定", settings_path %></li>
+					<li class="signout_mobile ">
+						<a data-method="delete" href="/signout" rel="nofollow"><span>出</span><span>登</span></a>
+					</li>
+					<li class="signout">
+						<a data-method="delete" href="/signout" rel="nofollow"><span>登</span><span>出</span></a>
+					</li>
 				<% else %>
-					<li><%= link_to "登入", signin_path %></li>
-					<li><%= link_to "註冊", signup_path %></li>	
+					<li class=""><%= link_to "登入", signin_path %></li>
+					<li class=""><%= link_to "註冊", signup_path %></li>	
 				<% end %>
-
 			</ul>
+			<div id="menuBtn"></div>
 		</nav>
 	</div>
 </header>
+<script>
+	$('#menuBtn').click(function(){
+		$('.menuBtn').children('li').toggleClass('btnShow');
+
+	});
+
+</script>

@@ -26,8 +26,13 @@
   <% end %>
 
     <meta property="og:image" content="<%= root_url %>assets/givemebite_a.jpg"/>
-    
-    <meta property="og:description" content="老饕的最愛，美食分享，咬我啊！"/>
+  <% if @favorite %>
+    <meta property="og:description" content="<%= truncate(@favorite.msg, length: 80, omission: '... (詳細內容)') %>"/>
+  <% elsif @user %>
+    <meta property="og:description" content="<%= truncate(@user.about, length: 80, omission: '... (詳細內容)') %>"/>
+  <% else %>
+    <meta property="og:description" content="老饕的最愛，美食分享，咬我啊！趕快來分享你愛的美食吧！"/>
+  <% end %>
     <meta property="og:site_name" content="givenebite-咬我啊"/>
     <link rel="canonical" href="<%= request.original_url %>"/>
 <% end %>

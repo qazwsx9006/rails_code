@@ -82,9 +82,12 @@ nav li{
 	font-size: 1.5em;
 	padding: 0 10px;
 }
+header nav ul .signout_mobile,header nav #menuBtn{
+	display: none;
+}
 section{
 	width: 80%;
-	min-width: 660px;
+	min-width: 680px;
 	max-width: 960px;
 	margin: 0 auto;
 	position: relative;
@@ -442,7 +445,8 @@ section:after{
 	text-align: center;
 }
 .content .favoriteList.big li{
-	width: 450px;
+	width: 90%;
+	max-width: 450px;
 	padding: 5px 5px 30px 5px;
 	max-height: 500px;
 	background: #fff;
@@ -470,7 +474,7 @@ section:after{
 	display: block;
 	content: '';
 	position: absolute;
-	width: 450px;
+	width: 98%;
 	height: 270px;
 	box-shadow: inset 0 0 5px #999,inset 0 0 8px rgba(200,200,200,.4);
 }
