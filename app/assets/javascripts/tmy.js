@@ -192,6 +192,10 @@ function logIn(e){
 }
 
 function contentResize(){
+	if($(window).width()<690){
+		$('.favoriteList').removeClass().attr('class','favoriteList small');
+		$('#subBtn3')[0].checked=true;
+	}
 	 contentWidth();
       $(window).resize(function(){
         contentWidth();
@@ -200,6 +204,10 @@ function contentResize(){
       });
 
     function contentWidth(){
+    	if($(window).width()<850){
+    		$('.content').removeAttr("style");
+    		return;
+    	}
     	var w = $('section').width();
     	var vatContentW = w-290;
     	if(vatContentW>430){
@@ -220,7 +228,7 @@ function contentResizeIndex(){
       });
 
     function contentWidth(){
-    	if($(window).width()<700){
+    	if($(window).width()<850){
     		$('.index_content').removeAttr("style");
     		return;
     	}

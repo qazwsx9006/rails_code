@@ -150,7 +150,7 @@
 }
 
 
-@media screen and (min-width: 320px) and (max-width: 700px){
+@media screen and (min-width: 320px) and (max-width: 850px){
 	section{
 		width: 95%;
 	}
@@ -176,4 +176,81 @@
 	.indexWrap .index_sidebar{
 		width: 100%;
 	}
+	
+	.sidebar{
+		display: block;
+		width: 100%;
+	}
+	.sidebar .user,.sidebar .think{
+		position: fixed;
+		width: 250px;
+		z-index: 11;
+		top: 10px;
+		left: -350px;
+		box-shadow: 0 0 10px 5px rgba(0,0,0,.4);
+		transition: .3s;
+	}
+	.sidebar .user.userInfoShow,.sidebar .think.userInfoShow{
+		left: 10px;
+
+	}
+	.sidebar .think{
+		top: 300px;
+	}
+	.socialBtn li{
+		max-width: 140px;
+	}
+	.post .pre_pic{
+		font-size: 2rem;
+	}
+	.sidebar .post ul li{
+		width: 60px;
+	}
+	.socialBtn{
+		font-size: 1.8rem;
+	}
+
+	.content{
+		width: 100%;
+	}
+	.content .favorite .subheading{
+		max-width: 250px;
+		width: 50%;
+	}
+	.content .favoriteList.big li{
+		width: 100%;
+		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		margin: 0 0 10px 0;
+
+	}
+	.content .favoriteList,.content .favoriteList.small{
+		text-align: center;
+	}
+	.content .favoriteList.small li{
+		margin: 0 0 10px 3px;
+	}
+	.content .favoriteList.medium li,.content .favoriteList.small li{
+		display: inline-block;
+		float: none;
+		vertical-align: top;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
