@@ -17,14 +17,14 @@
 		right: 5px;
 		box-shadow: 0 0 3px #999;
 		border-radius: 50%;
-		z-index: 1;
+		z-index: 3;
 	}
 	header nav ul:before{
 		display: block;
 		content: '≡';
 		color: #fff;
 		text-align: center;
-		line-height: 42px;
+		line-height: 50px;
 		font-size: 5rem;
 		cursor: pointer;
 	}
@@ -36,13 +36,14 @@
 		right: 5px;
 		display: inline-block;
 		min-width: 0;
-		z-index: 2;
+		z-index: 4;
 		cursor: pointer;
 		border-radius: 50%;
+		opacity: 0;
 	}
 	header nav ul li{
 		position: absolute;
-		top: -8px;
+		top: -10px;
 		width: 70px;
 		text-align: left;
 		left: -150%;
@@ -62,10 +63,25 @@
 		-webkit-transform:rotate(0deg);
 	}
 
+	header nav ul li.user.btnShow{
+		top: -5px;	
+	}
 	header nav ul li.user{
-		left: -200%;
+		left: -3px;
+		width: initial;
+		width: auto;
+		text-align: right;
+		margin-left: -200%;
+		width: 80px;
 		transform-origin:125px center;
 		-webkit-transform-origin:125px center;
+	}
+	header nav ul li.user a{
+		display: inline-block;
+		line-height: 100%;
+		margin-left: -500%;
+		min-height: 23px;
+		padding-top: 2px;
 	}
 	header nav ul li.user span{
 		display: none;
@@ -94,21 +110,25 @@
 		-webkit-transform:rotate(90deg);
 	}
 	header nav ul li a{
-		background: rgba(50,50,50,.8);
+		background: #666;
 		color: #fff;
-		padding: 0px 1px 0px 10px;
-		border: 1px solid #fff;
+		padding: 2px 3px 2px 10px;
+		/*border: 1px solid #fff;*/
 		position: relative;
 	}
 	header nav ul li a:after{
 		content:'';
 		display: block;
 		position: absolute;
-		border: 11px solid rgba(50,50,50,.8);
+		border: 11px solid #666;
 		top: 0;
 		right: -33px;
-		border-color:  transparent transparent transparent rgba(50,50,50,.8);
-		border-width: 11px 11px 11px 22px;
+		border-color:  transparent transparent transparent #666;
+		border-width: 13px 11px 13px 22px;
+	}
+
+	.index_content ul{
+		text-align: center;
 	}
 
 }
@@ -126,5 +146,34 @@
 	}
 	header #findNear{
 		padding-top: 5px;
+	}
+}
+
+
+@media screen and (min-width: 320px) and (max-width: 700px){
+	section{
+		width: 95%;
+	}
+	.mapall{
+		height: 250px;
+        overflow: auto;
+        resize: vertical;
+	}
+	.mapall *{
+		resize:none;
+	}
+	.box.mapall .mapBox{
+		height: 100%;
+	}
+	.indexWrap .index_content{
+		padding: 5px;
+		width: 100%;
+		margin-left: 0;
+		margin-bottom: 10px;
+		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
+	.indexWrap .index_sidebar{
+		width: 100%;
 	}
 }

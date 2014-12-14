@@ -220,6 +220,10 @@ function contentResizeIndex(){
       });
 
     function contentWidth(){
+    	if($(window).width()<700){
+    		$('.index_content').removeAttr("style");
+    		return;
+    	}
     	var w = $('.indexWrap').width();
     	var vatContentW = w-290;
     	$('.index_content').width(vatContentW);
