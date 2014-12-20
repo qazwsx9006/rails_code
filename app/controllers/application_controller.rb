@@ -9,7 +9,9 @@ class ApplicationController < ActionController::Base
   private
   
     def save_back_url
-      session[:return_to]=request.path || root_path
+      if request.get?
+      	session[:return_to]=request.path || root_path
+      end
     end
 
 end
