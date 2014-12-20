@@ -244,6 +244,10 @@ function contentResizeSetting(){
       });
 
     function contentWidth(){
+    	if($(window).width()<850){
+    		$('.content').removeAttr("style");
+    		return;
+    	}
     	var w = $('section').width();
     	var vatContentW = w-290;
     	$('.content').width(vatContentW);

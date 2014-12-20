@@ -11,20 +11,20 @@
 			大頭貼
 		</div>
 		<%= form_for @user, url: avatar_path, html: {id: "new_avatar", multipart: true, onsubmit: "return true;"} do |f| %>
-		      <div class="avatar_group">
+		    <div class="avatar_group">
 		        <div class="group_label">當前頭像</div>
-		        <div>
+		        <div class="set_avatar">
 					<%= image_tag @user.avatar.url(:medium) %>
 		        </div>
-		      </div>
+		    </div>
 		    <div class="avatar_group">
-		      <div class="">
+		      <div class="rwd_avatar">
 		        <label class="choose_avatar" for="user_avatar">選擇圖片</label>
 		        <%= f.file_field :avatar , class: "" %>
 		      </div>
-		      <div class="avatar_submit">
-		        <input class="btn btn_blue" name="commit" type="submit" value="上傳新頭像">
-		        <span class="">推薦使用正方形 PNG 圖片以獲得最佳效果。<span style="color:#ccc;font-size: .5rem;">頭像上傳後若未改變，請重新整理頁面即可</span></span>
+		      <div class="avatar_submit rwd_avatar">
+		        <input class="btn btn_blue avatar_upload" name="commit" type="submit" value="上傳新頭像">
+		        <span class="avatar_tip">推薦使用正方形 PNG 圖片以獲得最佳效果。<span style="color:#ccc;font-size: .5rem;display: inline-block;">頭像上傳後若未改變，請重新整理頁面即可</span></span>
 		      </div>
 		    </div>
 		<% end %>
@@ -64,7 +64,7 @@
 					<input type="password" id="pw2" name="change_pw[password_confirmation]">
 				</li>
 			</ul>
-			<input class="btn btn_blue" name="commit" type="submit" value="更新資訊">
+			<input class="btn btn_blue info_submit" name="commit" type="submit" value="更新資訊">
 		<% end %>
 		
 	</div>

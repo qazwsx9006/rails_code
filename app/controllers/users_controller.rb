@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 	end
 
 	def new
-		render 'new', layout: 'signup'
+		render 'new'#, layout: 'signup'
 	end
 	def create
 		if User.find_by_account(params[:user][:account]).present?

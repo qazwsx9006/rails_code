@@ -131,6 +131,25 @@
 		text-align: center;
 	}
 
+
+	.userInfo label{
+		text-align: center;
+		font-size: 2rem;
+		margin-bottom: 5px;
+	}
+	.userInfo label:after{
+		content: '';
+	}
+	.userInfo input{
+		padding: 5px;
+		font-size: 1.6rem;
+	}
+	.info_submit{
+		padding:  10px ;
+		width: 50%;
+		font-size: 2rem;
+	}
+
 }
 @media screen and (min-width: 320px) and (max-width: 630px){
 	header{
@@ -237,8 +256,38 @@
 	}
 
 
-
-
+	#new_avatar{
+		text-align: center;
+	}
+	.avatar_group .rwd_avatar{
+		display: inline-block;
+		width: 45%;
+	}
+	.avatar_tip{
+		display: none;
+	}
+	.choose_avatar{
+		cursor: pointer;
+		background: #76ca95;
+		border: 1px solid #24723a;
+		border-radius: 5px;
+		padding: 10px 0;
+		color: #333;
+		font-size: 1.8rem;
+		font-weight: 500;
+	}
+	.choose_avatar:hover{
+		background: #319f4f;
+	}
+	#user_avatar{
+		display: none;
+	}
+	.rwd_avatar .avatar_upload{
+		width: 100%;
+		padding: 10px 0;
+		font-size: 1.8rem;
+		font-weight: 500;
+	}
 
 
 

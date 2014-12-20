@@ -4,58 +4,17 @@ html,body{
 	height: 100%;
 	width: 100%;
 }
-.bg{
-	position: relative;
-	width: 100%;
-	height: 100%;
-	opacity: .4;
-}
-.bg li{
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	margin: auto; 
-	overflow: hidden;
-}
-.bg li:nth-child(n+2){
-	display: none;
-}
-.bg li img{
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin:auto;
-	width: 125%;
-	height: 125%;
-}
-.bg li img.big{
-	-webkit-animation: toBig 8s linear infinite;
-}
-.bg li img.small{
-	-webkit-animation: toSmall 8s linear infinite;
-}
 .signUpError{
 	-webkit-animation: signUpError .4s linear;
 }
+.singup{
+	text-align: center;
+}
 .indexInfo{
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin:auto;
+	position: relative;
+	display: inline-block;
 	width: 80%;
-	height: 80%;
 	max-width: 600px;
-	max-height: 500px;
-	min-width: 300px;
-	min-height: 300px;
 	background: url("/assets/bgapple.jpg") no-repeat -20px;
 	-moz-background-size:cover;
 	-webkit-background-size:cover;
@@ -129,6 +88,7 @@ html,body{
 }
 .indexInfo form{
 	padding: 10px 20px;
+	margin-bottom: 20px;
 }
 .inputBox {
 	display: inline-block;
@@ -232,8 +192,16 @@ html,body{
 	position: relative;
 	top:10px;
 }
-
-
+@media screen and (min-width: 120px) and (max-width: 500px){
+	.indexInfo{
+		width: 98%;
+	}	
+	.indexInfo input[type="text"],.indexInfo input[type="password"]{
+		width: 75%;
+		max-width: 75%;
+		min-width: 75%;
+	}
+}
 @-webkit-keyframes signUpError {
     0% {left:0;}
     10% {left:-20px;}
@@ -242,13 +210,4 @@ html,body{
     70% {left:6px;}
     85% {left:-2px;}
     100% {left:0;}
-}
-
-@-webkit-keyframes toBig {
-    from {width: 100%;left:0;}
-    to {width: 125%;left:-10%;}
-}
-@-webkit-keyframes toSmall {
-    from {width: 125%;right:-10%;}
-    to {width: 100%;right:0;}
 }
