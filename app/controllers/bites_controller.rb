@@ -3,8 +3,8 @@ class BitesController < ApplicationController
 	def index 
 		@users=User.all.limit(10)
 		if params[:c].blank?
-			#center = session[:location]  || '臺北' || request.ip
-			center = session[:location] || request.ip || '臺北'
+			center = session[:location]  || '臺北'
+			#center = session[:location] || request.ip || '臺北'
 		else
 			center = params[:c] 
 		end
