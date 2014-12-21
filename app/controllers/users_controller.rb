@@ -48,6 +48,9 @@ class UsersController < ApplicationController
 			end
 		elsif !params[:change_pw].values.join().blank? && !@user.authenticate(params[:change_pw][:oldpw])
 			#舊密碼輸入錯誤
+			flash[:pwError]="密碼錯誤，更新失敗。"
+			redirect_to "#{settings_path}#oldpw"
+			return
 		end
 		redirect_to settings_path
 	end

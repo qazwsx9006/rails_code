@@ -54,7 +54,7 @@ class BitesController < ApplicationController
 		if params[:id]
 			if params[:id].to_i.abs==0
 				#首頁
-				@favorities=Favorite.where(id: session[:index_facorites]).includes(:likes)
+				@favorities=Favorite.where(id: session[:index_facorites]).includes(:likes).reverse
 			else
 				#個人頁
 				@user=User.find_by_id(params[:id])

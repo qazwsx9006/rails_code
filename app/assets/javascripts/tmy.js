@@ -2,6 +2,101 @@
 /*version tmy20141010*/
 /*version tmy20141128*/
 
+function checkUser(e){
+	var nickname=$(e).find('#nickname'),
+		mood=$(e).find('#mood'),
+		about=$(e).find('#about'),
+		oldpw=$(e).find('#oldpw'),
+		newpw=$(e).find('#pw'),
+		newpw2=$(e).find('#pw2'),
+		submit=true;
+	if($.trim(nickname.val())==''){
+		submit =false;
+		nickname.next('.errorTip').text('請填寫暱稱');
+		nickname.blur(function(){
+			if($.trim(nickname.val())!=''){
+				nickname.next('.errorTip').text('');
+			}
+		});
+	}
+	if($.trim(mood.val())==''){
+		submit =false;
+		mood.next('.errorTip').text('請填寫心情動態');
+		mood.blur(function(){
+			if($.trim(mood.val())!=''){
+				mood.next('.errorTip').text('');
+			}
+		});
+	}
+	if($.trim(about.val())==''){
+		submit =false;
+		about.next('.errorTip').text('請填寫關於我');
+		about.blur(function(){
+			if($.trim(about.val())!=''){
+				about.next('.errorTip').text('');
+			}
+		});
+	}
+	if($.trim(oldpw.val())!=''){
+		var pwPattern=/^[a-zA-Z0-9]{8,12}$/;
+
+		if(newpw.val() == '' || !pwPattern.test(newpw.val()) ){
+    		newpw.next('.errorTip').text('輸入8-12位英數，留意大小寫');
+    		$( "#update_pw" ).prop( "checked", true );
+			submit=false;
+			newpw.blur(function(){
+				if(newpw.val() != '' || pwPattern.test(newpw.val()) ){
+					newpw.next('.errorTip').text('');
+				}
+			});
+		}else{
+			newpw.next('.errorTip').text('');
+			console.log('ss');
+			if(newpw.val() != newpw2.val()){
+	    		newpw2.next('.errorTip').text('與新密碼不相符');
+	    		$( "#update_pw" ).prop( "checked", true );
+				submit=false;
+				newpw2.blur(function(){
+					if(newpw.val() == newpw2.val()){
+						newpw2.next('.errorTip').text('');
+					}
+				});
+			}
+		}
+	}
+
+	if(submit){
+		$(e).find('.info_submit').css({
+			"background":"#999",
+			"border-color":"#666",
+			"cursor":"default"
+		});
+		$(e).find('.info_submit').val('正在上傳');
+		$(e).find('.info_submit').attr('disabled',true)
+	}
+	return submit;
+}
+
+function checkAvatar(e){
+	var submit=true;
+	if($(e).find('#user_avatar').val()==''){
+		alert('尚未選擇圖片');
+		$('.rwd_avatar').eq(0).css({
+			"color":"#f00"
+		});	
+		submit=false
+	};
+	if(submit){
+		$(e).find('.avatar_upload').css({
+			"background":"#999",
+			"border-color":"#666",
+			"cursor":"default"
+		});
+		$(e).find('.avatar_upload').val('正在上傳');
+		$(e).find('.avatar_upload').attr('disabled',true)
+	}
+	return submit;
+}
 function isScrolledIntoView_index(id){
 	if($('.favoriteList').find('li').length==0){
 		$('#loading').hide();
@@ -52,7 +147,7 @@ function isScrolledIntoView_index(id){
 	                        dist: 0
 	                    });
 	                }
-					var infowindow = new google.maps.InfoWindow();
+					//var infowindow = new google.maps.InfoWindow();
 					var bounds = new google.maps.LatLngBounds();
 					bounds.extend(inicenter);
 					for (i = commentNum ; i < commentNum+data.json.length; i++) {
@@ -84,7 +179,7 @@ function isScrolledIntoView_index(id){
 	                    },function(){
 	                    	//hove out
 	                    });
-	                    attachSecretMessage(markers[i],b.address,b.msg,b.pic_file_name,infowindow,b.f_id);
+	                    attachSecretMessage(markers[i],b.address,b.msg,b.pic_file_name,infowindow_global,b.f_id);
 					}
 	                map.fitBounds(bounds);
 	                //end
@@ -401,6 +496,7 @@ function googleMap(option){
 	                }
 
 					var infowindow = new google.maps.InfoWindow();
+					window.infowindow_global=infowindow;
 					var bounds = new google.maps.LatLngBounds();
 					bounds.extend(inicenter);
 					for (i = 0; i < data.length; i++) {
@@ -420,6 +516,7 @@ function googleMap(option){
 	                        map: map,
 	                        zIndex: 1
 	                    });
+
 	                    if($('.topFavorites').length!=0){
 		                    $('.topFavorites').children('ul').children('li').eq(i).hover(function(){
 		                    	if(pre_mk!=""){

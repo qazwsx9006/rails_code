@@ -11,6 +11,25 @@
 	.post label{
 		cursor: pointer;
 	}
+	.pre_pic li label{
+		width: 100%;
+		height: 100%;
+		transition: .3s;
+	}
+	.pre_pic li .space{
+		color: #bf2022;
+	}
+	.pre_pic li .fill{
+		color: #38bf38;
+	}
+	.pre_pic li .active{
+		transform: scale(1.5);
+		-webkit-transform: scale(1.5);
+		-o-transform: scale(1.5);
+		-ms-transform: scale(1.5);
+		-moz-transform: scale(1.5);
+	}
+
 </style>
 <script>
 	function readPic(e){
@@ -32,6 +51,7 @@
 		        div.className='uploadimg';
 		        $(div).html(imgx);
 		        $('.post').find('.pre_pic').prepend(div);
+		        $('label[for="pic_form"]').addClass('fill');
 	        };
 	        reader.readAsDataURL(e.files[0]);
 		}
@@ -40,34 +60,91 @@
 		var msg=$.trim($(e).find('#msg_form').val());
 		var add=$.trim($(e).find('#address_form').val());
 		var $btn=$(e).find('.submitPencil');
+		var submit=true;
 		if(msg==''){
-			alert('尚未填寫分享訊息！！');
-			console.log($('#for_msg').prop( "checked",true ));
 			$('#msg_form').css({
-				//"border":"1px solid #f00",
 				"box-shadow":"inset 0 0 5px #f00"
 			});
-			return false;
+			submit = false;
+			$('label[for="for_msg"]').removeClass('fill');
+			$('label[for="for_msg"]').addClass('space');
+		}else{
+			$('label[for="for_msg"]').removeClass('space');
+			$('label[for="for_msg"]').addClass('fill');
 		}
 		if(add==''){
-			alert('尚未填寫地點！！');
-			console.log($('#for_add').prop( "checked",true ));
 			$('#address_form').css({
-				//"border":"1px solid #f00",
 				"box-shadow":"inset 0 0 5px #f00"
 			});
-			return false;
+			submit = false;
+			$('label[for="for_add"]').removeClass('fill');
+			$('label[for="for_add"]').addClass('space');
+		}else{
+			$('label[for="for_add"]').removeClass('space');
+			$('label[for="for_add"]').addClass('fill');
 		}
-		//送出中取消按鈕功能以免重複送出
-		$btn.css({
-			"background":"#ccc",
-			"border-bottom":"2px solid #999",
-			"cursor":"default"
-		});
-		$btn.attr('for','null');
+		if($('.uploadimg').find('.pre').length>0){
+			$('label[for="pic_form"]').removeClass('space');
+			$('label[for="pic_form"]').addClass('fill');
+		}else{
+			$('label[for="pic_form"]').removeClass('fill');
+			$('label[for="pic_form"]').addClass('space');
+		}
+		if($('.uploadimg').find('.pre').length>0){
+			//送出中取消按鈕功能以免重複送出
+			if(submit){
+				$btn.css({
+					"background":"#ccc",
+					"border-bottom":"2px solid #999",
+					"cursor":"default"
+				});
+				$btn.attr('for','null');	
+			}
+			return submit;			
+		}else{
+			if(confirm('尚未上傳圖片，確定送出？')){
+				return true;
+			}else{
+				return false;
+			}
+		}
 
-		return true;
 	}
+	function btn_event(){
+		$('#msg_form').blur(function(){
+			if($.trim($(this).val())==''){
+				$('label[for="for_msg"]').removeClass('fill');
+				$('label[for="for_msg"]').addClass('space');
+			}else{
+				$('label[for="for_msg"]').removeClass('space');
+				$('label[for="for_msg"]').addClass('fill');
+			}
+		})
+		$('#msg_form').focus(function(){
+			$('label[for="for_msg"]').addClass('active');
+		})
+		$('.pre_pic').find('label').click(function(){
+			$('.pre_pic').find('label').removeClass('active');
+			$(this).addClass('active');
+			var id = $(this).attr('for');
+			setTimeout(function(){
+				$('#'+id).next().focus();
+				$('#'+id).next().blur(function(){
+					if($.trim($(this).val())==''){
+						$('label[for="'+id+'"]').removeClass('fill');
+						$('label[for="'+id+'"]').addClass('space');
+					}else{
+						$('label[for="'+id+'"]').removeClass('space');
+						$('label[for="'+id+'"]').addClass('fill');
+					}
+				});
+			},300);
+		});
+	};
+	$(function(){
+		btn_event();
+	})
+
 </script>
 <div class="post">
 	<%#= form_for @user, url: bites_path, html: {id: "new_post", multipart: true, onsubmit: "return true;"} do |f| %>

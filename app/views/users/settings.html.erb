@@ -4,13 +4,19 @@
 
 
 <%= render 'shared/sidebar' %>
-
+<style>
+	.errorTip{
+		text-align: right;
+		color: #a00;
+		width: 90%;
+	}
+</style>
 <div class="content">
 	<div class="box">
 		<div class="boxheader">
 			大頭貼
 		</div>
-		<%= form_for @user, url: avatar_path, html: {id: "new_avatar", multipart: true, onsubmit: "return true;"} do |f| %>
+		<%= form_for @user, url: avatar_path, html: {id: "new_avatar", multipart: true, onsubmit: "return checkAvatar(this);"} do |f| %>
 		    <div class="avatar_group">
 		        <div class="group_label">當前頭像</div>
 		        <div class="set_avatar">
@@ -33,35 +39,41 @@
 		<div class="boxheader">
 			個人資訊
 		</div>
-		<%= form_for @user, url: settings_path, html: {id: "new_avatar", multipart: true, onsubmit: "return true;"} do |f| %>
+		<%= form_for @user, url: settings_path, html: {id: "new_avatar", multipart: true, onsubmit: "return checkUser(this);"} do |f| %>
 			<ul class="userInfo">
 				<li>
 					<label for="nickname">暱稱</label>
 					<input type="text" id="nickname" name="user[nickname]" value="<%= @user.nickname %>">
+					<div class="errorTip"></div>
 				</li>
 				<li>
 					<label for="mood">心情動態</label>
 					<input type="text" id="mood" name="user[mood]" value="<%= @user.mood %>">
+					<div class="errorTip"></div>
 				</li>
 				<li>
 					<label for="about">關於我</label>
-					<input type="text" id="about" name="user[about]" value="<%= @user.about %>">
+					<input type="text" id="about" name="user[about]" maxlength="14" value="<%= @user.about %>">
+					<div class="errorTip"></div>
 				</li>
 			</ul>
-			<input type="checkbox" id="update_pw" name="update_pw" value="1">
+			<input type="checkbox" id="update_pw" name="update_pw" value="1" <%= 'checked' if !flash[:pwError].blank? %>>
 			<label class="pwBtn" for="update_pw">點擊展開修改密碼欄</label>
 			<ul class="userInfo change_pw">
 				<li>
 					<label for="oldpw">舊密碼</label>
-					<input type="password" id="pw" name="change_pw[oldpw]">
+					<input type="password" id="oldpw" name="change_pw[oldpw]">
+					<div class="errorTip"><%= flash[:pwError] %></div>
 				</li>
 				<li>
 					<label for="pw">新密碼</label>
 					<input type="password" id="pw" name="change_pw[password]">
+					<div class="errorTip"></div>
 				</li>
 				<li>
 					<label for="pw2">新密碼確認</label>
 					<input type="password" id="pw2" name="change_pw[password_confirmation]">
+					<div class="errorTip"></div>
 				</li>
 			</ul>
 			<input class="btn btn_blue info_submit" name="commit" type="submit" value="更新資訊">
