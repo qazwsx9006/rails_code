@@ -3,4 +3,12 @@ class StaticPageController < ApplicationController
 	end
 	def about
 	end
+	def rule
+	end
+
+	def privacy
+	end
+
+	def disclaimer
+	end
 end
