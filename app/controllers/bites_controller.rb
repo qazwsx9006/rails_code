@@ -3,7 +3,11 @@ class BitesController < ApplicationController
 	def index 
 		@users=User.all.limit(10)
 		if params[:c].blank?
-			center = session[:location]  || '臺北'
+			if Geocoder.search(request.ip).last.city.blank?
+				center = session[:location]  || '臺北'
+			else
+				center = session[:location] || request.ip || '臺北'
+			end
 			#center = session[:location] || request.ip || '臺北'
 		else
 			center = params[:c] 
