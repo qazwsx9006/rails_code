@@ -241,6 +241,7 @@ function logIn(e){
 		$account=$(e).find('#account'),
 		$password=$(e).find('#password'),
 		$password_confirmation=$(e).find('#password_confirmation'),
+		$agree=$(e).find('#check_rule'),
 		submit=true,
 		emailPattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
 		pwPattern= /^[a-zA-Z]{1}[a-zA-Z0-9]{5,11}$/;
@@ -276,6 +277,10 @@ function logIn(e){
 			$password_confirmation.next().attr('data-error','');
 		}
 	}
+	if(!$agree[0].checked){
+		submit=false;
+	};
+
 	if (submit) {
 		return true;
 	}else{
@@ -467,12 +472,15 @@ function googleMap(option){
 		    	return
 		    }
 		    $.post("/askcoodinate", {id: user_id, c: center, d: distance, near: near, from: from, inilat: inilat, inilnt: inilnt}, function(data) {
-		    	//console.log(data);
+		    	if($('.topFavorites').length!=0){
+		    		$('.topFavorites').find('ul').html(data.html);
+	            	data=data.json;
+		    	}
 	            //有資料才做
+	            //console.log(data);
 	            console.log('post');
 	            if(data!=""){
 	                for (i = 0; i < data.length; i++) {
-
 	                	var store = data[i];
 
 						var siteX=(inilat*2)-store['latitude'];

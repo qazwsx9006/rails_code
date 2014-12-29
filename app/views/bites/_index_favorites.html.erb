@@ -1,0 +1,8 @@
+<% @favorites.each do |favorite| %>
+	<li>
+		<a href="<%= favorite_path(favorite) %>">
+			<div class="userImg"><img src="<%= favorite.pic.url(:original) %>" alt=""></div>
+			<span><i class="fa fa-heart"></i><%= favorite.likes.size %></span>
+		</a>
+	</li>
+<% end %>

@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
 	before_create do
 		self.mimi_t = SecureRandom.urlsafe_base64() 
 		self.mood_at = Time.now()
-		self.mood = "I loke give_me_bite!"
+		self.mood = "I like give_me_bite!"
 	end
 	before_save do
 		if self.mood_changed?
