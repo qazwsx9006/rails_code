@@ -65,18 +65,18 @@ class BitesController < ApplicationController
 		#render 'more_favorites',layout: false
 	end
 	def askcoodinate
+		if !params[:inilat].blank? && !params[:inilnt].blank?
+			session[:location]=[params[:inilat].to_f,params[:inilnt].to_f]
+		end
 		if params[:id]
 			if params[:id].to_i.abs==0
 				#首頁
 				if params[:c].blank?
-					if !params[:inilat].blank? && !params[:inilnt].blank?
-						session[:location]=[params[:inilat].to_f,params[:inilnt].to_f]
-					end
-					if Geocoder.search(request.ip).last.city.blank?
+					#if Geocoder.search(request.ip).last.city.blank?
 						center = session[:location] || '臺北'
-					else
-						center = session[:location] || request.ip || '臺北'
-					end
+					#else
+					#	center = session[:location] || request.ip || '臺北'
+					#end
 					#center = session[:location] || request.ip || '臺北'
 				else
 					center = params[:c] 
@@ -95,11 +95,11 @@ class BitesController < ApplicationController
 				@user=User.find_by_id(params[:id])
 				if params[:near]=='1'
 					#center= params[:location] || request.ip 
-					if Geocoder.search(request.ip).last.city.blank?
+					#if Geocoder.search(request.ip).last.city.blank?
 						center = session[:location]  || '臺北'
-					else
-						center = session[:location] || request.ip || '臺北'
-					end	
+					#else
+					#	center = session[:location] || request.ip || '臺北'
+					#end	
 					@favorities=@user.favorites.near(center).offset(params[:from].to_i || 0).limit(10)
 				else
 					@favorities=@user.favorites.order(created_at: :desc).offset(params[:from].to_i || 0).limit(10)
@@ -109,10 +109,6 @@ class BitesController < ApplicationController
 			end
 		else
 			@favorities = Favorite.all
-		end
-
-		if !params[:inilat].blank? && !params[:inilnt].blank?
-			session[:location]=[params[:inilat].to_f,params[:inilnt].to_f]
 		end
 
 		#if params[:search].present?

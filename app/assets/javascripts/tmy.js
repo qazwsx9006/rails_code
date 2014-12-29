@@ -477,7 +477,7 @@ function googleMap(option){
 	            	data=data.json;
 		    	}
 	            //有資料才做
-	            //console.log(data);
+	            console.log(data);
 	            console.log('post');
 	            if(data!=""){
 	                for (i = 0; i < data.length; i++) {
