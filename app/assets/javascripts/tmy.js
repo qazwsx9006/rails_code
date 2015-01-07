@@ -375,6 +375,7 @@ function googleMap(option){
 	var mapTimeOut;
 	function initialize() {
 
+		mapTimeOut = setTimeout(function(){wrong({message: "User denied Geolocation", code: 1, PERMISSION_DENIED: 1, POSITION_UNAVAILABLE: 2, TIMEOUT: 3})}, 8000);//8秒沒有動作直接進入預設
 		if (navigator.geolocation) {
 	        var a = navigator.geolocation.getCurrentPosition(showPosition,wrong,{timeout:8000});
 	    } else {
@@ -414,6 +415,8 @@ function googleMap(option){
 	        }
 	    }
 	    function showPosition(position){
+	    	clearTimeout(mapTimeOut);//清除計時器
+
 	    	var inilat = position.coords.latitude;
 	    	var inilnt = position.coords.longitude;
 
