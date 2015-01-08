@@ -477,8 +477,9 @@ function googleMap(option){
 		    $.post("/askcoodinate", {id: user_id, c: center, d: distance, near: near, from: from, inilat: inilat, inilnt: inilnt}, function(data) {
 		    	if($('.topFavorites').length!=0){
 		    		$('.topFavorites').find('ul').html(data.html);
+		    		$('#tmy_loading').remove();
 	            	data=data.json;
-		    	}
+		    	};
 	            //有資料才做
 	            console.log(data);
 	            console.log('post');

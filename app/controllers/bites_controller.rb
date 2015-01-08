@@ -29,11 +29,7 @@ class BitesController < ApplicationController
 		@user=User.find_by_id(params[:id])
 		if params[:near]=='1'
 			#center= params[:location] || request.ip 
-			if Geocoder.search(request.ip).last.city.blank?
-				center = session[:location]  || '臺北'
-			else
-				center = session[:location] || request.ip || '臺北'
-			end
+			center = session[:location] || cookies.signed[:bite_location] || '臺北'
 			#@favorities=@user.favorites.includes(:likes).includes(:comments).near(center).offset(params[:from].to_i || 0).limit(10)
 			@favorities=@user.favorites.includes(:likes).near(center).offset(params[:from].to_i || 0).limit(10)
 			#u.favorites.includes(:likes).near('taipei').offset(0).limit(10)
@@ -46,11 +42,7 @@ class BitesController < ApplicationController
 		@user=User.find_by_id(params[:id])
 		if params[:near]=='1'
 			#center= params[:location] || request.ip 
-			if Geocoder.search(request.ip).last.city.blank?
-				center = session[:location]  || '臺北'
-			else
-				center = session[:location] || request.ip || '臺北'
-			end
+			center = session[:location] || cookies.signed[:bite_location] || '臺北'
 			#@favorities=@user.favorites.includes(:likes).includes(:comments).near(center).offset(params[:from].to_i || 0).limit(10)
 			@favorities=@user.favorites.includes(:likes).near(center).offset(params[:from].to_i || 0).limit(10)
 			#u.favorites.includes(:likes).near('taipei').offset(0).limit(10)
@@ -67,13 +59,14 @@ class BitesController < ApplicationController
 	def askcoodinate
 		if !params[:inilat].blank? && !params[:inilnt].blank?
 			session[:location]=[params[:inilat].to_f,params[:inilnt].to_f]
+			cookies.permanent.signed[:bite_location] = [params[:inilat].to_f,params[:inilnt].to_f]
 		end
 		if params[:id]
 			if params[:id].to_i.abs==0
 				#首頁
 				if params[:c].blank?
 					#if Geocoder.search(request.ip).last.city.blank?
-						center = session[:location] || '臺北'
+						center = session[:location] || cookies.signed[:bite_location] || '臺北'
 					#else
 					#	center = session[:location] || request.ip || '臺北'
 					#end
@@ -96,7 +89,7 @@ class BitesController < ApplicationController
 				if params[:near]=='1'
 					#center= params[:location] || request.ip 
 					#if Geocoder.search(request.ip).last.city.blank?
-						center = session[:location]  || '臺北'
+						center = session[:location] || cookies.signed[:bite_location] || '臺北'
 					#else
 					#	center = session[:location] || request.ip || '臺北'
 					#end	

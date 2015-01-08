@@ -65,9 +65,13 @@
 			$('#msg_form').css({
 				"box-shadow":"inset 0 0 5px #f00"
 			});
+			$('.pre_pic').find('label').removeClass('active');
+			$('.ipt_hide').attr('checked',false);
+			$('#for_msg')[0].checked = true;
 			submit = false;
 			$('label[for="for_msg"]').removeClass('fill');
 			$('label[for="for_msg"]').addClass('space');
+			$('label[for="for_msg"]').addClass('active');
 		}else{
 			$('label[for="for_msg"]').removeClass('space');
 			$('label[for="for_msg"]').addClass('fill');
@@ -76,9 +80,13 @@
 			$('#address_form').css({
 				"box-shadow":"inset 0 0 5px #f00"
 			});
+			$('.pre_pic').find('label').removeClass('active');
+			$('.ipt_hide').attr('checked',false);
+			$('#for_add')[0].checked = true;
 			submit = false;
 			$('label[for="for_add"]').removeClass('fill');
 			$('label[for="for_add"]').addClass('space');
+			$('label[for="for_add"]').addClass('active');
 		}else{
 			$('label[for="for_add"]').removeClass('space');
 			$('label[for="for_add"]').addClass('fill');

@@ -222,6 +222,17 @@
 	.post .pre_pic{
 		font-size: 2rem;
 	}
+	.pre_pic:after{
+		content: '';
+		display: block;
+		clear: both;
+	}
+	.pre_pic ul{
+		margin-top: 5px;
+	}
+	.sidebar .post ul li:nth-child(-n+2):after{
+		height: 30px;
+	}
 	.sidebar .post ul li{
 		width: 60px;
 	}
