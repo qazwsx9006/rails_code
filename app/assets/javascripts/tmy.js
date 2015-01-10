@@ -2,6 +2,24 @@
 /*version tmy20141010*/
 /*version tmy20141128*/
 
+function checkComment(e){
+	var $msg=$(e).find('#form_msg'),
+		msg = $.trim($msg.val()),
+		$submit = $(e).find('#comment_submit');
+	if(msg==""){
+		$msg.css({
+			"outline":"1px solid #f00",
+			"border-color":"red"
+		});
+		return false;
+	}else{
+		$msg.attr('style','');
+		$submit[0].disabled=true;
+		$submit.val('傳送中');	
+		return true;
+	}
+}
+
 function checkUser(e){
 	var nickname=$(e).find('#nickname'),
 		mood=$(e).find('#mood'),
@@ -294,7 +312,9 @@ function logIn(e){
 function contentResize(){
 	if($(window).width()<690){
 		$('.favoriteList').removeClass().attr('class','favoriteList small');
-		$('#subBtn3')[0].checked=true;
+		if($('#subBtn3').length>0){
+			$('#subBtn3')[0].checked=true;	
+		}
 	}
 	 contentWidth();
       $(window).resize(function(){

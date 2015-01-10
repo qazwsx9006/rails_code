@@ -78,6 +78,10 @@
 		background: #9acaee;
 		color: #3a83b8;
 	}
+	.favorite_a form input:disabled{
+		background: #aaa;
+		color: #000;
+	}
 	.favorite_a form .likeBtn{
 		float: right;
 		margin-right: 10px;
@@ -137,10 +141,10 @@
 			<%= @favorite.msg %>
 			<span class="address"><%= "- #{@favorite.address}" unless @favorite.address.blank? %></span>
 		</p>
-			<%= form_tag comment_favorite_path(@favorite) , onsubmit: "return true;" do %>
-				<textarea name="msg" id="" rows="5" placeholder="<%= signed_in? ? '留言...' : '登入後留言!' %>" <%= 'disabled' if !signed_in? %>></textarea>
+			<%= form_tag comment_favorite_path(@favorite) , onsubmit: "return checkComment(this);" do %>
+				<textarea name="msg" id="form_msg" rows="5" maxlength="225" placeholder="<%= signed_in? ? '留言...' : '登入後留言!' %>" <%= 'disabled' if !signed_in? %>></textarea>
 				<% if signed_in? %>
-					<input type="submit" value="送出">
+					<input type="submit" id="comment_submit" value="送出">
 					<% if !@favorite.like?(current_user) %>
 						<a class="likeBtn" href="<%= like_favorite_path(@favorite) %>" data-method="post" rel="nofollow">喜歡</a>
 					<% else %>
@@ -168,7 +172,11 @@
 			<% end %>
 		</table>
 		<div id="loading">
-			loading!
+			<div class="tmy_loading" id="tmy_loading" style="height: 100px;">
+				<ol>
+					<li></li><li></li><li></li><li></li><li></li>
+				</ol>
+			</div>
 		</div>
 	</div>
 </div>
