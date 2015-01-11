@@ -43,11 +43,24 @@
 	function move_menu(btn,click_x,click_y){
 		clearInterval(mouse_down_time_interval);
 		btn.prev('.menuBtn').addClass('moveing');
-		// console.log(btn.parent('nav'));
-		$(window).mousemove(function(e){
-			var right = $(window).width()-e.pageX-click_x-12;
+
+		var bodyTop = 0;
+		if (typeof window.pageYOffset != "undefined") {
+			bodyTop = window.pageYOffset;
+
+		} else if (typeof document.compatMode != "undefined" &&
+			document.compatMode != "BackCompat") {
+			bodyTop = document.documentElement.scrollTop;
+		} else if (typeof document.body != "undefined") {
+			bodyTop = document.body.scrollTop;
+		}
+
+		$(window).on('touchmove',function(event){
+    		event.preventDefault();//不讓他滾動。
+			var e = event.originalEvent.touches[0];
+			var right = $(window).width()-e.pageX-28-12;
 			btn.parent('nav').css({
-				"top":e.pageY-click_y,
+				"top":e.pageY-28-bodyTop,
 				"right":right
 			});
 		});
@@ -58,25 +71,32 @@
 		});
 	}
 	var mouse_down_time=0,mouse_down_time_interval;
-	$('#menuBtn').on('mousedown',function(e){
+	$('#menuBtn').on('touchstart',function(e){
+		//console.log(e);
 		var $menu=$(this);
 		mouse_down_time=0;
 		mouse_down_time_interval = setInterval(function(){
 			mouse_down_time++;
 			// console.log(mouse_down_time);
 			// console.log($menu);
-			if(mouse_down_time>=50){
-				move_menu($menu,e.offsetX,e.offsetY);
+			if(mouse_down_time>=40){
+				//move_menu($menu,e.offsetX,e.offsetY);
+				move_menu($menu);
 			}
 		},10);
 	});
-	$('#menuBtn').on('mouseup',function(){
+	$('#menuBtn').on('touchend',function(){
 		clearInterval(mouse_down_time_interval);
-		if(mouse_down_time<50){
+		if(mouse_down_time<40){
 			open_menu();
 		}
 		$(this).prev('.menuBtn').removeClass('moveing');
-		$(window).unbind('mousemove');
+			$('body').removeAttr('style');
+		$(window).unbind('touchmove');
+	});
+
+	$('#menuBtn').click(function(){
+		open_menu();
 	});
 
 </script>
