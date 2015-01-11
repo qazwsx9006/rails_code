@@ -91,12 +91,16 @@
 			open_menu();
 		}
 		$(this).prev('.menuBtn').removeClass('moveing');
-			$('body').removeAttr('style');
+		$('body').removeAttr('style');
 		$(window).unbind('touchmove');
 	});
 
 	$('#menuBtn').click(function(){
-		open_menu();
+		var supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+		console.log(supportsTouch);
+		if(!supportsTouch){
+			open_menu();
+		}
 	});
 
 </script>
