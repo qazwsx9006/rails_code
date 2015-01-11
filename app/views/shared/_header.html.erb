@@ -35,11 +35,48 @@
 	</div>
 </header>
 <script>
-	$('#menuBtn').click(function(){
+	function open_menu(){
 		$('.menuBtn').children('li').toggleClass('btnShow');
 		$('.sidebar').children('.user').toggleClass('userInfoShow');
 		$('.sidebar').children('.think').toggleClass('userInfoShow');
-
+	};
+	function move_menu(btn,click_x,click_y){
+		clearInterval(mouse_down_time_interval);
+		btn.prev('.menuBtn').addClass('moveing');
+		// console.log(btn.parent('nav'));
+		$(window).mousemove(function(e){
+			var right = $(window).width()-e.pageX-click_x-12;
+			btn.parent('nav').css({
+				"top":e.pageY-click_y,
+				"right":right
+			});
+		});
+		$(window).resize(function(e){
+			if($(window).width()>1024){
+				$('nav').attr('style','');
+			};
+		});
+	}
+	var mouse_down_time=0,mouse_down_time_interval;
+	$('#menuBtn').on('mousedown',function(e){
+		var $menu=$(this);
+		mouse_down_time=0;
+		mouse_down_time_interval = setInterval(function(){
+			mouse_down_time++;
+			// console.log(mouse_down_time);
+			// console.log($menu);
+			if(mouse_down_time>=50){
+				move_menu($menu,e.offsetX,e.offsetY);
+			}
+		},10);
+	});
+	$('#menuBtn').on('mouseup',function(){
+		clearInterval(mouse_down_time_interval);
+		if(mouse_down_time<50){
+			open_menu();
+		}
+		$(this).prev('.menuBtn').removeClass('moveing');
+		$(window).unbind('mousemove');
 	});
 
 </script>

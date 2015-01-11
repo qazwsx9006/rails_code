@@ -61,21 +61,6 @@
 		var add=$.trim($(e).find('#address_form').val());
 		var $btn=$(e).find('.submitPencil');
 		var submit=true;
-		if(msg==''){
-			$('#msg_form').css({
-				"box-shadow":"inset 0 0 5px #f00"
-			});
-			$('.pre_pic').find('label').removeClass('active');
-			$('.ipt_hide').attr('checked',false);
-			$('#for_msg')[0].checked = true;
-			submit = false;
-			$('label[for="for_msg"]').removeClass('fill');
-			$('label[for="for_msg"]').addClass('space');
-			$('label[for="for_msg"]').addClass('active');
-		}else{
-			$('label[for="for_msg"]').removeClass('space');
-			$('label[for="for_msg"]').addClass('fill');
-		}
 		if(add==''){
 			$('#address_form').css({
 				"box-shadow":"inset 0 0 5px #f00"
@@ -97,6 +82,21 @@
 		}else{
 			$('label[for="pic_form"]').removeClass('fill');
 			$('label[for="pic_form"]').addClass('space');
+		}
+		if(msg==''){
+			$('#msg_form').css({
+				"box-shadow":"inset 0 0 5px #f00"
+			});
+			$('.pre_pic').find('label').removeClass('active');
+			$('.ipt_hide').attr('checked',false);
+			$('#for_msg')[0].checked = true;
+			submit = false;
+			$('label[for="for_msg"]').removeClass('fill');
+			$('label[for="for_msg"]').addClass('space');
+			$('label[for="for_msg"]').addClass('active');
+		}else{
+			$('label[for="for_msg"]').removeClass('space');
+			$('label[for="for_msg"]').addClass('fill');
 		}
 		if($('.uploadimg').find('.pre').length>0){
 			//送出中取消按鈕功能以免重複送出
