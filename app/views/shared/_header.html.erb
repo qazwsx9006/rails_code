@@ -77,7 +77,7 @@
 		mouse_down_time=0;
 		mouse_down_time_interval = setInterval(function(){
 			mouse_down_time++;
-			// console.log(mouse_down_time);
+			//console.log(mouse_down_time);
 			// console.log($menu);
 			if(mouse_down_time>=40){
 				//move_menu($menu,e.offsetX,e.offsetY);
@@ -85,7 +85,9 @@
 			}
 		},10);
 	});
+	var istouchend=false;
 	$('#menuBtn').on('touchend',function(){
+		istouchend=true;
 		clearInterval(mouse_down_time_interval);
 		if(mouse_down_time<40){
 			open_menu();
@@ -96,9 +98,7 @@
 	});
 
 	$('#menuBtn').click(function(){
-		var supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
-		console.log(supportsTouch);
-		if(!supportsTouch){
+		if(!istouchend){
 			open_menu();
 		}
 	});
